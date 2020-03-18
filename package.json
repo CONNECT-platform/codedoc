@@ -1,0 +1,35 @@
+{
+  "name": "@connectv/codedoc",
+  "version": "0.0.1",
+  "description": "Create beautiful modern documentation websites.",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node ./samples",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CONNECT-platform/codedoc.git"
+  },
+  "keywords": [
+    "documentation",
+    "markdown",
+    "jamstack",
+    "github-pages"
+  ],
+  "author": "Eugene Ghanizadeh Khoub <ghanizadeh.eugene@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CONNECT-platform/codedoc/issues"
+  },
+  "homepage": "https://github.com/CONNECT-platform/codedoc#readme",
+  "dependencies": {
+    "@connectv/sdh": "0.0.5",
+    "highlight.js": "^9.18.1",
+    "rxline": "^0.9.2"
+  },
+  "devDependencies": {
+    "ts-node": "^8.6.2",
+    "typescript": "^3.8.3"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "extends": "./conf/typescript/base",
+  "compilerOptions": {
+    "target": "es5",
+    "declaration": false
+  },
+  "include": [
+    "./src/**/*",
+    "./samples/**/*"
+  ]
+}

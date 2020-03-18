@@ -1,0 +1,6 @@
+{
+  "extends": "./build",
+  "compilerOptions": {
+    "target": "es5"
+  }
+}

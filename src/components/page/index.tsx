@@ -1,61 +1,40 @@
-import { RendererLike } from '@connectv/html';
+import { ExtensibleRenderer } from '@connectv/html';
+import { ThemedComponentThis } from '@connectv/jss-theme';
 
 import { Meta } from './meta';
+import { Fonts } from './fonts';
+
+import { PageStyle } from './style';
+import { CodedocTheme } from '../../theme';
 
 
 export interface PageOptions {
   title?: string;
   meta?: any;
+  fonts?: any;
 }
 
 
-export function Page(options: PageOptions, renderer: RendererLike<any, any>) {
+export function Page(
+  this: ThemedComponentThis<CodedocTheme>,
+  options: PageOptions, 
+  renderer: ExtensibleRenderer<any, any>, 
+  content: any
+) {
+  renderer = renderer.plug(this.theme.styled(PageStyle));
+
   return <html>
     <head>
       <title>{options.title || 'Codedoc Sample Page'}</title>
       
       {options.meta ? options.meta : <Meta/>}
+      {options.fonts ? options.fonts : <Fonts/>}
 
-      <link href="https://fonts.googleapis.com/css?family=Hind:400,700&display=swap" rel="stylesheet" />
-      <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:300,400&display=swap" rel="stylesheet" />
     </head>
 
     <body>
-      <style>{`
-      * {
-        scroll-behavior: smooth;
-      }
-
-      body {
-        font-family: 'Hind', sans-serif;
-        background: #f5f5f5;
-        color: #424242;
-        width: 100vw;
-        overflow-x: hidden;
-        margin: 0;
-        padding: 0;
-      }
-
-      body.dark-mode {
-        background: #212121;
-        color: #eeeeee;
-      }
-      
-      body.dark-mode-animate {
-        transition: background .3s, color .3s;
-      }
-
-      .container {
-        max-width: 768px;
-        padding: 32px;
-        margin: 0 auto;
-        margin-bottom: 64px;
-      }
-      `}</style>
-
       <div class="container">
-        <h1>Halo</h1>
-        <p>This is the first test for codedoc</p>
+        {content}
       </div>
     </body>
   </html>;

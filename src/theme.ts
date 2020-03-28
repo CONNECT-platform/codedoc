@@ -11,15 +11,20 @@ export interface CodeTheme {
   lineCounterHighlight: string;
 
   keyword: string;
-  builtin: string;
-  string: string;
-  subst: string;
+  boolean: string;
   number: string;
-  literal: string;
-  title: string;
-  attr: string;
-  funcarrow: string;
+  string: string;
+  function: string;
+  parameter: string;
+  tag: string;
   comment: string;
+  operator: string;
+  punctuation: string;
+  builtin: string;
+  className: string;
+  attrName: string;
+  attrValue: string;
+  plainText: string;
 }
 
 export interface QuoteTheme {
@@ -54,15 +59,20 @@ export const DefaultCodeTheme: CodeTheme = {
   text: '#e0e0e0',
 
   keyword: '#7187ff',
-  builtin: '#b388ff',
   string: '#69f0ae',
-  funcarrow: '#18ffff',
-  attr: '#ffea00',
-  comment: '#757575',
-  literal: '#ffc400',
+  boolean: '#ffc400',
   number: '#ffc400',
-  subst: '#B8E986',
-  title: '#ffffff',
+  operator: '#18ffff',
+  function: '#e0e0e0',
+  parameter: '#e0e0e0',
+  comment: '#757575',
+  builtin: '#e0e0e0',
+  punctuation: '#fcf7bb',
+  tag: '#ffa372',
+  className: '#e0e0e0',
+  attrName: '#f6d186',
+  attrValue: '#69f0ae',
+  plainText: '#bdbdbd',
 
   lineHover: '#424242',
   lineHightlight: 'rgb(40, 46, 73)',

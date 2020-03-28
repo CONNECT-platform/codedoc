@@ -7,18 +7,20 @@ npm i @connectv/html
 ```
 
 ```tsx
-/*!*/import { Renderer } from '@connectv/html';
+import { state, filter, map } from '@connectv/core';
+import { Renderer } from '@connectv/html';
 
-const MyComp = ({ name }, renderer) => <div>Hellow {name}!</div>
+let renderer = new Renderer();
 
-const renderer = new Renderer();                       // --> also lets write some stuff here that would make this line pretty long ...
+let name = state('World');
+
 renderer.render(
   <fragment>
-/*!*/    <MyComp name='World'/>
-/*!*/    <MyComp name='Fellas'/>
+    <input type='text' placeholder='type a name ...' _state={name}/>
+    <br/>
+    <p>Hellow {name.to(filter(x => x.toLowerCase() != 'donald'))}</p>
   </fragment>
-)
-.on(document.body);
+).on(document.body);
 ```
 
 > :Buttons

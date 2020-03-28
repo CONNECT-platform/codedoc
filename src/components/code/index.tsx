@@ -1,4 +1,5 @@
-import { highlight } from 'highlight.js';
+import { highlight, languages } from 'prismjs';
+const loadLanguages = require('prismjs/components/');
 import { ExtensibleRenderer } from '@connectv/html';
 import { ThemedComponentThis } from '@connectv/jss-theme';
 
@@ -21,12 +22,14 @@ export function Code(
   const classes = this.theme.classes(CodeStyle);
 
   let lang = options.lang;
-  if (lang === 'tsx') lang = 'typescript';
+  loadLanguages([lang]);
 
-  const code = <code class={`${lang} hljs`} />;
+  const code = <code class={`${lang}`} />;
   const lines = content[0].split('\n');
+  const highlines = highlight(content[0], languages[lang], lang).split('\n');
 
-  lines.forEach((line, index) => {;
+  lines.forEach((line, index) => {
+    let highline = highlines[index];
     index = index + 1;
 
     let counter;
@@ -34,37 +37,23 @@ export function Code(
       counter = <span class={`${classes.lineCounter} prim`}>{index}</span>;
     else counter = <span class={classes.lineCounter}>{index}</span>;
 
-    let lineHl = false;
-    if (line.startsWith('/*!*/')) {
-      line = line.substr(5);
-      lineHl = true;
+    let highlighted = false;
+    const lmarker = '/*!*/';
+    const marker = `<span class="token comment">${lmarker}</span>`;
+    if (highline.startsWith(marker)) {
+      highline = highline.substr(marker.length);
+      line = line.substr(lmarker.length);
+      highlighted = true;
+    } else if (highline.startsWith(lmarker)) {
+      highline = highline.substr(lmarker.length);
+      line = line.substr(lmarker.length);
+      highlighted = true;
     }
 
-    let highlighted = highlight(lang, line).value;
-    if (lang === 'js' || lang === 'javascript' || lang === 'jsx' || 
-        lang === 'ts' || lang === 'typescript' || lang === 'tsx') {
-      highlighted = highlighted.replace(/=\&gt\;/g, '<span class="hljs-funcarrow">=&gt;</span>');
-    }
+    const line$ = <div class={`${classes.line} ${highlighted?'highlight':''}`} 
+                      data-content={line}
+                      _innerHTML={highline}/>;
 
-    //
-    // TODO: move these codes to bundled client-side codes instead of here.
-    //
-    const line$ = <div 
-      class={`${classes.line} ${lineHl?'highlight':''}`}
-      onmouseenter="if (event.which == 1) this.classList.toggle('selected');"
-      onmousedown={`
-        if (!event.shiftKey) {
-          for (var i = 0; i < this.parentElement.children.length; i++) {
-            var child = this.parentElement.children.item(i);
-            if (child != this) child.classList.remove('selected');
-          }
-        }
-
-        this.classList.toggle('selected');
-      `}
-      onclick={`if (!event.shiftKey) this.classList.remove('selected');`}
-      _innerHTML={highlighted}
-    />;
     if (line$.firstChild)
       renderer.render(counter).before(line$.firstChild as ChildNode);
     else renderer.render(counter).on(line$);

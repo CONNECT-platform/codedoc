@@ -27,11 +27,11 @@
     "@connectv/html": "^0.2.3",
     "@connectv/jss-theme": "^0.1.4",
     "@connectv/marked": "^0.1.1",
-    "@connectv/sdh": "^0.1.4",
-    "@types/highlight.js": "^9.12.3",
-    "highlight.js": "^9.18.1",
+    "@connectv/sdh": "^0.1.5",
+    "@types/prismjs": "^1.16.0",
     "jss": "^10.1.1",
     "jss-preset-default": "^10.1.1",
+    "prismjs": "^1.19.0",
     "rxline": "^0.9.2"
   },
   "devDependencies": {

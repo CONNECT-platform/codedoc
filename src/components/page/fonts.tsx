@@ -32,6 +32,7 @@ export function Fonts(options: FontsOptions, renderer: RendererLike<any, any>) {
   return <fragment>
     <link href={options.text.url} rel="stylesheet" />
     <link href={options.code.url} rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
 
     <style>{`
       body, input, button {

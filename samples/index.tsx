@@ -5,7 +5,9 @@ import { files, pathMatch, readFile, mapExt, mapRoot } from 'rxline/fs';
 import { initJss, initJss$ } from '../src/setup-jss';
 import { buildContentPage } from './content-page';
 import { codeSelection$ } from '../src/components/code/selection';
-import { initSmartCopy$ } from '../src/components/code/smart-copy';
+import { sameLineLengthInCodes$ } from '../src/components/code/same-line-length';
+import { codeLineHints$ } from '../src/components/code/code-line-hint';
+import { smartCopy$ } from '../src/components/code/smart-copy';
 import { copyHeadings$ } from '../src/components/heading/copy-headings';
 import { getRenderer$ } from '../src/util/renderer';
 import { installTheme$ } from './theme';
@@ -17,7 +19,9 @@ const bundle = new Bundle('./bundle.js', 'dist/bundle.js')
   .init(initJss$)
   .init(installTheme$)
   .init(codeSelection$)
-  .init(initSmartCopy$)
+  .init(sameLineLengthInCodes$)
+  .init(codeLineHints$)
+  .init(smartCopy$)
   .init(copyHeadings$)
   .withRenderer<any, any>(getRenderer$)
 ;

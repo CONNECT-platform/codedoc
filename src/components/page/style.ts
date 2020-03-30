@@ -22,12 +22,25 @@ export const PageStyle = themedStyle<CodedocTheme>(theme => ({
     },
 
     a: {
-      color: theme.primary,
-      textDecoration: 'none',
+      color: theme.light.primary,
 
       '&:hover': {
         textDecoration: 'underline',
         textDecorationThickness: '2px',
+      },
+
+      'body.dark-mode-animate &': {
+        transition: 'color .3s',
+      },
+
+      '@media (prefers-color-scheme: dark)': {
+        'body:not(.dark-mode-animate) &': {
+          color: theme.dark.primary,
+        }
+      },
+
+      'body.dark &': {
+        color: theme.dark.primary,
       },
     },
 

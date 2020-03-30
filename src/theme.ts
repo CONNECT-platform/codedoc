@@ -37,11 +37,11 @@ export interface QuoteTheme {
 export interface ContentTheme {
   background: string;
   text: string;
+  primary: string;
+  primaryContrast: string;
 }
 
 export interface CodedocTheme {
-  primary: string;
-  primaryContrast: string;
   light: ContentTheme;
   dark: ContentTheme;
   code: {
@@ -87,14 +87,16 @@ export const DefaultCodeTheme: CodeTheme = {
 
 
 export const DefaultTheme: CodedocTheme = {
-  primary: '#4A90E2',
-  primaryContrast: '#ffffff',
   light: {
+    primary: '#4A90E2',
+    primaryContrast: '#ffffff',
     background: '#f5f5f5',
     text: '#424242',
   },
 
   dark: {
+    primary: '#4A90E2',
+    primaryContrast: '#ffffff',
     background: '#212121',
     text: '#eeeeee',
   },
@@ -143,8 +145,6 @@ export interface ThemeExtension {
 export function createTheme(extension: ThemeExtension): CodedocTheme {
   const res = { ... DefaultTheme };
 
-  if (extension.primary) res.primary = extension.primary;
-  if (extension.primaryContrast) res.primaryContrast = extension.primaryContrast;
   if (extension.light) Object.assign(res.light, extension.light);
   if (extension.dark) Object.assign(res.dark, extension.dark);
   if (extension.code) {

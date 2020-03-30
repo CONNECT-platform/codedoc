@@ -44,4 +44,4 @@ export function initSmartCopy() {
 }
 
 
-export const initSmartCopy$ = funcTransport(initSmartCopy);
+export const smartCopy$ = funcTransport(initSmartCopy);

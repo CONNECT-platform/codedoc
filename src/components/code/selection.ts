@@ -8,9 +8,7 @@ import { smartCopy } from './smart-copy';
 export function codeSelection() {
   window.addEventListener('load', () => {
     document.querySelectorAll('pre>code').forEach(code$ => {
-      code$.childNodes.forEach(child => {
-        const line$ = child as HTMLElement;
-  
+      code$.querySelectorAll('div').forEach(line$ => {
         line$.addEventListener('mouseenter', event => {
           if (event.buttons === 1) {
             line$.classList.add('selected');

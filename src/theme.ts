@@ -25,6 +25,7 @@ export interface CodeTheme {
   attrName: string;
   attrValue: string;
   plainText: string;
+  script: string;
 }
 
 export interface QuoteTheme {
@@ -73,8 +74,9 @@ export const DefaultCodeTheme: CodeTheme = {
   attrName: '#f6d186',
   attrValue: '#69f0ae',
   plainText: '#bdbdbd',
+  script: '#e0e0e0',
 
-  lineHover: '#424242',
+  lineHover: '#3b3b3b',
   lineHightlight: 'rgb(40, 46, 73)',
   lineHighlightText: '#ffffff',
   lineCounter: '#616161',
@@ -99,7 +101,12 @@ export const DefaultTheme: CodedocTheme = {
 
   code: {
     light: DefaultCodeTheme,
-    dark: { ... DefaultCodeTheme, background: '#000000' }
+    dark: { 
+      ... DefaultCodeTheme, 
+      background: '#000000',
+      lineHover: '#1a1a1a',
+      lineHightlight: 'rgb(28, 29, 48)'
+    }
   },
 
   quote: {
@@ -110,9 +117,9 @@ export const DefaultTheme: CodedocTheme = {
     },
 
     dark: {
-      background: '#424242',
-      border: '#616161',
-      text: '#9e9e9e',
+      background: '#313131',
+      border: '#424242',
+      text: '#bdbdbd',
     }
   }
 }

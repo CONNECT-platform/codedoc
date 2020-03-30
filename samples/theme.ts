@@ -1,3 +1,5 @@
+import { funcTransport } from '@connectv/sdh/transport';
+
 import { createTheme } from '../src/theme'
 
 
@@ -7,3 +9,7 @@ export const Theme = createTheme({
     text: '#424242'
   }
 });
+
+
+export function installTheme() { (window as any).theme = Theme; }
+export const installTheme$ = funcTransport(installTheme);

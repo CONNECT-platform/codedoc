@@ -3,6 +3,7 @@ import { ThemedComponentThis } from '@connectv/jss-theme';
 
 import { Meta } from './meta';
 import { Fonts } from './fonts';
+import { Footer } from '../footer';
 
 import { PageStyle } from './style';
 import { CodedocTheme } from '../../theme';
@@ -12,6 +13,7 @@ export interface PageOptions {
   title?: string;
   meta?: any;
   fonts?: any;
+  footer?: any;
 }
 
 
@@ -36,6 +38,7 @@ export function Page(
       <div class="container">
         {content}
       </div>
+      { options.footer ? options.footer : <Footer/> }
     </body>
   </html>;
 }

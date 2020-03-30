@@ -64,7 +64,7 @@ export function Button(
 ) {
   const classes = this.theme.classes(ButtonStyle);
   let _class = classes.button;
-  if (options.icon === 'true') _class += ' icon material-icons';
+  if (options.icon === 'true') _class += ' icon icon-font';
 
 
   if (options.url)

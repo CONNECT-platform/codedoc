@@ -2,13 +2,25 @@ import { save, post, Bundle } from '@connectv/sdh';
 import { concurrently } from 'rxline';
 import { files, pathMatch, readFile, mapExt, mapRoot } from 'rxline/fs';
 
+import { initJss, initJss$ } from '../src/setup-jss';
 import { buildContentPage } from './content-page';
-import '../src/setup-jss';
 import { codeSelection$ } from '../src/components/code/selection';
+import { initSmartCopy$ } from '../src/components/code/smart-copy';
+import { copyHeadings$ } from '../src/components/heading/copy-headings';
+import { getRenderer$ } from '../src/util/renderer';
+import { installTheme$ } from './theme';
 
 
-const bundle = new Bundle('./bundle.js', 'dist/bundle.js');
-bundle.init(codeSelection$);
+initJss();
+
+const bundle = new Bundle('./bundle.js', 'dist/bundle.js')
+  .init(initJss$)
+  .init(installTheme$)
+  .init(codeSelection$)
+  .init(initSmartCopy$)
+  .init(copyHeadings$)
+  .withRenderer<any, any>(getRenderer$)
+;
 
 files('.', { root: 'samples/md' })    // --> get all the files
   .pick(pathMatch(/\.md$/))           // --> pick markdown files

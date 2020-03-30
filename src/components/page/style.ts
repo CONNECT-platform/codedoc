@@ -16,10 +16,9 @@ export const PageStyle = themedStyle<CodedocTheme>(theme => ({
       margin: 0,
       padding: 0,
 
-      '&.dark' : {
-        background: theme.dark.background,
-        color: theme.dark.text,
-      }
+      '&.dark-mode-animate': {
+        transition: 'color .3s, background .3s',
+      },
     },
 
     a: {
@@ -47,6 +46,10 @@ export const PageStyle = themedStyle<CodedocTheme>(theme => ({
       color: theme.quote.light.text,
       position: 'relative',
 
+      'body.dark-mode-animate &': {
+        transition: 'color .3s, background .3s',
+      },
+
       '&:after': {
         content: "''",
         position: 'absolute',
@@ -57,7 +60,43 @@ export const PageStyle = themedStyle<CodedocTheme>(theme => ({
         display: 'block',
         background: `radial-gradient(circle at center, ${theme.quote.light.border} 50%, transparent 52%),transparent`, 
         backgroundSize: '4px 4px',
+
+        'body.dark-mode-animate &': {
+          transition: 'color .3s, background .3s',
+        }
       },
-    }
+    },
+
+    '@media (prefers-color-scheme: dark)': {
+      'body:not(.dark-mode-animate)': {
+        background: theme.dark.background,
+        color: theme.dark.text,
+
+        '& blockquote': {
+          background: theme.quote.dark.background,
+          color: theme.quote.dark.text,
+  
+          '&:after': {
+            background: `radial-gradient(circle at center, ${theme.quote.dark.border} 50%, transparent 52%),transparent`,
+            backgroundSize: '4px 4px',
+          },
+        },
+      }
+    },
+
+    'body.dark': {
+      background: theme.dark.background,
+      color: theme.dark.text,
+
+      '& blockquote': {
+        background: theme.quote.dark.background,
+        color: theme.quote.dark.text,
+
+        '&:after': {
+          background: `radial-gradient(circle at center, ${theme.quote.dark.border} 50%, transparent 52%),transparent`,
+          backgroundSize: '4px 4px',
+        },
+      },
+    },
   }
 }));

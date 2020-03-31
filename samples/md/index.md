@@ -46,8 +46,22 @@ renderer.render(<NotATodoList/>).on(document.body);                  // --> rend
 >
 > > :Button url=https://www.google.com, label=TRY IT!
 
+## Also This Section
+
 Also I would like to write some stuff here to see what would happen if some other text appears here and there.
 
 > ⚠️⚠️**WARNING**
 >
 > Be careful with how you use this.
+
+### Even A Section Like `This`
+
+Perhaps some text here, some text there.
+
+Some text some text every motherfreaking where.
+
+## And Also this
+
+- ho ho ho
+- he he he
+- ha haha

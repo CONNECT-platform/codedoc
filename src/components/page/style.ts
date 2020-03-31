@@ -45,16 +45,17 @@ export const PageStyle = themedStyle<CodedocTheme>(theme => ({
     },
 
     '.container': {
-      maxWidth: '768px',
-      padding: '32px',
+      maxWidth: 768,
+      padding: 32,
+      paddingTop: 96,
       margin: '0 auto',
-      marginBottom: '64px',
+      marginBottom: 64,
     },
 
     blockquote: {
       margin: 0,
       padding: '16px 40px',
-      borderRadius: '3px',
+      borderRadius: 3,
       background: theme.quote.light.background,
       color: theme.quote.light.text,
       position: 'relative',

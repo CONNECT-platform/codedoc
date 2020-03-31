@@ -39,6 +39,7 @@ export interface ContentTheme {
   text: string;
   primary: string;
   primaryContrast: string;
+  border: string;
 }
 
 export interface CodedocTheme {
@@ -123,6 +124,7 @@ export const DefaultTheme: CodedocTheme = {
     primaryContrast: '#ffffff',
     background: '#f5f5f5',
     text: '#424242',
+    border: '#cacaca',
   },
 
   dark: {
@@ -130,6 +132,7 @@ export const DefaultTheme: CodedocTheme = {
     primaryContrast: '#ffffff',
     background: '#212121',
     text: '#eeeeee',
+    border: '#424242',
   },
 
   code: {

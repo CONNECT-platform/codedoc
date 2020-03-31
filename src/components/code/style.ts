@@ -96,7 +96,6 @@ export const CodeStyle = themedStyle<CodedocTheme>(theme => ({
     alignItems: 'center',
     color: 'transparent',
     borderRight: `2px solid ${theme.code.light.lineCounterBorder}`,
-    transition: 'border-color .1s, color .1s, background .1s',
 
     '&.prim': {
       color: theme.code.light.lineCounter,
@@ -128,11 +127,12 @@ export const CodeStyle = themedStyle<CodedocTheme>(theme => ({
     minWidth: '100%',
     height: '1.25rem',
     background: 'transparent',
-    transition: 'background .1s, opacity .1s',
     cursor: 'pointer',
+    transition: 'opacity .15s',
 
     '.has-selection &:not(.selected)': {
-      opacity: .5,
+      opacity: .35,
+      transition: 'opacity 3s',
     },
 
     '&.highlight': {

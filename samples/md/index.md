@@ -17,12 +17,12 @@ export function NotATodoList({}, renderer: Renderer) {               // --> how 
   return <fragment>
     <ul>
 /*!*/      <List of={items} each={item =>                                 // --> the list of the items
-/*!*/        <li onclick={() => {                                         // --> when an item is clicked
-/*!*/          items.value = items.value.filter(i => i !== item.value)    // ... remove it from all items
+/*!*/        <li onclick={() => {                                         // --> when an item is clicked ...
+/*!*/          items.value = items.value.filter(i => i !== item.value)    // --> ... remove it from all items
 /*!*/        }}>
-/*!*/          {item.sub('title')}
+/*!*/          {item.sub('title')}                                       {/* --> display each item's title */}
 /*!*/        </li>
-/*!*/      } key={i => i.id}/>
+/*!*/      } key={i => i.id}/>                                           {/* --> identify each item by its id */}
     </ul>
     <input placeholder='Add an item ...' type='text' _ref={input}/>
     <button onclick={() => {

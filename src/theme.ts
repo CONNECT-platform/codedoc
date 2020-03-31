@@ -86,6 +86,37 @@ export const DefaultCodeTheme: CodeTheme = {
 }
 
 
+export const DefaultCodeThemeLight: CodeTheme = {
+  background: '#eeeeee',
+  text: '#616161',
+
+  keyword: '#7187ff',
+  string: '#639a67',
+  boolean: '#d45079',
+  number: '#d45079',
+  operator: '#3282b8',
+  function: '#616161',
+  parameter: '#616161',
+  comment: '#bdbdbd',
+  builtin: '#616161',
+  punctuation: '#3282b8',
+  tag: '#be79df',
+  className: '#616161',
+  attrName: '#ef962d',
+  attrValue: '#639a67',
+  plainText: '#bdbdbd',
+  script: '#616161',
+
+  lineHover: '#e7e7e7',
+  lineHightlight: '#dfe7f5',
+  lineHighlightText: '#212121',
+  lineCounter: '#bdbdbd',
+  lineCounterBorder: 'rgba(255, 255, 255, .015)',
+  lineCounterBorderHover: 'rgba(255, 255, 255, .1)',
+  lineCounterHighlight: '#7187ff',
+}
+
+
 export const DefaultTheme: CodedocTheme = {
   light: {
     primary: '#4A90E2',

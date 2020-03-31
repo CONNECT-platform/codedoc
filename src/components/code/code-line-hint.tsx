@@ -1,14 +1,11 @@
-import { Subject } from 'rxjs';
+import { Subject, fromEvent, combineLatest } from 'rxjs';
+import { map, mapTo, filter } from 'rxjs/operators';
 import { funcTransport } from '@connectv/sdh/transport';
 import { themedStyle, ThemedComponentThis } from '@connectv/jss-theme';
-
+import { toggleList, rl } from '@connectv/html';
 
 import { getRenderer } from '../../util/renderer';
 import { CodedocTheme } from '../../theme';
-
-
-let hintBox$: HTMLElement;
-let hintContent = new Subject<string>();
 
 
 export const HintBoxStyle = themedStyle<CodedocTheme>(theme => ({
@@ -17,11 +14,11 @@ export const HintBoxStyle = themedStyle<CodedocTheme>(theme => ({
     background: theme.light.background,
     borderRadius: 8,
     boxShadow: '0 2px 6px rgba(0, 0, 0, .12)',
-    maxWidth: 'calc(100vw - 768px - 128px)',
+    maxWidth: 256,
     fontSize: 13,
     zIndex: 100,
     padding: 8,
-    transition: 'top .1s, opacity .1s',
+    transition: 'top .15s, opacity .3s',
     opacity: 0,
 
     'body.dark &': {
@@ -30,6 +27,11 @@ export const HintBoxStyle = themedStyle<CodedocTheme>(theme => ({
     },
 
     '&.active': { opacity: 1 },
+
+    '& .icon-font': {
+      verticalAlign: 'middle',
+      marginRight: 8,
+    },
   }
 }));
 
@@ -40,49 +42,55 @@ export function HintBox(
   renderer: any
 ) {
   const classes = this.theme.classes(HintBoxStyle);
+  const target$ = this.expose.in('target', new Subject<HTMLElement | undefined>());
+  const active$ = target$.pipe(map(el => !!el));
+  const top$ = combineLatest(
+      target$.pipe(map(el => el?el.getBoundingClientRect().top:undefined)), 
+      fromEvent(document, 'mousemove').pipe(map(e => (e as MouseEvent).clientY))
+    ).pipe(map(([top, mouseY]) => (top || mouseY) + 24));
+  const left$ = fromEvent(document, 'mousemove').pipe(map(e => (e as MouseEvent).clientX + 24));
 
-  return <div class={classes.hintbox}>
-    <span class="icon-font outline" style="vertical-align: middle">info</span> {hintContent}
+  return <div 
+      class={rl`${classes.hintbox} ${toggleList({'active': active$})}`}
+      style={rl`top: ${top$}px;left: ${left$}px`}
+    >
+    <span class="icon-font outline">info</span>
+    {target$.pipe(filter(el => !!el), map(el => el?.getAttribute('data-hint')))}
   </div>;
 }
 
 
-export function showHintBox(line$: HTMLElement, content: string) {
-  const rect = line$.getBoundingClientRect();
-  hintBox$.style.right = `${window.innerWidth - rect.left + 8}px`;
-  hintBox$.style.top = `${rect.top}px`;
-  hintBox$.classList.add('active');
-  hintContent.next(content);
-}
+const commentRegex = new RegExp([
+  /\/\/\s?\-\-\>\s*(.*[^\s])\s*$/,       // --> single line comments
+  /\/\*\s?\-\-\>\s*(.*[^\s])\s*\*\/$/,   // --> multi line comments
+  /\#\s?\-\-\>\s*(.*[^\s])\s*$/,         // --> python comments
+  /\<\!\-\-\s?\>\s*(.*[^\s])\s*\-\-\>$/, // --> html comments
+].map(r => `(?:${r.source})`).join('|'));
 
-export function hideHintBox() {
-  hintBox$.classList.remove('active');
-}
 
 export function initHintBox() {
   window.addEventListener('load', () => {
     const renderer = getRenderer();
-    hintBox$ = <HintBox/>;
+    const target = new Subject<HTMLElement | undefined>();
   
-    renderer.render(hintBox$).on(document.body);
+    renderer.render(<HintBox target={target}/>).on(document.body);
 
     document.querySelectorAll('pre>code>div').forEach(line$ => {
-      let hint = '';
+      let hint = ''; 
+      let hint$: HTMLElement | undefined;
       line$.querySelectorAll('.token.comment').forEach(comment$ => {
-        let mark = '';
-        if (comment$.innerHTML.startsWith('// --&gt;')) mark = '// --&gt;';
-        if (comment$.innerHTML.startsWith('// ...')) mark = '// ...';
-        if (mark.length > 0) hint = comment$.innerHTML.substr(mark.length);
+        const match = commentRegex.exec(comment$.textContent || '');
+        if (match) {
+          hint = match.slice(1).find(_ => _) || hint;
+          if (hint) hint$ = comment$ as HTMLElement;
+        }
       });
 
-      if (hint.length > 0) {
-        line$.addEventListener('mouseenter', () => {
-          showHintBox(line$ as HTMLElement, hint);
-        });
-
-        line$.addEventListener('mouseleave', () => {
-          hideHintBox();
-        })
+      if (hint.length > 0 && hint$) {
+        hint$.style.opacity = '.5';
+        line$.setAttribute('data-hint', hint);
+        fromEvent(line$, 'mouseenter').pipe(mapTo(line$ as HTMLElement)).subscribe(target);
+        fromEvent(line$, 'mouseleave').pipe(mapTo(undefined)).subscribe(target);
       }
     });
   });

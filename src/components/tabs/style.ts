@@ -5,6 +5,12 @@ import { CodedocTheme } from '../../theme';
 export const TabsStyle = themedStyle<CodedocTheme>(theme => ({
   tabs: {
     '& .selector': {
+      whiteSpace: 'nowrap',
+      paddingBottom: 8,
+      marginBottom: -8,
+      overflow: 'auto',
+      paddingRight: 24,
+
       '& button': {
         margin: 0,
         cursor: 'pointer',

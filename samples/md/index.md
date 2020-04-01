@@ -56,6 +56,45 @@ Also I would like to write some stuff here to see what would happen if some othe
 
 ### Even A Section Like `This`
 
+> :Tabs
+> > :Tab title=card.tsx, icon=code
+> > 
+> > ```tsx 
+> > const style = `
+> >   display: inline-block;
+> >   vertical-align: top;
+> >   padding: 8px;
+> >   border-radius: 8px;
+> >   margin: 8px;
+> >   box-shadow: 0 2px 6px rgba(0, 0, 0, .2);
+> > `;
+> > 
+> > export function Card({ title, text }, renderer) {
+> >   return <div style={style}>
+> >       <h2>{title}</h2>
+> >       <p>{text}</p>
+> >     </div>
+> > }
+> > ```
+>
+> > :Tab title=main.tsx, icon=code
+> >
+> > ```tsx
+> > import { compile } from '@connectv/sdh';
+> > import { Card } from './card';
+> > 
+> > compile(renderer => 
+> >   <fragment>
+> >     <h1>List of stuff</h1>
+> >     <Card title='🥕Carrots' text='they are pretty good for you.'/>
+> >   </fragment>
+> > ).save('dist/index.html');
+> > ```
+>
+> > :Tab title=preview, icon=airplay
+> >
+> > <iframe deferred-src="https://r3b8i.sse.codesandbox.io/" height="320"/>
+
 Perhaps some text here, some text there.
 
 Some text some text every motherfreaking where.

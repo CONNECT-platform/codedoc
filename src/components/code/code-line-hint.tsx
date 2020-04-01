@@ -31,6 +31,7 @@ export const HintBoxStyle = themedStyle<CodedocTheme>(theme => ({
     '& .icon-font': {
       verticalAlign: 'middle',
       marginRight: 8,
+      transform: 'rotate(180deg)',
     },
   }
 }));
@@ -54,7 +55,7 @@ export function HintBox(
       class={rl`${classes.hintbox} ${toggleList({'active': active$})}`}
       style={rl`top: ${top$}px;left: ${left$}px`}
     >
-    <span class="icon-font outline">info</span>
+    <span class="icon-font outline">wb_incandescent</span>
     {target$.pipe(filter(el => !!el), map(el => el?.getAttribute('data-hint')))}
   </div>;
 }

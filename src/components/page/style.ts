@@ -112,5 +112,13 @@ export const PageStyle = themedStyle<CodedocTheme>(theme => ({
         },
       },
     },
+
+    iframe: {
+      width: '100%',
+      borderRadius: 3,
+      border: 'none',
+      background: 'white',
+      
+    },
   }
 }));

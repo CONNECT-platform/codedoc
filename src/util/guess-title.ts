@@ -1,4 +1,4 @@
-export function guessTitle(content: HTMLElement, base?: string, connector: string = ' ') {
+export function guessTitle(content: HTMLElement, base?: string, connector: string = ' | ') {
   if (content.firstChild && content.firstChild instanceof HTMLHeadingElement) {
     const target = content.firstChild;
     let text = '';

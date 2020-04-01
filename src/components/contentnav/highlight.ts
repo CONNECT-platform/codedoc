@@ -16,11 +16,22 @@ export function contentNavHighlight() {
     });
 
     function update() {
+      let noactive = true;
+      let latest: HTMLElement | undefined;
+
       links.forEach(({a$, ref$}) => {
         const top = ref$.getBoundingClientRect().top;
-        if (top < window.innerHeight - 96 && top > 0) a$.classList.add('active');
-        else a$.classList.remove('active');
+        if (top < window.innerHeight - 96 && top > 0) {
+          noactive = false;
+          a$.classList.add('active');
+        }
+        else {
+          if (top < 0) latest = a$;
+          a$.classList.remove('active');
+        }
       });
+
+      if (noactive) latest?.classList.add('active');
     }
 
     if (links.length > 0) {

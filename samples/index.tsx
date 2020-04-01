@@ -12,6 +12,7 @@ import { copyHeadings$ } from '../src/components/heading/copy-headings';
 import { contentNavHighlight$ } from '../src/components/contentnav/highlight';
 import { getRenderer$ } from '../src/util/renderer';
 import { installTheme$ } from './theme';
+import { deferredIframes$ } from '../src/util/deferred-iframe';
 
 
 initJss();
@@ -25,6 +26,7 @@ const bundle = new Bundle('./bundle.js', 'dist/bundle.js')
   .init(smartCopy$)
   .init(copyHeadings$)
   .init(contentNavHighlight$)
+  .init(deferredIframes$)
   .withRenderer<any, any>(getRenderer$)
 ;
 

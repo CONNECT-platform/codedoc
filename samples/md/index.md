@@ -57,6 +57,20 @@ Also I would like to write some stuff here to see what would happen if some othe
 ### Even A Section Like `This`
 
 > :Tabs
+> > :Tab title=main.tsx, icon=code
+> >
+> > ```tsx
+> > import { compile } from '@connectv/sdh';
+> > import { Card } from './card';               // @see card.tsx
+> > 
+> > compile(renderer => 
+> >   <fragment>
+> >     <h1>List of stuff</h1>
+> >     <Card title='🥕Carrots' text='they are pretty good for you.'/>
+> >   </fragment>
+> > ).save('dist/index.html');
+> > ```
+>
 > > :Tab title=card.tsx, icon=code
 > > 
 > > ```tsx 
@@ -75,20 +89,6 @@ Also I would like to write some stuff here to see what would happen if some othe
 > >       <p>{text}</p>
 > >     </div>
 > > }
-> > ```
->
-> > :Tab title=main.tsx, icon=code
-> >
-> > ```tsx
-> > import { compile } from '@connectv/sdh';
-> > import { Card } from './card';
-> > 
-> > compile(renderer => 
-> >   <fragment>
-> >     <h1>List of stuff</h1>
-> >     <Card title='🥕Carrots' text='they are pretty good for you.'/>
-> >   </fragment>
-> > ).save('dist/index.html');
 > > ```
 >
 > > :Tab title=preview, icon=airplay

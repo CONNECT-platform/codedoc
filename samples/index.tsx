@@ -13,6 +13,7 @@ import { contentNavHighlight$ } from '../src/components/contentnav/highlight';
 import { getRenderer$ } from '../src/util/renderer';
 import { installTheme$ } from './theme';
 import { deferredIframes$ } from '../src/util/deferred-iframe';
+import { codeLineRef$ } from '../src/components/code/code-line-ref';
 
 
 initJss();
@@ -23,6 +24,7 @@ const bundle = new Bundle('./bundle.js', 'dist/bundle.js')
   .init(codeSelection$)
   .init(sameLineLengthInCodes$)
   .init(codeLineHints$)
+  .init(codeLineRef$)
   .init(smartCopy$)
   .init(copyHeadings$)
   .init(contentNavHighlight$)

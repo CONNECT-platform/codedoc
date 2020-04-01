@@ -7,8 +7,8 @@ npm i @connectv/html
 ```
 
 ```tsx
-import { state, map } from '@connectv/core';
-import { List, ref, autoId, Renderer } from '@connectv/html';
+import { state, map } from '@connectv/core';                         // @see https://connective.dev
+import { List, ref, autoId, Renderer } from '@connectv/html';        // @see https://github.com/CONNECT-platform/connective-html
 
 export function NotATodoList({}, renderer: Renderer) {               // --> how you define a component
   let items = state([]);                                             // --> keep the state of items
@@ -60,8 +60,8 @@ Also I would like to write some stuff here to see what would happen if some othe
 > > :Tab title=main.tsx, icon=code
 > >
 > > ```tsx
-> > import { compile } from '@connectv/sdh';
-> > import { Card } from './card';               // @see card.tsx
+> > import { compile } from '@connectv/sdh';     // @see https://github.com/CONNECT-platform/connective-sdh
+> > import { Card } from './card';               // @see tab:card.tsx
 > > 
 > > compile(renderer => 
 > >   <fragment>

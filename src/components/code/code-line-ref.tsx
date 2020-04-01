@@ -1,5 +1,5 @@
 import { Subject, BehaviorSubject, fromEvent, of } from 'rxjs';
-import { map, filter, mapTo, debounceTime, mergeMap, delay, tap, sample } from 'rxjs/operators';
+import { map, filter, mapTo, debounceTime, mergeMap, switchMap, delay, tap, sample } from 'rxjs/operators';
 import { funcTransport } from '@connectv/sdh/transport';
 import { themedStyle, ThemedComponentThis } from '@connectv/jss-theme';
 import { rl, toggleList, ref } from '@connectv/html';
@@ -50,14 +50,14 @@ export function RefBox(
 
   const box = ref<HTMLElement>();
 
-  const active$ = target$.pipe(debounceTime(300), map(el => !!el));
+  const active$ = target$.pipe(debounceTime(10), map(el => !!el));
   const vanishing$ = new BehaviorSubject<boolean>(false);
   let hover = false;
   const top$ = target$.pipe(
-      debounceTime(300),
+      switchMap(el => el ? of(el) : of(el).pipe(delay(300))),
       filter(() => !hover),
       mergeMap(el => el ?
-        of(el.getBoundingClientRect().top + 24) :
+        of(el.getBoundingClientRect().top + 18) :
         of(-1000).pipe(
           tap(() => vanishing$.next(true)),
           delay(150),
@@ -67,35 +67,46 @@ export function RefBox(
     );
 
   const left$ = fromEvent(document, 'mousemove').pipe(
-    debounceTime(50),
     filter(() => !hover && !vanishing$.value),
-    map(e => (e as MouseEvent).clientX - 64),
+    map(e => (e as MouseEvent).clientX + 12),
     sample(active$.pipe(filter(_ => _))),
   );
+
+  const link$ = target$.pipe(filter(el => !!el), map(el => el?.getAttribute('data-ref') || ''));
 
   return <div _ref={box}
       class={rl`${classes.refbox} ${toggleList({active: active$, vanishing: vanishing$})}`}
       style={rl`top: ${top$}px;left: ${left$}px`}
       onmouseenter={() => hover = true}
       onmouseleave={() => { hover = false; target$.next(undefined); }}
-      onclick={() => {
-        let tab$ = latest$.value;
-        while(tab$ && !tab$?.hasAttribute('data-tab-title')) tab$ = tab$?.parentElement || undefined;
+      onclick={event => {
+        let ref = latest$.value?.getAttribute('data-ref');
 
-        if (tab$) {
-          const btn$ = tab$.parentElement?.querySelector(
-            `.selector button[data-tab-title="${latest$.value?.getAttribute('data-ref')}"]`);
-          if (btn$) {
-            (btn$ as HTMLButtonElement).click();
-            hover = false;
-            target$.next(undefined);
-            box.$.style.top = '-1000px';
+        if (ref?.startsWith('tab:')) {
+          ref = ref.substr(4);
+          let tab$ = latest$.value;
+          while(tab$ && !tab$?.hasAttribute('data-tab-title')) tab$ = tab$?.parentElement || undefined;
+
+          if (tab$) {
+            const btn$ = tab$.parentElement?.querySelector(
+              `.selector button[data-tab-title="${ref}"]`);
+            if (btn$) {
+              (btn$ as HTMLButtonElement).click();
+              event.stopPropagation();
+              event.preventDefault();
+            }
           }
         }
+
+        hover = false;
+        target$.next(undefined);
+        box.$.style.top = '-1000px';
       }}
     >
     <span class="icon-font">touch_app</span>
-    <a>See {target$.pipe(filter(el => !!el), map(el => el?.getAttribute('data-ref')))}</a>
+    <a href={link$} target="_blank">
+      {link$.pipe(map(l => l.startsWith('tab:')?l.substr(4):l))}
+    </a>
   </div>;
 }
 
@@ -115,7 +126,7 @@ export function initCodeLineRef() {
   
     renderer.render(<RefBox target={target}/>).on(document.body);
 
-    document.querySelectorAll('[data-tab-title] pre>code>div').forEach(line$ => {
+    document.querySelectorAll('pre>code>div').forEach(line$ => {
       let ref = '';
       let ref$: HTMLElement | undefined;
 
@@ -128,7 +139,7 @@ export function initCodeLineRef() {
       });
 
       if (ref.length > 0 && ref$) {
-        ref$.style.opacity = '.5';
+        ref$.remove();
         line$.setAttribute('data-ref', ref);
         fromEvent(line$, 'mouseenter').pipe(mapTo(line$ as HTMLElement)).subscribe(target);
         fromEvent(line$, 'mouseleave').pipe(mapTo(undefined)).subscribe(target);

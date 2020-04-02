@@ -3,12 +3,12 @@ import { ThemedComponentThis } from '@connectv/jss-theme';
 
 import { Meta } from './meta';
 import { Fonts } from './fonts';
-import { Footer } from '../footer';
-import { Header } from '../header';
+import { Footer } from './footer';
+import { Header } from './header';
 
 import { PageStyle } from './style';
 import { CodedocTheme } from '../../theme';
-import { Watermark } from '../watermark';
+import { Watermark } from '../misc/watermark';
 
 
 export interface PageOptions {

@@ -31,22 +31,22 @@ export function TabSelector(this: ComponentThis, _: any, renderer: RendererLike<
   });
 
   return <div class="selector" _ref={holder}>
-  <List of={tabs} each={tab => 
-    <button class={toggleList({selected: selected.to(map((s: string) => s === tab.value.title))})}
-      data-tab-title={tab.value.title}
-      onclick={() => {
-        tabs.value.forEach((tab: _TabType) => {
-          tab.el$.classList.remove('selected');
-        });
+    <List of={tabs} each={tab => 
+      <button class={toggleList({selected: selected.to(map((s: string) => s === tab.value.title))})}
+        data-tab-title={tab.value.title}
+        onclick={() => {
+          tabs.value.forEach((tab: _TabType) => {
+            tab.el$.classList.remove('selected');
+          });
 
-        tab.value.el$.classList.add('selected');
-        selected.value = tab.value.title;
-      }}>
-        {tab.value.title}
-        {tab.value.icon?<span class="icon-font">{tab.value.icon}</span>:''}
-      </button>}
-  />
-</div>;
+          tab.value.el$.classList.add('selected');
+          selected.value = tab.value.title;
+        }}>
+          {tab.value.title}
+          {tab.value.icon?<span class="icon-font">{tab.value.icon}</span>:''}
+        </button>}
+    />
+  </div>;
 }
 
 

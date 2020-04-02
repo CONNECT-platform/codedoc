@@ -2,7 +2,7 @@ import { RendererLike } from '@connectv/html';
 import { ThemedComponentThis } from '@connectv/jss-theme';
 
 import { ContentNavStyle} from './style';
-import { CodedocTheme } from '../../theme';
+import { CodedocTheme } from '../../../theme';
 
 
 export interface ContentNavOptions {

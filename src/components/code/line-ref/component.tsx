@@ -1,45 +1,10 @@
 import { Subject, BehaviorSubject, fromEvent, of } from 'rxjs';
-import { map, filter, mapTo, debounceTime, mergeMap, switchMap, delay, tap, sample } from 'rxjs/operators';
-import { funcTransport } from '@connectv/sdh/transport';
-import { themedStyle, ThemedComponentThis } from '@connectv/jss-theme';
+import { map, filter, debounceTime, mergeMap, switchMap, delay, tap, sample } from 'rxjs/operators';
+import { ThemedComponentThis } from '@connectv/jss-theme';
 import { rl, toggleList, ref } from '@connectv/html';
 
-import { CodedocTheme } from '../../theme';
-import { getRenderer } from '../../util/renderer';
-
-
-export const RefBoxStyle = themedStyle<CodedocTheme>(theme => ({
-  refbox: {
-    position: 'fixed',
-    cursor: 'pointer',
-    background: theme.light.background,
-    borderRadius: 8,
-    boxShadow: '0 2px 6px rgba(0, 0, 0, .12)',
-    maxWidth: 256,
-    fontSize: 13,
-    zIndex: 100,
-    padding: 8,
-    transition: 'opacity .15s',
-    opacity: 0,
-
-    'body.dark &': {
-      background: theme.dark.background,
-      boxShadow: '0 2px 6px rgba(0, 0, 0, .5)',
-    },
-
-    '&.active, &:hover:not(.vanishing)': { opacity: 1 },
-
-    '& .icon-font': {
-      verticalAlign: 'middle',
-      marginRight: 8,
-    },
-
-    '& a': {
-      textDecoration: 'none',
-      '&:hover': { textDecoration: 'underline '},
-    },
-  }
-}));
+import { CodedocTheme } from '../../../theme';
+import { RefBoxStyle } from './style';
 
 
 export function RefBox(
@@ -123,52 +88,3 @@ export function RefBox(
     <a href={link$} target="_blank">See {text$}</a>
   </div>;
 }
-
-
-const commentRegex = new RegExp([
-  /\/\/\s?\@see\s(.*[^\s])\s*$/,             // --> single line comments
-  /\/\*\s?\@see\s(.*[^\s])\s*\*\/$/,         // --> multi line comments
-  /\#\@see\s(.*[^\s])\s*$/,                  // --> python comments
-  /\<\!\-\-\s?\@see\s(.*[^\s])\s*\-\-\>$/,   // --> html comments
-].map(r => `(?:${r.source})`).join('|'));
-
-
-
-const mdlinkRegex = /\[(?<text>.*)\]\((?<link>.*)\)$/;
-
-
-export function initCodeLineRef() {
-  window.addEventListener('load', () => {
-    const renderer = getRenderer();
-    const target = new Subject<HTMLElement | undefined>();
-  
-    renderer.render(<RefBox target={target}/>).on(document.body);
-
-    document.querySelectorAll('pre>code>div').forEach(line$ => {
-      let ref = '';
-      let ref$: HTMLElement | undefined;
-
-      line$.querySelectorAll('.token.comment').forEach(comment$ => {
-        const match = commentRegex.exec(comment$.textContent || '');
-        if (match) {
-          ref = match.slice(1).find(_ => _) || ref;
-          if (ref) ref$ = comment$ as HTMLElement;
-        }
-      });
-
-      if (ref.length > 0 && ref$) {
-        ref$.remove();
-        const match = mdlinkRegex.exec(ref);
-        if (match) {
-          line$.setAttribute('data-ref', match.groups?.link || '');
-          line$.setAttribute('data-ref-text', match.groups?.text || '');
-        }
-        else line$.setAttribute('data-ref', ref);
-        fromEvent(line$, 'mouseenter').pipe(mapTo(line$ as HTMLElement)).subscribe(target);
-        fromEvent(line$, 'mouseleave').pipe(mapTo(undefined)).subscribe(target);
-      }
-    });
-  });
-}
-
-export const codeLineRef$ = funcTransport(initCodeLineRef);

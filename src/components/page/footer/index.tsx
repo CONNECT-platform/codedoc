@@ -1,9 +1,9 @@
 import { ExtensibleRenderer } from '@connectv/html';
 import { ThemedComponentThis } from '@connectv/jss-theme';
 
-import { CodedocTheme } from '../../theme';
+import { CodedocTheme } from '../../../theme';
 import { FooterStyle } from './style';
-import { DarkModeSwitch$ } from '../darkmode';
+import { DarkModeSwitch$ } from '../../darkmode';
 
 
 export function Footer(

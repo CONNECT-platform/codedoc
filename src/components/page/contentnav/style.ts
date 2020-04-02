@@ -1,6 +1,6 @@
 import { themedStyle } from '@connectv/jss-theme';
 
-import { CodedocTheme } from '../../theme';
+import { CodedocTheme } from '../../../theme';
 
 
 export const ContentNavStyle = themedStyle<CodedocTheme>(theme => ({

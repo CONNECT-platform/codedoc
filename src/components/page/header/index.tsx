@@ -1,7 +1,7 @@
 import { ThemedComponentThis } from '@connectv/jss-theme';
 import { RendererLike } from '@connectv/html';
 
-import { CodedocTheme } from '../../theme';
+import { CodedocTheme } from '../../../theme';
 import { HeaderStyle } from './style';
 
 

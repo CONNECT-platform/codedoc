@@ -1,5 +1,5 @@
 import { themedStyle } from '@connectv/jss-theme';
-import { CodedocTheme } from '../../theme';
+import { CodedocTheme } from '../../../theme';
 
 
 export const FooterStyle = themedStyle<CodedocTheme>(theme => ({

@@ -1,7 +1,7 @@
 import { RendererLike } from '@connectv/html';
 import { themedStyle, ThemedComponentThis } from '@connectv/jss-theme';
 
-import { CodedocTheme } from '../../theme';
+import { CodedocTheme } from '../../../theme';
 
 
 export const DarkLightStyle = themedStyle<CodedocTheme>(theme => ({

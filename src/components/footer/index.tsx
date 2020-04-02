@@ -15,7 +15,9 @@ export function Footer(
   const classes = this.theme.classes(FooterStyle);
 
   return <div class={classes.footer}>
-    <div class="main">{content}</div>
+    <div class="main">
+      <div class="inside">{content}</div>
+    </div>
     <div class="right"><DarkModeSwitch$/></div>
   </div>
 }

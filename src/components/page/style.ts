@@ -113,6 +113,10 @@ export const PageStyle = themedStyle<CodedocTheme>(theme => ({
       },
     },
 
+    img: {
+      maxWidth: '100%',
+    },
+
     iframe: {
       width: '100%',
       borderRadius: 3,

@@ -4,16 +4,21 @@ import { ThemedComponentThis } from '@connectv/jss-theme';
 import { Meta } from './meta';
 import { Fonts } from './fonts';
 import { Footer } from '../footer';
+import { Header } from '../header';
 
 import { PageStyle } from './style';
 import { CodedocTheme } from '../../theme';
+import { Watermark } from '../watermark';
 
 
 export interface PageOptions {
   title?: string;
   meta?: any;
   fonts?: any;
+  scripts?: any;
+  stylesheets?: any;
   footer?: any;
+  header?: any;
 }
 
 
@@ -32,9 +37,14 @@ export function Page(
       {options.meta ? options.meta : <Meta/>}
       {options.fonts ? options.fonts : <Fonts/>}
 
+      {options.scripts ? options.scripts : ''}
+      {options.stylesheets ? options.stylesheets : ''}
+
+      <script async defer src="https://buttons.github.io/buttons.js"/>
     </head>
 
     <body>
+      {options.header ? options.header : <Header><Watermark/></Header> }
       <div class="container">
         {content}
       </div>

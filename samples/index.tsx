@@ -2,7 +2,7 @@ import { save, post, Bundle } from '@connectv/sdh';
 import { concurrently } from 'rxline';
 import { files, pathMatch, readFile, mapExt, mapRoot } from 'rxline/fs';
 
-import { initJss, initJss$ } from '../src/setup-jss';
+import { initJss, initJss$ } from '../src/util/setup-jss';
 import { buildContentPage } from './content-page';
 import { codeSelection$ } from '../src/components/code/selection';
 import { sameLineLengthInCodes$ } from '../src/components/code/same-line-length';

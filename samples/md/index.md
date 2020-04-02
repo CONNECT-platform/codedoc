@@ -1,3 +1,12 @@
+> :DarkLight
+> > :InLight
+> >
+> > ![header](../repo-banner.svg)
+>
+> > :InDark
+> >
+> > ![header](../repo-banner-dark.svg)
+
 # Halo
 
 This is the first page of codedoc. You can [go to this link](https://www.google.com) for example.
@@ -8,7 +17,7 @@ npm i @connectv/html
 
 ```tsx
 import { state, map } from '@connectv/core';                         // @see https://connective.dev
-import { List, ref, autoId, Renderer } from '@connectv/html';        // @see https://github.com/CONNECT-platform/connective-html
+import { List, ref, autoId, Renderer } from '@connectv/html';        // @see [CONNECTIVE HTML](https://github.com/CONNECT-platform/connective-html)
 
 export function NotATodoList({}, renderer: Renderer) {               // --> how you define a component
   let items = state([]);                                             // --> keep the state of items
@@ -60,7 +69,7 @@ Also I would like to write some stuff here to see what would happen if some othe
 > > :Tab title=main.tsx, icon=code
 > >
 > > ```tsx
-> > import { compile } from '@connectv/sdh';     // @see https://github.com/CONNECT-platform/connective-sdh
+> > import { compile } from '@connectv/sdh';     // @see [CONNECTIVE SDH](https://github.com/CONNECT-platform/connective-sdh)
 > > import { Card } from './card';               // @see tab:card.tsx
 > > 
 > > compile(renderer => 

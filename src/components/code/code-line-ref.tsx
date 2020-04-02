@@ -33,6 +33,11 @@ export const RefBoxStyle = themedStyle<CodedocTheme>(theme => ({
       verticalAlign: 'middle',
       marginRight: 8,
     },
+
+    '& a': {
+      textDecoration: 'none',
+      '&:hover': { textDecoration: 'underline '},
+    },
   }
 }));
 
@@ -73,6 +78,17 @@ export function RefBox(
   );
 
   const link$ = target$.pipe(filter(el => !!el), map(el => el?.getAttribute('data-ref') || ''));
+  const text$ = target$.pipe(
+    filter(el => !!el),
+    map(el => {
+      if (el?.hasAttribute('data-ref-text')) return el.getAttribute('data-ref-text') || '';
+      else {
+        const _text = el?.getAttribute('data-ref') || '';
+        if (_text.startsWith('tab:')) return _text.substr(4);
+        else return _text;
+      }
+    })
+  );
 
   return <div _ref={box}
       class={rl`${classes.refbox} ${toggleList({active: active$, vanishing: vanishing$})}`}
@@ -104,9 +120,7 @@ export function RefBox(
       }}
     >
     <span class="icon-font">touch_app</span>
-    <a href={link$} target="_blank">
-      {link$.pipe(map(l => l.startsWith('tab:')?l.substr(4):l))}
-    </a>
+    <a href={link$} target="_blank">See {text$}</a>
   </div>;
 }
 
@@ -117,6 +131,10 @@ const commentRegex = new RegExp([
   /\#\@see\s(.*[^\s])\s*$/,                  // --> python comments
   /\<\!\-\-\s?\@see\s(.*[^\s])\s*\-\-\>$/,   // --> html comments
 ].map(r => `(?:${r.source})`).join('|'));
+
+
+
+const mdlinkRegex = /\[(?<text>.*)\]\((?<link>.*)\)$/;
 
 
 export function initCodeLineRef() {
@@ -140,7 +158,12 @@ export function initCodeLineRef() {
 
       if (ref.length > 0 && ref$) {
         ref$.remove();
-        line$.setAttribute('data-ref', ref);
+        const match = mdlinkRegex.exec(ref);
+        if (match) {
+          line$.setAttribute('data-ref', match.groups?.link || '');
+          line$.setAttribute('data-ref-text', match.groups?.text || '');
+        }
+        else line$.setAttribute('data-ref', ref);
         fromEvent(line$, 'mouseenter').pipe(mapTo(line$ as HTMLElement)).subscribe(target);
         fromEvent(line$, 'mouseleave').pipe(mapTo(undefined)).subscribe(target);
       }

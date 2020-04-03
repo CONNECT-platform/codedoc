@@ -1,4 +1,5 @@
 import { join } from 'path';
+import { Configuration } from 'webpack';
 import { files, pathMatch, readFile, mapExt, mapRoot, File } from 'rxline/fs';
 import { concurrently, Function } from 'rxline';
 import { Bundle, post, save, Compiled } from '@connectv/sdh';
@@ -32,7 +33,8 @@ export interface Builders {
 export async function build(
   config: CodedocConfig,
   builders: Builders,
-  themeInstaller: TransportedFunc<void>
+  themeInstaller: TransportedFunc<void>,
+  webpackConfig?: Configuration,
 ) {
   initJss();
 
@@ -52,7 +54,7 @@ export async function build(
       )
       .process(concurrently)
       .collect(() => {
-        save(_bundle).then(resolve);
+        save(_bundle, webpackConfig).then(resolve);
       });
   });
 }

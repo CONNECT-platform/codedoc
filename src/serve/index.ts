@@ -20,7 +20,7 @@ export function serve(
 ) {
   let built = false;
   config = { ...config, bundle: { ...config.bundle, init: [...config.bundle.init, reloadOnChange$] } };
-  build(config, builders, themeInstaller).then(() => {
+  build(config, builders, themeInstaller, { mode: 'development' }).then(() => {
     built = true;
     console.log(chalk.greenBright('# ') + 'Documents rebuilt!');
   });

@@ -4,7 +4,7 @@
   "description": "Create beautiful modern documentation websites.",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon",
+    "start": "ts-node-dev -T --watch samples samples/serve",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -37,10 +37,10 @@
     "jss-preset-default": "^10.1.1",
     "prismjs": "^1.19.0",
     "rxline": "^0.9.2",
-    "select": "^1.1.2"
+    "select": "^1.1.2",
+    "ts-node-dev": "^1.0.0-pre.44"
   },
   "devDependencies": {
-    "nodemon": "^2.0.2",
     "ts-node": "^8.6.2",
     "typescript": "^3.8.3"
   }

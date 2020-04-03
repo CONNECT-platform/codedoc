@@ -1,5 +1,0 @@
-{
-  "watch": ["src", "samples"],
-  "ext": "ts tsx md",
-  "exec": "ts-node samples/serve"
-}

@@ -56,6 +56,11 @@ export interface GithubConfig {
 }
 
 
+export interface GitterConfig {
+  room: string;
+}
+
+
 export interface CodedocConfig {
   src: SourceConfig;
   dest: DestConfig;
@@ -65,6 +70,7 @@ export interface CodedocConfig {
   markdown: MarkdownOptions<any, any>;
   misc?: {
     github?: GithubConfig;
+    gitter?: GitterConfig;
     [whatever: string]: any;
   }
 }
@@ -121,6 +127,7 @@ export interface ConfigOverride {
   markdown?: MarkdownOptions<any, any>;
   misc?: {
     github?: GithubConfig;
+    gitter?: GitterConfig;
     [whatevs: string]: any;
   }
 }

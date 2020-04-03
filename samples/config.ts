@@ -20,5 +20,8 @@ export const config = configuration({
       user: 'CONNECT-platform',
       repo: 'codedoc',
     },
+    gitter: {
+      room: 'connectv/community',
+    },
   }
 });

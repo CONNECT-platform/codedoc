@@ -1,5 +1,5 @@
 import { Subject, BehaviorSubject, fromEvent, of } from 'rxjs';
-import { map, filter, debounceTime, mergeMap, switchMap, delay, tap, sample } from 'rxjs/operators';
+import { map, filter, debounceTime, mergeMap, switchMap, delay, tap, sample, startWith } from 'rxjs/operators';
 import { ThemedComponentThis } from '@connectv/jss-theme';
 import { rl, toggleList, ref } from '@connectv/html';
 
@@ -56,7 +56,7 @@ export function RefBox(
   );
 
   return <div _ref={box}
-      class={rl`${classes.refbox} ${toggleList({active: active$, vanishing: vanishing$})}`}
+      class={rl`${classes.refbox} ${toggleList({active: active$.pipe(startWith(false)), vanishing: vanishing$})}`}
       style={rl`top: ${top$}px;left: ${left$}px`}
       onmouseenter={() => hover = true}
       onmouseleave={() => { hover = false; target$.next(undefined); }}

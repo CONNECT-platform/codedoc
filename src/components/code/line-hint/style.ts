@@ -12,6 +12,7 @@ export const HintBoxStyle = themedStyle<CodedocTheme>(theme => ({
     maxWidth: 256,
     fontSize: 13,
     zIndex: 100,
+    top: '100vh',
     padding: 8,
     transition: 'top .15s, opacity .3s',
     opacity: 0,

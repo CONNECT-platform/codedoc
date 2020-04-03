@@ -10,7 +10,10 @@ import { getRenderer$ } from './util/renderer';
 
 
 export function bundle(config: CodedocConfig, themeInstaller: TransportedFunc<void>) {
-  const bundle = new Bundle(config.bundle.baseUrl + '/bundle.js', join(config.dest.bundle, 'bundle.js'));
+  const bundle = new Bundle(
+    '/' + config.dest.bundle + '/bundle.js',
+    join(config.dest.assets, config.dest.bundle, 'bundle.js')
+  );
   bundle.init(initJss$);
   bundle.init(themeInstaller);
 
@@ -21,11 +24,14 @@ export function bundle(config: CodedocConfig, themeInstaller: TransportedFunc<vo
 }
 
 
+export interface Builders {
+  content: Function<File<string>, File<Compiled>>
+}
+
+
 export async function build(
   config: CodedocConfig,
-  builders: {
-    content: Function<File<string>, File<Compiled>>
-  },
+  builders: Builders,
   themeInstaller: TransportedFunc<void>
 ) {
   initJss();

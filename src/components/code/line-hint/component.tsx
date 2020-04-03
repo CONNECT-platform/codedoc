@@ -1,5 +1,5 @@
 import { Subject, fromEvent, combineLatest } from 'rxjs';
-import { map, filter } from 'rxjs/operators';
+import { map, filter, startWith } from 'rxjs/operators';
 import { ThemedComponentThis } from '@connectv/jss-theme';
 import { toggleList, rl } from '@connectv/html';
 
@@ -30,7 +30,7 @@ export function HintBox(
   const left$ = fromEvent(document, 'mousemove').pipe(map(e => (e as MouseEvent).clientX + 24));
 
   return <div 
-      class={rl`${classes.hintbox} ${toggleList({'active': active$})}`}
+      class={rl`${classes.hintbox} ${toggleList({'active': active$.pipe(startWith(false))})}`}
       style={rl`top: ${top$}px;left: ${left$}px`}
     >
     <span class="icon-font outline">wb_incandescent</span>

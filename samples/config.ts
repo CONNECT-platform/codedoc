@@ -6,11 +6,8 @@ export const config = configuration({
     base: 'samples/md'
   },
   dest: {
-    bundle: 'dist',
+    bundle: 'assets',
     html: 'dist',
-  },
-  bundle: {
-    baseUrl: '.',
   },
   title: {
     base: 'Codedoc Sample'

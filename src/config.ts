@@ -33,12 +33,12 @@ export interface SourceConfig {
 
 export interface DestConfig {
   html: string;
+  assets: string;
   bundle: string;
 }
 
 
 export interface BundleConfig {
-  baseUrl: string;
   init: TransportedFunc<void>[],
 }
 
@@ -61,6 +61,11 @@ export interface GitterConfig {
 }
 
 
+export interface DevConfig {
+  port: number,
+}
+
+
 export interface CodedocConfig {
   src: SourceConfig;
   dest: DestConfig;
@@ -68,6 +73,7 @@ export interface CodedocConfig {
   title: TitleConfig;
   theme: CodedocTheme;
   markdown: MarkdownOptions<any, any>;
+  dev: DevConfig;
   misc?: {
     github?: GithubConfig;
     gitter?: GitterConfig;
@@ -87,15 +93,19 @@ export const DefaultConfig: CodedocConfig = {
 
   dest: {
     html: '.',
+    assets: '.',
     bundle: 'docs/assets',
   },
 
   bundle: {
-    baseUrl: 'docs/assets',
     init: [
       codeSelection$, sameLineLengthInCodes$, codeLineHints$, codeLineRef$, smartCopy$,
       copyHeadings$, contentNavHighlight$, deferredIframes$,
     ],
+  },
+
+  dev: {
+    port: 3000
   },
 
   title: {
@@ -122,6 +132,7 @@ export interface ConfigOverride {
   src?: Partial<SourceConfig>;
   dest?: Partial<DestConfig>;
   bundle?: Partial<BundleConfig>;
+  dev?: Partial<DevConfig>;
   title?: Partial<TitleConfig>;
   theme?: ThemeExtension;
   markdown?: MarkdownOptions<any, any>;
@@ -140,6 +151,7 @@ export function configuration(override: ConfigOverride): CodedocConfig {
   if (override.dest) Object.assign(res.dest, override.dest);
   if (override.bundle) Object.assign(res.bundle, override.bundle);
   if (override.title) Object.assign(res.title, override.title);
+  if (override.dev) Object.assign(res.dev, override.dev);
   if (override.theme) res.theme = createTheme(override.theme);
   if (override.markdown) Object.assign(res.markdown, override.markdown);
 

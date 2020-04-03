@@ -7,7 +7,7 @@
 > >
 > > ![header](../repo-banner-dark.svg)
 
-# Halo
+# First One Out There
 
 This is the first page of codedoc. You can [go to this link](https://www.google.com) for example.
 

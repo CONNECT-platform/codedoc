@@ -16,6 +16,7 @@ export const content = build(
     const content = marked(markdown, config.markdown)(renderer);
 
     return (
+      // TODO: add meta, fonts, scripts and stylesheets and read them from config
       <Page title={config.title.extractor(content, config, file)}
             header={header(config, renderer)}
             footer={footer(config, renderer)}>

@@ -1,3 +1,3 @@
 # Sample Doc
 
-This is also le'docs
+This is also the docs

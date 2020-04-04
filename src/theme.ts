@@ -1,6 +1,7 @@
 export interface CodeTheme {
   background: string;
   text: string;
+  shadow: string;
 
   lineHover: string;
   lineHightlight: string;
@@ -46,6 +47,7 @@ export interface CodedocTheme {
   light: ContentTheme;
   dark: ContentTheme;
   code: {
+    wmbar: boolean;
     light: CodeTheme;
     dark: CodeTheme;
   },
@@ -59,6 +61,7 @@ export interface CodedocTheme {
 export const DefaultCodeTheme: CodeTheme = {
   background: '#212121',
   text: '#e0e0e0',
+  shadow: '0 6px 24px rgba(0, 0, 0, .25)',
 
   keyword: '#7187ff',
   string: '#69f0ae',
@@ -90,6 +93,7 @@ export const DefaultCodeTheme: CodeTheme = {
 export const DefaultCodeThemeLight: CodeTheme = {
   background: '#eeeeee',
   text: '#616161',
+  shadow: '0 6px 24px rgba(0, 0, 0, .1)',
 
   keyword: '#7187ff',
   string: '#639a67',
@@ -109,7 +113,7 @@ export const DefaultCodeThemeLight: CodeTheme = {
   script: '#616161',
 
   lineHover: '#e7e7e7',
-  lineHightlight: '#dfe7f5',
+  lineHightlight: '#cbffb6',
   lineHighlightText: '#212121',
   lineCounter: '#bdbdbd',
   lineCounterBorder: 'rgba(255, 255, 255, .015)',
@@ -124,7 +128,7 @@ export const DefaultTheme: CodedocTheme = {
     primaryContrast: '#ffffff',
     background: '#f5f5f5',
     text: '#424242',
-    border: '#cacaca',
+    border: '#e0e0e0',
   },
 
   dark: {
@@ -136,6 +140,7 @@ export const DefaultTheme: CodedocTheme = {
   },
 
   code: {
+    wmbar: true,
     light: DefaultCodeTheme,
     dark: { 
       ... DefaultCodeTheme, 
@@ -166,6 +171,7 @@ export interface ThemeExtension {
   light?: Partial<ContentTheme>;
   dark?: Partial<ContentTheme>;
   code?: {
+    wmbar?: boolean;
     light?: Partial<CodeTheme>;
     dark?: Partial<CodeTheme>;
   },
@@ -182,6 +188,7 @@ export function createTheme(extension: ThemeExtension): CodedocTheme {
   if (extension.light) Object.assign(res.light, extension.light);
   if (extension.dark) Object.assign(res.dark, extension.dark);
   if (extension.code) {
+    if (extension.code.wmbar !== undefined) res.code.wmbar = extension.code.wmbar;
     if (extension.code.light) Object.assign(res.code.light, extension.code.light);
     if (extension.code.dark) Object.assign(res.code.dark, extension.code.dark);
   }

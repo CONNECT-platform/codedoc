@@ -4,15 +4,17 @@ import { CodedocTheme } from '../../theme';
 
 
 export const CodeStyle = themedStyle<CodedocTheme>(theme => ({
-  code : {
+  code: {
     userSelect: 'none',
     WebkitUserSelect: 'none',
     background: theme.code.light.background,
     display: 'block',
     position: 'relative',
     padding: '24px 0',
-    borderRadius: '3px',
+    'pre.with-bar &': { paddingTop: 0, },
+    borderRadius: 3,
     color: theme.code.light.text,
+    boxShadow: theme.code.light.shadow,
     fontSize: '13px',
     overflowX: 'auto',
     outline: 'none',
@@ -38,6 +40,7 @@ export const CodeStyle = themedStyle<CodedocTheme>(theme => ({
       'body:not(.dark-mode-animate) &': {
         background: theme.code.dark.background,
         color: theme.code.dark.text,
+        boxShadow: theme.code.dark.shadow,
   
         '& .token.keyword': { color: theme.code.dark.keyword },
         '& .token.string': { color: theme.code.dark.string },
@@ -61,6 +64,7 @@ export const CodeStyle = themedStyle<CodedocTheme>(theme => ({
     'body.dark &': {
       background: theme.code.dark.background,
       color: theme.code.dark.text,
+      boxShadow: theme.code.dark.shadow,
 
       '& .token.keyword': { color: theme.code.dark.keyword },
       '& .token.string': { color: theme.code.dark.string },
@@ -197,5 +201,32 @@ export const CodeStyle = themedStyle<CodedocTheme>(theme => ({
         borderColor: theme.code.dark.lineCounterBorderHover,
       },
     },
+  },
+
+  wmbar: {
+    display: 'none',
+    position: 'sticky',
+    left: 0,
+    padding: 16,
+    '&>span': {
+      fontFamily: 'sans-serif',
+      fontSize: 12,
+      marginRight: 64,
+      display: 'block',
+      flexGrow: 1,
+      textAlign: 'center',
+      opacity: .5,
+    },
+    '&>span:first-child, &>span:nth-child(2), &>span:nth-child(3)': {
+      flexGrow: 0, opacity: 1,
+      width: 8, height: 8, borderRadius: 8, marginRight: 8,
+      '&:first-child': { background: 'rgb(255, 95, 86)' },
+      '&:nth-child(2)': { background: 'rgb(255, 189, 46)' },
+      '&:nth-child(3)': { background: 'rgb(39, 201, 63)' },
+    },
+
+    'pre.with-bar &': {
+      display: 'flex',
+    }
   },
 }));

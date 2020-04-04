@@ -1,4 +1,4 @@
-import { ExtensibleRenderer } from '@connectv/html';
+import { ExtensibleRenderer, toggleList } from '@connectv/html';
 import { ThemedComponentThis } from '@connectv/jss-theme';
 
 import { highlight, languages } from 'prismjs';
@@ -23,10 +23,22 @@ export function Code(
   renderer = renderer.plug(this.theme.styled(CodeStyle));
   const classes = this.theme.classes(CodeStyle);
 
-  let lang = options.lang;
+  let [lang, ...extras] = options.lang.split('|').map(_ => _.trim());
   loadLanguages([lang]);
 
-  const code$ = <code class={`${lang}`} tabindex="0"/>;
+  const extopts = { wmbar: undefined as (undefined | boolean), filename: undefined as (undefined | string) };
+  extras.forEach(ext => {
+    if (ext === '--wmbar') extopts.wmbar = true;
+    else if (ext == '--no-wmbar') extopts.wmbar = false;
+    else {
+      extopts.filename = ext;
+      extopts.wmbar = true;
+    }
+  });
+
+  const code$ = <code class={`${lang}`} tabindex="0">
+    <span class={classes.wmbar}><span/><span/><span/><span>{extopts.filename || ''}</span></span>
+  </code>;
   const [code, lines, highlights] = parse(content[0]);
 
   const highlines = highlight(code, languages[lang], lang).split('\n');
@@ -53,5 +65,6 @@ export function Code(
     renderer.render(<br/>).on(code$);
   });
 
-  return <pre>{code$}</pre>
+  const wmbar = lines.length > 1 && (this.theme.theme.code.wmbar || extopts.wmbar) && extopts.wmbar !== false;
+  return <pre class={wmbar ? 'with-bar' : ''}>{code$}</pre>
 }

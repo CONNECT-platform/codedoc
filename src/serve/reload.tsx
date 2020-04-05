@@ -3,6 +3,7 @@ import { funcTransport } from '@connectv/sdh/transport';
 
 import { StatusCheckURL, StatusBuildingResponse, StatusReadyResponse } from './config';
 import { getRenderer } from '../util/renderer';
+import { Loading } from '../components/util/loading';
 
 
 export function Toast(this: ComponentThis, _: any, renderer: RendererLike<any, any>) {
@@ -25,7 +26,9 @@ export function Toast(this: ComponentThis, _: any, renderer: RendererLike<any, a
     backdrop-filter: blur(4px);
     -webkit-backdrop-filter: blur(4px);
     transition: transform .3s;
-  `}>Rebuilding documents ...</div>;
+  `}>
+   <Loading/>  &ensp;Rebuilding documents ...
+  </div>;
 }
 
 

@@ -1,5 +1,5 @@
 import { getRenderer } from '../../util/renderer';
-import { Overlay } from '../overlay';
+import { Overlay } from '../util/overlay';
 
 
 export function copyConfirm(...lines: HTMLElement[]) {

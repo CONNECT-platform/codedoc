@@ -2,7 +2,7 @@ import { funcTransport } from '@connectv/sdh/transport';
 
 import { getRenderer } from '../../util/renderer';
 import { copyToClipboard } from '../../util/clipboard';
-import { Overlay } from '../overlay';
+import { Overlay } from '../util/overlay';
 import { headingLink } from './heading-link';
 
 

@@ -4,4 +4,13 @@ import { funcTransport } from '@connectv/sdh/transport';
 
 
 export function initJss() { jss.setup(preset()); }
-export const initJss$ = funcTransport(initJss);
+export function initJssCs() {
+  initJss();
+  jss.setup({
+    createGenerateId: () => {
+      let count = 0;
+      return rule => `cs--${rule.key}-${count++}`;
+    }
+  })
+}
+export const initJss$ = funcTransport(initJssCs);

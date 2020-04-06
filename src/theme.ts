@@ -93,7 +93,7 @@ export const DefaultCodeTheme: CodeTheme = {
 export const DefaultCodeThemeLight: CodeTheme = {
   background: '#eeeeee',
   text: '#616161',
-  shadow: '0 6px 24px rgba(0, 0, 0, .1)',
+  shadow: '0 6px 24px #9e9e9e',
 
   keyword: '#7187ff',
   string: '#639a67',
@@ -145,6 +145,7 @@ export const DefaultTheme: CodedocTheme = {
     dark: { 
       ... DefaultCodeTheme, 
       background: '#000000',
+      shadow: '0 6px 24px #121212',
       lineHover: '#1a1a1a',
       lineHightlight: 'rgb(28, 29, 48)'
     }
@@ -158,8 +159,8 @@ export const DefaultTheme: CodedocTheme = {
     },
 
     dark: {
-      background: '#313131',
-      border: '#424242',
+      background: '#282828',
+      border: '#363636',
       text: '#bdbdbd',
     }
   }

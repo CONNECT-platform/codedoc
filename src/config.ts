@@ -10,7 +10,7 @@ import { Heading } from './components/heading';
 import { Button, CopyButton, Buttons } from './components/button';
 import { Tab, Tabs } from './components/tabs';
 import { DarkLight, InLight, InDark } from './components/darkmode/darklight';
-import { GithubButton } from './components/misc/github';
+import { GithubButton, GithubBtnActions } from './components/misc/github';
 import { Watermark } from './components/misc/watermark';
 import { codeSelection$ } from './components/code/selection';
 import { sameLineLengthInCodes$ } from './components/code/same-line-length';
@@ -20,6 +20,8 @@ import { smartCopy$ } from './components/code/smart-copy';
 import { copyHeadings$ } from './components/heading/copy-headings';
 import { contentNavHighlight$ } from './components/page/contentnav/highlight';
 import { deferredIframes$ } from './util/deferred-iframe';
+import { MetaOptions } from './components/page/meta';
+import { FontsOptions } from './components/page/fonts';
 
 
 export interface SourceConfig {
@@ -35,6 +37,7 @@ export interface DestConfig {
   html: string;
   assets: string;
   bundle: string;
+  styles: string;
 }
 
 
@@ -53,6 +56,9 @@ export interface TitleConfig {
 export interface GithubConfig {
   user: string;
   repo: string;
+  action?: GithubBtnActions;
+  count?: boolean;
+  standardIcon?: boolean;
 }
 
 
@@ -70,7 +76,12 @@ export interface CodedocConfig {
   src: SourceConfig;
   dest: DestConfig;
   bundle: BundleConfig;
-  title: TitleConfig;
+  page: {
+    title: TitleConfig;
+    favicon?: string;
+    meta?: MetaOptions;
+    fonts?: FontsOptions;
+  };
   theme: CodedocTheme;
   markdown: MarkdownOptions<any, any>;
   dev: DevConfig;
@@ -86,7 +97,7 @@ export const DefaultConfig: CodedocConfig = {
   src: {
     base: 'docs/md',
     toc: '_toc.md',
-    notfound: '_404.md',
+    notfound: '_not_found.md',
     pick: /\.md$/,
     drop: /(^_)|(\/_)/,
   },
@@ -95,6 +106,7 @@ export const DefaultConfig: CodedocConfig = {
     html: '.',
     assets: '.',
     bundle: 'docs/assets',
+    styles: 'docs/assets',
   },
 
   bundle: {
@@ -108,10 +120,12 @@ export const DefaultConfig: CodedocConfig = {
     port: 3000
   },
 
-  title: {
-    base: 'New Codedoc Project',
-    connector: ' | ',
-    extractor: (content, config) => guessTitle(content, config.title.base, config.title.connector),
+  page: {
+    title: {
+      base: 'New Codedoc Project',
+      connector: ' | ',
+      extractor: (content, config) => guessTitle(content, config.page.title.base, config.page.title.connector),
+    }
   },
 
   theme: DefaultTheme,
@@ -133,7 +147,12 @@ export interface ConfigOverride {
   dest?: Partial<DestConfig>;
   bundle?: Partial<BundleConfig>;
   dev?: Partial<DevConfig>;
-  title?: Partial<TitleConfig>;
+  page?: {
+    title?: Partial<TitleConfig>;
+    favicon?: string;
+    meta?: MetaOptions;
+    fonts?: FontsOptions;
+  }
   theme?: ThemeExtension;
   markdown?: MarkdownOptions<any, any>;
   misc?: {
@@ -150,7 +169,13 @@ export function configuration(override: ConfigOverride): CodedocConfig {
   if (override.src) Object.assign(res.src, override.src);
   if (override.dest) Object.assign(res.dest, override.dest);
   if (override.bundle) Object.assign(res.bundle, override.bundle);
-  if (override.title) Object.assign(res.title, override.title);
+  if (override.page) {
+    if (override.page.title) Object.assign(res.page.title, override.page.title);
+    if (override.page.favicon) res.page.favicon = override.page.favicon;
+    if (override.page.meta) res.page.meta = override.page.meta;
+    if (override.page.fonts) res.page.fonts = override.page.fonts;
+  }
+
   if (override.dev) Object.assign(res.dev, override.dev);
   if (override.theme) res.theme = createTheme(override.theme);
   if (override.markdown) Object.assign(res.markdown, override.markdown);

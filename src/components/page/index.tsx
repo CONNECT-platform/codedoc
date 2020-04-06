@@ -14,9 +14,10 @@ import { Watermark } from '../misc/watermark';
 export interface PageOptions {
   title?: string;
   meta?: any;
+  favicon?: string;
   fonts?: any;
-  scripts?: any;
-  stylesheets?: any;
+  scripts?: string[];
+  stylesheets?: string[];
   footer?: any;
   header?: any;
 }
@@ -35,8 +36,9 @@ export function Page(
       <title>{options.title || 'Codedoc Sample Page'}</title>
       
       {options.meta ? options.meta : <Meta/>}
-      {options.fonts ? options.fonts : <Fonts/>}
+      {options.favicon ? <link rel="shortcut icon" href={options.favicon}/> : ''}
 
+      {options.fonts ? options.fonts : <Fonts/>}
       {options.scripts ? options.scripts : ''}
       {options.stylesheets ? options.stylesheets : ''}
 

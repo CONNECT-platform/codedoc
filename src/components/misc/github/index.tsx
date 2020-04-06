@@ -25,3 +25,6 @@ export function GithubButton(options: GithubBtnOptions, renderer: RendererLike<a
                 {options.label || _defaults.label}
              </a>;
 }
+
+
+export * from './types';

@@ -1,4 +1,3 @@
-import { transport } from '@connectv/sdh/transport';
 import { RendererLike } from '@connectv/html';
 import { themedStyle, ThemedComponentThis } from '@connectv/jss-theme';
 
@@ -102,6 +101,3 @@ export function Loading(
     </svg>
   </div>
 }
-
-
-export const Loading$ = transport(Loading);

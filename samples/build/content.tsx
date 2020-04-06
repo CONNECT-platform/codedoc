@@ -1,28 +1,25 @@
-import { build } from '@connectv/sdh';
-import { theme } from '@connectv/jss-theme';
-import { marked } from '@connectv/marked';
-
+import { RendererLike } from '@connectv/html';
+import { File } from 'rxline/fs';
 import { Page } from '../../src/components/page';
+import { Meta } from '../../src/components/page/meta';
 import { ContentNav } from '../../src/components/page/contentnav';
-import { CodedocTheme } from '../../src/theme';
 
 import { config } from '../config';
-import { header } from './header';
-import { footer } from './footer';
+import { Header } from './header';
+import { Footer } from './footer';
+import { Fonts } from '../../src/components/page/fonts';
 
 
-export const content = build(
-  (markdown: string, renderer, file) => {
-    const content = marked(markdown, config.markdown)(renderer);
-
-    return (
-      // TODO: add meta, fonts, scripts and stylesheets and read them from config
-      <Page title={config.title.extractor(content, config, file)}
-            header={header(config, renderer)}
-            footer={footer(config, renderer)}>
-        {content}
-        <ContentNav content={content}/>
-      </Page>
-    )
-  }
-, () => theme<CodedocTheme>(config.theme));
+export function content(_content: HTMLElement, renderer: RendererLike<any, any>, file: File<string>) {
+  return (
+    <Page title={config.page.title.extractor(_content, config, file)}
+          favicon={config.page.favicon}
+          meta={<Meta {...config.page.meta}/>}
+          fonts={<Fonts {...config.page.fonts}/>}
+          header={<Header {...config}/>}
+          footer={<Footer {...config}/>}>
+      {_content}
+      <ContentNav content={_content}/>
+    </Page>
+  )
+}

@@ -1,19 +1,22 @@
 import { CodedocConfig } from '../../src/config';
-import { Header } from '../../src/components/page/header';
+import { Header as _Header } from '../../src/components/page/header';
 import { GithubButton } from '../../src/components/misc/github';
 import { Watermark } from '../../src/components/misc/watermark';
 
 
-export const header = (config: CodedocConfig, renderer: any) =>
-  <Header>{config.misc?.github ?
-    <fragment>
-      <GithubButton action='Star'
-        repo={config.misc.github.repo}
-        user={config.misc.github.user}
-        count={true}
-        standardIcon={true}/>
-      <br/><br/>
-    </fragment>
-    : ''}
-    <Watermark/>
-  </Header>
+export function Header(config: CodedocConfig, renderer: any) {
+  return (
+    <_Header>{config.misc?.github ?
+      <fragment>
+        <GithubButton action={config.misc.github.action || 'Star'}
+          repo={config.misc.github.repo}
+          user={config.misc.github.user}
+          count={config.misc.github.count !== false}
+          standardIcon={config.misc.github.standardIcon !== false}/>
+        <br/><br/>
+      </fragment>
+      : ''}
+      <Watermark/>
+    </_Header>
+  )
+}

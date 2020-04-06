@@ -7,10 +7,14 @@ export const config = configuration({
   },
   dest: {
     bundle: 'assets',
+    styles: 'assets',
     html: 'dist',
   },
-  title: {
-    base: 'Codedoc Sample'
+  page: {
+    title: {
+      base: 'Codedoc Sample'
+    },
+    favicon: 'favicon.ico'
   },
   misc: {
     github: {

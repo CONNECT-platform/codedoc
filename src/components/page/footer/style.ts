@@ -67,6 +67,12 @@ export const FooterStyle = themedStyle<CodedocTheme>(theme => ({
         },
       },
     },
+    '& .left': { paddingLeft: 32 },
     '& .right': { paddingRight: 32 },
+
+    '@media screen and (max-width: 800px)': {
+      '& .left': { paddingLeft: 16 },
+      '& .right': { paddingRight: 16 },
+    },
   }
 }));

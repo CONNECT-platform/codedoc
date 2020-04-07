@@ -8,4 +8,4 @@ import { installTheme$ } from './build/theme';
 
 const root = join(__dirname, '../');
 
-serve(root, config, { content }, installTheme$);
+serve(root, config, content, installTheme$);

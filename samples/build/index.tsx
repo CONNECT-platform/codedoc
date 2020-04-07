@@ -5,6 +5,4 @@ import { installTheme$ } from './theme';
 import { content } from './content';
 
 
-build(config, {
-  content
-}, installTheme$);
+build(config, content, installTheme$);

@@ -5,7 +5,8 @@ import { compile } from '@connectv/sdh';
 import { TransportedFunc } from '@connectv/sdh/dist/es6/dynamic/transport/index';
 
 import { CodedocConfig } from '../config';
-import { build, Builders } from '../build';
+import { ContentBuilder } from '../build/types';
+import { build } from '../build';
 
 import { StatusCheckURL, StatusBuildingResponse, StatusReadyResponse } from './config';
 import { buildingHtml } from './building-html';
@@ -15,12 +16,12 @@ import { reloadOnChange$ } from './reload';
 export function serve(
   root: string,
   config: CodedocConfig,
-  builders: Builders,
+  builder: ContentBuilder,
   themeInstaller: TransportedFunc<void>
 ) {
   let built = false;
   config = { ...config, bundle: { ...config.bundle, init: [...config.bundle.init, reloadOnChange$] } };
-  build(config, builders, themeInstaller, { mode: 'development' }).then(() => {
+  build(config, builder, themeInstaller, { mode: 'development' }).then(() => {
     built = true;
     console.log(chalk.greenBright('# ') + 'Documents rebuilt!');
   });

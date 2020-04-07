@@ -167,8 +167,6 @@ export const DefaultTheme: CodedocTheme = {
 }
 
 export interface ThemeExtension {
-  primary?: string;
-  primaryContrast?: string;
   light?: Partial<ContentTheme>;
   dark?: Partial<ContentTheme>;
   code?: {

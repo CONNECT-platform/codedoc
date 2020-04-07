@@ -16,14 +16,17 @@ function isTrue(val: boolean | string | undefined) { return val === true || val 
 
 export function GithubButton(options: GithubBtnOptions, renderer: RendererLike<any, any>) {
   const _defaults = defaults(options);
-  return <a class="github-button"
+  return <fragment>
+    <script async defer src="https://buttons.github.io/buttons.js"/>
+    <a class="github-button"
               data-color-scheme={schemeString(options)}
               data-icon={isTrue(options.standardIcon)?false:(options.icon || _defaults.icon || false)}
               data-show-count={isCountable(options)?(isTrue(options.count)?'true':false):false}
               data-size={isTrue(options.large)?'large':false}
               href={options.link || _defaults.link}>
                 {options.label || _defaults.label}
-             </a>;
+    </a>
+  </fragment>;
 }
 
 

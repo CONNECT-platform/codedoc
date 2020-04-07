@@ -22,6 +22,8 @@ import { contentNavHighlight$ } from './components/page/contentnav/highlight';
 import { deferredIframes$ } from './util/deferred-iframe';
 import { MetaOptions } from './components/page/meta';
 import { FontsOptions } from './components/page/fonts';
+import { ToCHeading } from './components/page/toc/heading';
+import { smoothLoading$ } from './util/smooth-loading';
 
 
 export interface SourceConfig {
@@ -58,6 +60,7 @@ export interface GithubConfig {
   repo: string;
   action?: GithubBtnActions;
   count?: boolean;
+  large?: boolean;
   standardIcon?: boolean;
 }
 
@@ -84,6 +87,7 @@ export interface CodedocConfig {
   };
   theme: CodedocTheme;
   markdown: MarkdownOptions<any, any>;
+  tocMarkdown: MarkdownOptions<any, any>;
   dev: DevConfig;
   misc?: {
     github?: GithubConfig;
@@ -112,7 +116,7 @@ export const DefaultConfig: CodedocConfig = {
   bundle: {
     init: [
       codeSelection$, sameLineLengthInCodes$, codeLineHints$, codeLineRef$, smartCopy$,
-      copyHeadings$, contentNavHighlight$, deferredIframes$,
+      copyHeadings$, contentNavHighlight$, deferredIframes$, smoothLoading$,
     ],
   },
 
@@ -138,7 +142,10 @@ export const DefaultConfig: CodedocConfig = {
       DarkLight, InDark, InLight,
       GithubButton, Watermark,
     })
-  }
+  },
+  tocMarkdown: {
+    Heading: ToCHeading,
+  },
 }
 
 
@@ -153,8 +160,9 @@ export interface ConfigOverride {
     meta?: MetaOptions;
     fonts?: FontsOptions;
   }
-  theme?: ThemeExtension;
+  theme?: CodedocTheme;
   markdown?: MarkdownOptions<any, any>;
+  tocMarkdown?: MarkdownOptions<any, any>;
   misc?: {
     github?: GithubConfig;
     gitter?: GitterConfig;
@@ -177,8 +185,9 @@ export function configuration(override: ConfigOverride): CodedocConfig {
   }
 
   if (override.dev) Object.assign(res.dev, override.dev);
-  if (override.theme) res.theme = createTheme(override.theme);
+  if (override.theme) res.theme = override.theme;
   if (override.markdown) Object.assign(res.markdown, override.markdown);
+  if (override.tocMarkdown) Object.assign(res.tocMarkdown, override.tocMarkdown);
 
   if (override.misc) res.misc = override.misc;
 

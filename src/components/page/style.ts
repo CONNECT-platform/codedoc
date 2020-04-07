@@ -50,6 +50,7 @@ export const PageStyle = themedStyle<CodedocTheme>(theme => ({
       paddingTop: 96,
       margin: '0 auto',
       marginBottom: 64,
+      transition: 'opacity .15s',
     },
 
     blockquote: {

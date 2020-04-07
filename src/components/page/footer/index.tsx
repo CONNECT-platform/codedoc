@@ -4,6 +4,7 @@ import { ThemedComponentThis } from '@connectv/jss-theme';
 import { CodedocTheme } from '../../../theme';
 import { FooterStyle } from './style';
 import { DarkModeSwitch$ } from '../../darkmode';
+import { ToCToggle$ } from '../toc/toggle';
 
 
 export function Footer(
@@ -15,6 +16,7 @@ export function Footer(
   const classes = this.theme.classes(FooterStyle);
 
   return <div class={classes.footer}>
+    <div class="left"><ToCToggle$/></div>
     <div class="main">
       <div class="inside">{content}</div>
     </div>

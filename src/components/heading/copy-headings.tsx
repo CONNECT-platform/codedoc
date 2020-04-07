@@ -1,4 +1,4 @@
-import { funcTransport } from '@connectv/sdh/transport';
+import { funcTransport, onReady } from '@connectv/sdh/transport';
 
 import { getRenderer } from '../../util/renderer';
 import { copyToClipboard } from '../../util/clipboard';
@@ -9,20 +9,24 @@ import { headingLink } from './heading-link';
 export function copyHeadings() {
   const renderer = getRenderer();
 
-  window.addEventListener('load', () => {
-    document.querySelectorAll('h1, h2, h3, h4, h5, h6').forEach(heading$ => {
-      const link = headingLink(heading$);
+  onReady(() => {
+    const _exec = () => {
+      document.querySelectorAll('h1[id], h2[id], h3[id], h4[id], h5[id], h6[id]').forEach(heading$ => {
+        const link = headingLink(heading$);
+  
+        if (link) {
+          heading$.addEventListener('click', () => {
+            copyToClipboard(link, () => renderer.render(<Overlay>
+              Copied to Clipboard!
+              <br/>
+              <a href={link} style="font-size: 14px">{link}</a>
+            </Overlay>).on(document.body));
+          });
+        }
+      });
+    };
 
-      if (link) {
-        heading$.addEventListener('click', () => {
-          copyToClipboard(link, () => renderer.render(<Overlay>
-            Copied to Clipboard!
-            <br/>
-            <a href={link} style="font-size: 14px">{link}</a>
-          </Overlay>).on(document.body));
-        });
-      }
-    });
+    _exec(); window.addEventListener('navigation', _exec);
   });
 }
 

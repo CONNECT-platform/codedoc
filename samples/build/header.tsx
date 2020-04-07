@@ -11,6 +11,7 @@ export function Header(config: CodedocConfig, renderer: any) {
         <GithubButton action={config.misc.github.action || 'Star'}
           repo={config.misc.github.repo}
           user={config.misc.github.user}
+          large={config.misc.github.large === true}
           count={config.misc.github.count !== false}
           standardIcon={config.misc.github.standardIcon !== false}/>
         <br/><br/>

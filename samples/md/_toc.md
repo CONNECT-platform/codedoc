@@ -1,7 +1,7 @@
 # General
 
-- [Home](/)
+[Home](/)
+[Docs](/docs/doc)
 
-# Specific
 
-- [Docs](/docs/doc)
+

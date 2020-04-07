@@ -1,5 +1,7 @@
 import { configuration } from '../src/config';
 
+import { theme } from './theme';
+
 
 export const config = configuration({
   src: {
@@ -10,11 +12,12 @@ export const config = configuration({
     styles: 'assets',
     html: 'dist',
   },
+  theme,
   page: {
     title: {
       base: 'Codedoc Sample'
     },
-    favicon: 'favicon.ico'
+    favicon: '/favicon.ico'
   },
   misc: {
     github: {

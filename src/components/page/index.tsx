@@ -20,6 +20,7 @@ export interface PageOptions {
   stylesheets?: string[];
   footer?: any;
   header?: any;
+  toc?: any;
 }
 
 
@@ -41,15 +42,14 @@ export function Page(
       {options.fonts ? options.fonts : <Fonts/>}
       {options.scripts ? options.scripts : ''}
       {options.stylesheets ? options.stylesheets : ''}
-
-      <script async defer src="https://buttons.github.io/buttons.js"/>
     </head>
 
     <body>
       {options.header ? options.header : <Header><Watermark/></Header> }
-      <div class="container">
+      <div id="-codedoc-container" class="container">
         {content}
       </div>
+      { options.toc ? options.toc : ' '}
       { options.footer ? options.footer : <Footer/> }
     </body>
   </html>;

@@ -1,19 +1,25 @@
-import { funcTransport } from '@connectv/sdh/transport';
+import { funcTransport, onReady } from '@connectv/sdh/transport';
 
 
 export function contentNavHighlight() {
-  window.addEventListener('load', () => {
-    const links: {a$: HTMLElement, ref$: HTMLElement}[] = [];
-    document.querySelectorAll('a[data-content-highlight]').forEach(_a$ => {
-      let a$ = _a$ as HTMLElement;
-      const id = a$.getAttribute('data-content-highlight');
-      if (id) {
-        const ref$ = document.getElementById(id);
-        if (ref$) {
-          links.push({ a$, ref$ });
+  onReady(() => {
+    let links: {a$: HTMLElement, ref$: HTMLElement}[] = [];
+
+    const _exec = () => {
+      links = [];
+      document.querySelectorAll('a[data-content-highlight]').forEach(_a$ => {
+        let a$ = _a$ as HTMLElement;
+        const id = a$.getAttribute('data-content-highlight');
+        if (id) {
+          const ref$ = document.getElementById(id);
+          if (ref$) {
+            links.push({ a$, ref$ });
+          }
         }
-      }
-    });
+      });
+    };
+
+    _exec(); window.addEventListener('navigation', _exec);
 
     function update() {
       let noactive = true;
@@ -37,6 +43,7 @@ export function contentNavHighlight() {
     if (links.length > 0) {
       update();
       document.addEventListener('scroll', () => setTimeout(update, 1));
+      window.addEventListener('navigation', update);
     }
   });
 }

@@ -25,6 +25,7 @@ function navigate(url: string, push=true) {
     if (window.innerWidth <= 1200 && (window as any).codedocToggleToC)
       (window as any).codedocToggleToC(false);
 
+    window.dispatchEvent(new CustomEvent('navigation-start', { detail: { url } }));
     fetch(url)
     .then(response => response.text())
     .then(html => {

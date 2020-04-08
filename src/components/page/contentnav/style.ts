@@ -7,7 +7,7 @@ export const ContentNavStyle = themedStyle<CodedocTheme>(theme => ({
   contentnav: {
     position: 'fixed',
     right: 0,
-    bottom: 64,
+    bottom: 96,
     width: 'calc(50vw - 496px)',
     borderLeft: `1px dashed ${theme.light.border}`,
     paddingLeft: 48,

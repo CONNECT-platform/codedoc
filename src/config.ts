@@ -9,6 +9,7 @@ import { Code } from './components/code';
 import { Heading } from './components/heading';
 import { Button, CopyButton, Buttons } from './components/button';
 import { Tab, Tabs } from './components/tabs';
+import { Collapse } from './components/collapse';
 import { DarkLight, InLight, InDark } from './components/darkmode/darklight';
 import { GithubButton, GithubBtnActions } from './components/misc/github';
 import { Watermark } from './components/misc/watermark';
@@ -24,6 +25,7 @@ import { MetaOptions } from './components/page/meta';
 import { FontsOptions } from './components/page/fonts';
 import { ToCHeading } from './components/page/toc/heading';
 import { smoothLoading$ } from './util/smooth-loading';
+import { tocHighlight$ } from './components/page/toc/toc-highlight';
 
 
 export interface SourceConfig {
@@ -116,7 +118,7 @@ export const DefaultConfig: CodedocConfig = {
   bundle: {
     init: [
       codeSelection$, sameLineLengthInCodes$, codeLineHints$, codeLineRef$, smartCopy$,
-      copyHeadings$, contentNavHighlight$, deferredIframes$, smoothLoading$,
+      copyHeadings$, contentNavHighlight$, deferredIframes$, smoothLoading$, tocHighlight$,
     ],
   },
 
@@ -137,7 +139,7 @@ export const DefaultConfig: CodedocConfig = {
     Code,
     Heading,
     BlockQuote: quotedComponents({
-      Tab, Tabs,
+      Tab, Tabs, Collapse,
       Button, Buttons, CopyButton,
       DarkLight, InDark, InLight,
       GithubButton, Watermark,
@@ -145,6 +147,11 @@ export const DefaultConfig: CodedocConfig = {
   },
   tocMarkdown: {
     Heading: ToCHeading,
+    BlockQuote: quotedComponents({
+      Button, Buttons, Collapse,
+      DarkLight, InDark, InLight,
+      GithubButton, Watermark,
+    })
   },
 }
 

@@ -7,6 +7,7 @@ import { CodedocTheme } from '../../../theme';
 export const ToCHeadingStyle = themedStyle<CodedocTheme>(theme => ({
   heading: {
     fontWeight: 'bold',
+    fontSize: 18,
   }
 }));
 

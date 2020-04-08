@@ -35,6 +35,11 @@ export interface QuoteTheme {
   border: string;
 }
 
+export interface ToCTheme {
+  background: string;
+  border: string;
+}
+
 export interface ContentTheme {
   background: string;
   text: string;
@@ -54,6 +59,10 @@ export interface CodedocTheme {
   quote: {
     light: QuoteTheme,
     dark: QuoteTheme,
+  },
+  toc: {
+    light: ToCTheme,
+    dark: ToCTheme,
   },
 }
 
@@ -163,6 +172,17 @@ export const DefaultTheme: CodedocTheme = {
       border: '#363636',
       text: '#bdbdbd',
     }
+  },
+
+  toc: {
+    light: {
+      background: '#f1f1f1',
+      border: '#e7e7e7',
+    },
+    dark: {
+      background: '#1f1f1f',
+      border: '#282828',
+    },
   }
 }
 
@@ -177,6 +197,10 @@ export interface ThemeExtension {
   quote?: {
     light?: Partial<QuoteTheme>,
     dark?: Partial<QuoteTheme>,
+  },
+  toc?: {
+    light?: Partial<ToCTheme>,
+    dark?: Partial<ToCTheme>,
   }
 }
 
@@ -194,6 +218,10 @@ export function createTheme(extension: ThemeExtension): CodedocTheme {
   if (extension.quote) {
     if (extension.quote.light) Object.assign(res.quote.light, extension.quote.light);
     if (extension.quote.dark) Object.assign(res.quote.dark, extension.quote.dark);
+  }
+  if (extension.toc) {
+    if (extension.toc.light) Object.assign(res.toc.light, extension.toc.light);
+    if (extension.toc.dark) Object.assign(res.toc.dark, extension.toc.dark);
   }
 
   return res;

@@ -74,11 +74,11 @@ Also I would like to write some stuff here to see what would happen if some othe
 ### Even A Section Like `This`
 
 > :Tabs
-> > :Tab title=main.tsx, icon=code
+> > :Tab title=main
 > >
 > > ```tsx | main.tsx
 > > import { compile } from '@connectv/sdh';     // @see [CONNECTIVE SDH](https://github.com/CONNECT-platform/connective-sdh)
-> > import { Card } from './card';               // @see tab:card.tsx
+> > import { Card } from './card';               // @see [Component code](tab:component)
 > > 
 > > compile(renderer => 
 > >   <fragment>
@@ -88,7 +88,7 @@ Also I would like to write some stuff here to see what would happen if some othe
 > > ).save('dist/index.html');
 > > ```
 >
-> > :Tab title=card.tsx, icon=code
+> > :Tab title=component
 > > 
 > > ```tsx | card.tsx
 > > const style = `

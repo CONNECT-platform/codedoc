@@ -53,6 +53,27 @@ export const PageStyle = themedStyle<CodedocTheme>(theme => ({
       transition: 'opacity .15s',
     },
 
+    hr: {
+      background: 'none',
+      border: 'none',
+      margin: 64,
+      borderTop: `1px solid ${theme.light.border}`,
+
+      'body.dark-mode-animate &': {
+        transition: 'border-color .3s',
+      },
+
+      'body.dark &': {
+        borderColor: theme.dark.border,
+      },
+
+      '@media (prefers-color-scheme: dark)': {
+        'body:not(.dark-mode-animate) &': {
+          borderColor: theme.dark.border,
+        }
+      }
+    },
+
     blockquote: {
       margin: 0,
       padding: '16px 40px',

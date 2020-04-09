@@ -5,12 +5,26 @@ import { CodedocTheme } from '../../../theme';
 import { TocStyle } from './style';
 
 
-export function Toc(
+export interface ToCOptions {
+  search?: any;
+}
+
+
+export function ToC(
   this: ThemedComponentThis<CodedocTheme>,
-  _: any,
+  options: ToCOptions,
   renderer: RendererLike<any, any>,
   content: any
 ) {
   const classes = this.theme.classes(TocStyle);
-  return <div id="-codedoc-toc" class={classes.toc}>{content}</div>
+  return <div id="-codedoc-toc" class={classes.toc}>
+    <div class={classes.content}>
+      {content}
+    </div>
+    {options.search ? 
+      <div class={classes.search}>
+        {options.search}
+      </div> : ''
+    }
+  </div>
 }

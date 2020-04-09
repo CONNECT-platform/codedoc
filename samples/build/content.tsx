@@ -8,7 +8,8 @@ import { config } from '../config';
 import { Header } from './header';
 import { Footer } from './footer';
 import { Fonts } from '../../src/components/page/fonts';
-import { Toc } from '../../src/components/page/toc';
+import { ToC } from '../../src/components/page/toc';
+import { GithubSearch$ } from '../../src/components/misc/github/search';
 
 
 export function content(_content: HTMLElement, toc: HTMLElement, renderer: RendererLike<any, any>, file: File<string>) {
@@ -18,8 +19,12 @@ export function content(_content: HTMLElement, toc: HTMLElement, renderer: Rende
           meta={<Meta {...config.page.meta}/>}
           fonts={<Fonts {...config.page.fonts}/>}
           header={<Header {...config}/>}
-          toc={<Toc>{toc}</Toc>}
-          footer={<Footer {...config}/>}>
+          footer={<Footer {...config}/>}
+          toc={
+            <ToC search={
+                  config.misc?.github ? <GithubSearch$/> : false
+            }>{toc}</ToC>
+          }>
       {_content}
       <ContentNav content={_content}/>
     </Page>

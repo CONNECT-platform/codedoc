@@ -15,7 +15,7 @@ export const LoadingStyle = themedStyle<CodedocTheme>(theme => ({
     verticalAlign: 'middle',
     alignItems: 'center',
     justifyContent: 'center',
-    width: '1.5rem', height: '1.5rem',
+    width: '1.5em', height: '1.5em',
   },
 
   spinner: {

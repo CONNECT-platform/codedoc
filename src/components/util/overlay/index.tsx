@@ -14,15 +14,15 @@ const style = `
   color: white;
   opacity: 0;
   transition: opacity .1s;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 `;
 
 
 export function Overlay(this: ComponentThis, _: any, renderer: RendererLike<any, any>, content: any) {
   const container$ = 
     <div style={style} onclick={() => hide()}>
-      <div style='text-align: center; max-width: 75vw;max-height: 75vw; overflow: auto'>
+      <div style='text-align: center; max-width: calc(75vw - 32px);max-height: calc(75vw - 32px); overflow: auto; padding: 16px'>
         {content}
       </div>
     </div>;

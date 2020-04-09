@@ -9,7 +9,7 @@ export const FooterStyle = themedStyle<CodedocTheme>(theme => ({
     bottom: 0,
     left: 0,
     right: 0,
-    zIndex: 100,
+    zIndex: 102,
     height: 64,
     background: Color(theme.light.background).alpha(.85).toString(),
     display: 'flex',

@@ -29,7 +29,7 @@ export function tocHighlight() {
     }
   }
 
-  onReady(() => setTimeout(() => highlightCurrentToCLink(location.pathname), 10));
+  onReady(() => setTimeout(() => highlightCurrentToCLink(location.pathname), 200));
   window.addEventListener('navigation-start', event => highlightCurrentToCLink((event as any).detail.url));
 }
 

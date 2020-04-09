@@ -15,6 +15,7 @@ export const CollapseStyle = themedStyle<CodedocTheme>(theme => ({
 
       '& .text': {flexGrow: 1},
       '& .icon-font': {
+        marginRight: 32,
         'body.dark-mode-animate &': { transition: 'transform .15s', },
       },
 

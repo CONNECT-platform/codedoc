@@ -1,3 +1,4 @@
+import Color from 'color';
 import { themedStyle } from '@connectv/jss-theme';
 
 import { CodedocTheme } from '../../../theme';
@@ -6,11 +7,14 @@ import { CodedocTheme } from '../../../theme';
 export const TocStyle = themedStyle<CodedocTheme>(theme => ({
   toc: {
     position: 'fixed',
+    display: 'flex',
+    zIndex: 101,
+    flexDirection: 'column',
     left: 0,
     top: 0,
     bottom: 0,
-    padding: 32,
-    width: 'calc(50vw - 496px)',
+    paddingBottom: 64,
+    width: 'calc(50vw - 464px)',
     transform: 'translateX(-50vw)',
     borderRight: `1px solid ${theme.toc.light.border}`,
 
@@ -36,7 +40,7 @@ export const TocStyle = themedStyle<CodedocTheme>(theme => ({
     },
 
     '@media screen and (max-width: 1200px)': {
-      width: 'calc(100vw - 64px)',
+      width: '100vw',
       transform: 'translateX(-100vw)',
     },
 
@@ -55,7 +59,7 @@ export const TocStyle = themedStyle<CodedocTheme>(theme => ({
       textDecoration: 'none',
       borderRadius: 3,
       marginLeft: -8,
-      marginRight: -32,
+      marginRight: 1,
       padding: 8,
       border: `1px solid transparent`,
       borderRight: 'none',
@@ -66,16 +70,16 @@ export const TocStyle = themedStyle<CodedocTheme>(theme => ({
         background: theme.light.background,
         textDecoration: 'none',
 
-        'body.dark &': { background: theme.dark.background },
+        'body.dark &': { background: Color(theme.dark.background).lighten(.02).toString() },
         '@media (prefers-color-scheme: dark)': {
           'body:not(.dark-mode-animate) &': {
-            background: theme.dark.background,
+            background: Color(theme.dark.background).lighten(.02).toString(),
           },
         },
       },
 
       '&.current': {
-        marginRight: -33,
+        marginRight: 0,
         borderTopRightRadius: 0,
         borderBottomRightRadius: 0,
         borderColor: theme.toc.light.border,
@@ -83,7 +87,7 @@ export const TocStyle = themedStyle<CodedocTheme>(theme => ({
 
         'body.dark &': { 
           borderColor: theme.toc.dark.border,
-          background: theme.dark.background,
+          background: Color(theme.dark.background).lighten(.02).toString(),
         },
 
         '@media (prefers-color-scheme: dark)': {
@@ -100,5 +104,21 @@ export const TocStyle = themedStyle<CodedocTheme>(theme => ({
         },
       },
     },
-  }
+  },
+
+  content: {
+    flexGrow: 1,
+    overflow: 'auto',
+    padding: 32,
+    paddingRight: 0,
+    marginRight: -1,
+
+    '@media screen and (max-width: 1200px)': {
+      paddingRight: 32,
+      marginRight: 0,
+    },
+  },
+  search: {
+
+  },
 }));

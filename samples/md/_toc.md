@@ -1,22 +1,13 @@
 # General
 
 [Home](/)
-[Usage](/docs/doc)
 
 > :Collapse label=Stuff
 >
-> [Home](/)
-> [Usage](/docs/doc)
->
->
-> > :Collapse label=Docs
+> > :Collapse label=Deeper
 > >
-> > [Overview](/docs/doc) 
-> > [Errors](/)
->
-> > :Collapse label=Technical Overview, default=open
-> >
-> > [Specs](/)
-> > [Considerations](/docs/doc)
+> > [Usage](/docs/doc)
+> > [Space Shit](/)
+
 
 

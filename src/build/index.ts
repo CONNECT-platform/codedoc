@@ -10,7 +10,7 @@ import { bundle } from './bundle';
 import { ContentBuilder } from './types';
 import { content } from './content';
 import { styles } from './styles';
-import { buildToC } from './toc';
+import { loadToC } from './toc';
 
 
 export async function build(
@@ -24,7 +24,7 @@ export async function build(
   const _bundle = bundle(config, themeInstaller);
   const _styles = styles(config);
 
-  const _toc = await buildToC(config, _styles);
+  const _toc = await loadToC(config);
 
   return new Promise(resolve => {
     files('.', { root: config.src.base })

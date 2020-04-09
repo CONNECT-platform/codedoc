@@ -26,6 +26,7 @@ import { FontsOptions } from './components/page/fonts';
 import { ToCHeading } from './components/page/toc/heading';
 import { smoothLoading$ } from './util/smooth-loading';
 import { tocHighlight$ } from './components/page/toc/toc-highlight';
+import { ToCPrevNext$ } from './components/page/toc/prevnext';
 
 
 export interface SourceConfig {
@@ -143,6 +144,7 @@ export const DefaultConfig: CodedocConfig = {
       Button, Buttons, CopyButton,
       DarkLight, InDark, InLight,
       GithubButton, Watermark,
+      ToCPrevNext: ToCPrevNext$,
     })
   },
   tocMarkdown: {

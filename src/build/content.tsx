@@ -8,7 +8,7 @@ import { ContentBuilder } from './types';
 
 export function content(
   builder: ContentBuilder,
-  toc: HTMLElement,
+  toc: string,
   config: CodedocConfig,
   ...plugins: (Plugin<any, any> | PluginBuilder<any, any>)[]
 ) {
@@ -16,7 +16,7 @@ export function content(
     (md: string, renderer, file) => 
       builder(
         marked(md, config.markdown)(renderer), 
-        toc.cloneNode(true) as HTMLElement, 
+        marked(toc, config.tocMarkdown)(renderer), 
         renderer, 
         file
       ),

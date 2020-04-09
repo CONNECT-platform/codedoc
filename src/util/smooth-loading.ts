@@ -1,20 +1,6 @@
 import { funcTransport, onReady } from '@connectv/sdh/transport';
 
-
-function polyfillCustomEvent() {
-  if ( typeof window.CustomEvent === "function" ) return false; //If not IE
-
-  function CustomEvent ( event: any, params: any ) {
-    params = params || { bubbles: false, cancelable: false, detail: undefined };
-    var evt = document.createEvent( 'CustomEvent' );
-    evt.initCustomEvent( event, params.bubbles, params.cancelable, params.detail );
-    return evt;
-   }
-
-  CustomEvent.prototype = window.Event.prototype;
-
-  (window as any).CustomEvent = CustomEvent;
-}
+import { polyfillCustomEvent } from './custom-event';
 
 
 function navigate(url: string, push=true) {
@@ -25,6 +11,7 @@ function navigate(url: string, push=true) {
     if (window.innerWidth <= 1200 && (window as any).codedocToggleToC)
       (window as any).codedocToggleToC(false);
 
+    if (push) history.pushState(url, '', url);
     window.dispatchEvent(new CustomEvent('navigation-start', { detail: { url } }));
     fetch(url)
     .then(response => response.text())
@@ -41,7 +28,6 @@ function navigate(url: string, push=true) {
   
         setTimeout(() => container.style.opacity = '1', 10);
         window.dispatchEvent(new CustomEvent('navigation', { detail: { url } }));
-        if (push) history.pushState(url, '', url);
       }, 150);
     });
   }

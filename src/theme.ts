@@ -70,7 +70,7 @@ export interface CodedocTheme {
 export const DefaultCodeTheme: CodeTheme = {
   background: '#212121',
   text: '#e0e0e0',
-  shadow: '0 6px 24px rgba(0, 0, 0, .25)',
+  shadow: '0 6px 12px rgba(0, 0, 0, .25)',
 
   keyword: '#7187ff',
   string: '#69f0ae',
@@ -102,7 +102,7 @@ export const DefaultCodeTheme: CodeTheme = {
 export const DefaultCodeThemeLight: CodeTheme = {
   background: '#eeeeee',
   text: '#616161',
-  shadow: '0 6px 24px #9e9e9e',
+  shadow: '0 6px 12px #9e9e9e',
 
   keyword: '#7187ff',
   string: '#639a67',
@@ -154,7 +154,7 @@ export const DefaultTheme: CodedocTheme = {
     dark: { 
       ... DefaultCodeTheme, 
       background: '#000000',
-      shadow: '0 6px 24px #121212',
+      shadow: '0 6px 12px #121212',
       lineHover: '#1a1a1a',
       lineHightlight: 'rgb(28, 29, 48)'
     }

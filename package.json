@@ -1,5 +1,5 @@
 {
-  "name": "@connectv/codedoc",
+  "name": "@codedoc/core",
   "version": "0.0.1",
   "description": "Create beautiful modern documentation websites.",
   "main": "index.js",

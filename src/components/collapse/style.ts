@@ -1,3 +1,4 @@
+import Color from 'color';
 import { themedStyle } from '@connectv/jss-theme';
 
 import { CodedocTheme } from '../../theme';
@@ -39,15 +40,15 @@ export const CollapseStyle = themedStyle<CodedocTheme>(theme => ({
       visibility: 'hidden',
       transition: 'opacity .3s',
       paddingLeft: 16,
-      borderLeft: `2px solid ${theme.light.border}`,
+      borderLeft: `2px solid ${Color(theme.light.border).alpha(.5).toString()}`,
 
       'body.dark-mode-animate &': {
         transition: 'transform .15s, opacity .15s, border-color .3s'
       },
 
-      'body.dark &': { borderColor: theme.dark.border },
+      'body.dark &': { borderColor: Color(theme.dark.border).alpha(.5).toString() },
       '@media (prefers-color-scheme: dark)': {
-        'body:not(.dark-mode-animate) &': { borderColor: theme.dark.border },
+        'body:not(.dark-mode-animate) &': { borderColor: Color(theme.dark.border).alpha(.5).toString() },
       },
     },
 

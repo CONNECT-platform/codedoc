@@ -10,6 +10,8 @@ function navigate(url: string, push=true) {
     if (window.innerWidth <= 1200 && (window as any).codedocToggleToC)
       (window as any).codedocToggleToC(false);
 
+    if (push && location.pathname === url) return;
+
     container.style.opacity = '0';
     if (push) history.pushState(url, '', url);
     window.dispatchEvent(new CustomEvent('navigation-start', { detail: { url } }));

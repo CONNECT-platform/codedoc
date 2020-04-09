@@ -15,6 +15,8 @@ export const PageStyle = themedStyle<CodedocTheme>(theme => ({
       overflowX: 'hidden',
       margin: 0,
       padding: 0,
+      backfaceVisibility: 'hidden',
+      WebkitBackfaceVisibility: 'hidden',
 
       '&.dark-mode-animate': {
         transition: 'color .3s, background .3s',

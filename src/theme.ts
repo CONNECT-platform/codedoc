@@ -145,7 +145,7 @@ export const DefaultTheme: CodedocTheme = {
     primaryContrast: '#ffffff',
     background: '#212121',
     text: '#eeeeee',
-    border: '#424242',
+    border: '#313131',
   },
 
   code: {

@@ -21,15 +21,15 @@ export function tocHighlight() {
       });
 
       if (curr$) {
-        curr$.dispatchEvent(new CustomEvent('collapse-open', {bubbles: true}));
         if (curr$ !== current$) current$?.dispatchEvent(new CustomEvent('collapse-close', {bubbles: true}));
+        curr$.dispatchEvent(new CustomEvent('collapse-open', {bubbles: true}));
 
         current$ = curr$;
       }
     }
   }
 
-  onReady(() => highlightCurrentToCLink(location.pathname));
+  onReady(() => setTimeout(() => highlightCurrentToCLink(location.pathname), 10));
   window.addEventListener('navigation-start', event => highlightCurrentToCLink((event as any).detail.url));
 }
 

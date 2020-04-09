@@ -1,9 +1,8 @@
 # General
 
-[Home](/)
-
 > :Collapse label=Stuff
 >
+> [Home](/)
 > > :Collapse label=Deeper
 > >
 > > [Usage](/docs/doc)

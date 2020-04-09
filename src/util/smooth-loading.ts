@@ -7,10 +7,10 @@ function navigate(url: string, push=true) {
   const container = document.getElementById('-codedoc-container') as HTMLElement;
 
   if (container) {
-    container.style.opacity = '0';
     if (window.innerWidth <= 1200 && (window as any).codedocToggleToC)
       (window as any).codedocToggleToC(false);
 
+    container.style.opacity = '0';
     if (push) history.pushState(url, '', url);
     window.dispatchEvent(new CustomEvent('navigation-start', { detail: { url } }));
     fetch(url)

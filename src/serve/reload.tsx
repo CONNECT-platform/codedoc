@@ -1,4 +1,7 @@
 import { RendererLike, ComponentThis, ref } from '@connectv/html';
+import { interval, of } from 'rxjs';
+import { ajax } from 'rxjs/ajax';
+import { switchMap, tap, catchError } from 'rxjs/operators';
 import { funcTransport } from '@connectv/sdh/transport';
 
 import { StatusCheckURL, StatusBuildingResponse, StatusReadyResponse } from './config';
@@ -43,20 +46,24 @@ export function reloadOnChange() {
     }
   }
 
-  setInterval(() => {
-    const xhr = new XMLHttpRequest();
-    xhr.open('GET', StatusCheckURL);
-    xhr.onload = () => {
-      if (xhr.responseText === StatusBuildingResponse) buildingMode();
-      else if (xhr.responseText === StatusReadyResponse && building) {
-        location.reload();
+  interval(500).pipe(
+    switchMap(() => ajax({
+        url: StatusCheckURL,
+        responseType: 'text',
+        timeout: 200,
+      })
+      .pipe(catchError(() => of(buildingMode())))
+    ),
+    tap(result => {
+      if (result) {
+        if (result.response === StatusBuildingResponse) buildingMode();
+        else if (result.response === StatusReadyResponse && building) {
+          location.reload();
+        }
       }
-    };
-    xhr.onerror = buildingMode;
-    xhr.ontimeout = buildingMode;
-    xhr.timeout = 200;
-    xhr.send();
-  }, 500);
+    }),
+  )
+  .subscribe();
 }
 
 

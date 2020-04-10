@@ -1,6 +1,6 @@
-import { state, sink, pipe, pin, map, pack, emission, filter } from '@connectv/core';
+import { state, pipe, pin, map, pack, emission, filter } from '@connectv/core';
 import { debounceTime, startWith, share } from 'rxjs/operators';
-import { RendererLike, ref } from '@connectv/html';
+import { RendererLike, ref, List } from '@connectv/html';
 import { ThemedComponentThis } from '@connectv/jss-theme';
 
 import { CodedocTheme } from '../../../../../theme';
@@ -23,11 +23,13 @@ export function ToCSearchOverlay(
   const classes = this.theme.classes(ToCSearchOverlayStyle);
   const holder = ref<HTMLElement>();
   const input = ref<HTMLInputElement>();
+  const toc = ref<HTMLElement>();
 
   this.track({
     bind() {
       input.$.focus();
       holder.$.classList.add('active');
+      toc.resolve(document.getElementById('-codedoc-toc') || <fragment/>);
     }
   });
 
@@ -56,6 +58,7 @@ export function ToCSearchOverlay(
       else return !_query || _query.trim().length == 0 || _results.length > 0;
     }));
 
+  const tocLinkTitle = (link: string) => toc.$.querySelector(`a[href="${link}"]`)?.textContent || link;
 
   return <div class={classes.overlay} _ref={holder} onkeydown={event => {
     if ((event as KeyboardEvent).key === 'Escape')
@@ -69,6 +72,13 @@ export function ToCSearchOverlay(
       <div class={classes.results}>
         <div class="loading" hidden={loading.to(map((_: boolean) => !_))}><Loading/></div>
         <div class="empty" hidden={hideEmpty}>No Results!</div>
+        <div hidden={loading}>
+          <List of={results} each={result => 
+            <a href={result} onclick={() => holder.$.remove()}>
+              {result.to(map(tocLinkTitle))}
+            </a>
+          } />
+        </div>
       </div>
     </div>
   </div>

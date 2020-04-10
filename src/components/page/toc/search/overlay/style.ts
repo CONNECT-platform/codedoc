@@ -59,7 +59,27 @@ export const ToCSearchOverlayStyle = themedStyle<CodedocTheme>(theme => ({
       fontSize: 24,
       fontStyle: 'italic',
       opacity: .25,
-    }
+    },
+
+    '& a': {
+      display: 'block',
+      color: 'white !important',
+      textDecoration: 'none !important',
+      padding: 16,
+      fontSize: 24,
+      margin: '0 -16',
+      borderRadius: 3,
+      opacity: .35,
+      background: 'transparent',
+      borderBottom: '1px solid rgba(255, 255, 255, .25)',
+      cursor: 'pointer',
+      transition: 'background .15s, opacity .15s, border-color .15s !important',
+      '&:hover': {
+        opacity: 1,
+        background: 'rgba(255, 255, 255, .1)',
+        borderColor: 'transparent',
+      },
+    },
   },
 
   close: {

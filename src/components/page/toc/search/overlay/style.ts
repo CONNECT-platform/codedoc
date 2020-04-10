@@ -14,6 +14,9 @@ export const ToCSearchOverlayStyle = themedStyle<CodedocTheme>(theme => ({
     background: 'rgba(0, 0, 0, .65)',
     backdropFilter: 'blur(12px)',
     WebkitBackdropFilter: 'blur(12px)',
+    opacity: 0,
+    transition: 'opacity .15s',
+    '&.active': {opacity: 1},
   },
 
 
@@ -48,9 +51,8 @@ export const ToCSearchOverlayStyle = themedStyle<CodedocTheme>(theme => ({
   results: {
     '& .loading': {
       textAlign: 'center',
-      marginTop: 96,
-      fontSize: 64,
-      opacity: .25,
+      marginTop: 128,
+      fontSize: 24,
     },
 
     '& .empty': {

@@ -3,6 +3,9 @@ import { funcTransport, onReady } from '@connectv/sdh/transport';
 import { polyfillCustomEvent } from './custom-event';
 
 
+let lastpath: string | undefined = undefined;
+
+
 function navigate(url: string, push=true) {
   const container = document.getElementById('-codedoc-container') as HTMLElement;
 
@@ -10,10 +13,14 @@ function navigate(url: string, push=true) {
     if (window.innerWidth <= 1200 && (window as any).codedocToggleToC)
       (window as any).codedocToggleToC(false);
 
-    if (push && location.pathname === url) return;
+    if (push && url === location.pathname) return;
 
     container.style.opacity = '0';
-    if (push) history.pushState(url, '', url);
+    if (push) {
+      history.pushState(url, '', url);
+      lastpath = location.pathname;
+    }
+
     window.dispatchEvent(new CustomEvent('navigation-start', { detail: { url } }));
     fetch(url)
     .then(response => response.text())
@@ -33,13 +40,17 @@ function navigate(url: string, push=true) {
       }, 150);
     });
   }
-  else window.location.href = url;
+  else {
+    window.location.href = url;
+    lastpath = location.pathname;
+  }
 }
 
 
 export function smoothLoading() {
   polyfillCustomEvent();
   onReady(() => {
+    lastpath = location.pathname;
     if (!(window as any).__smooth_loading_plugged) {
       (window as any).__smooth_loading_plugged = true;
       document.addEventListener('click', event => {
@@ -48,7 +59,7 @@ export function smoothLoading() {
         while (target && !(target as any).href) {
           target = target.parentNode as HTMLElement;
         }
-      
+
         if (target && target.getAttribute('href')?.startsWith('/')) {
           const url = target.getAttribute('href') || '';
           event.preventDefault();
@@ -58,7 +69,11 @@ export function smoothLoading() {
       });
 
       const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
       window.addEventListener('popstate', event => {
+        if (location.pathname === lastpath) return;
+
+        lastpath = location.pathname;
         if (isSafari) window.location.href = event.state || '/';
         else navigate(event.state || '/', false);
       });

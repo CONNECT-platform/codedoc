@@ -1,6 +1,6 @@
 import { state, sink, pipe, pin, map, pack, emission, filter } from '@connectv/core';
-import { debounceTime, startWith } from 'rxjs/operators';
-import { RendererLike, ref, rl, toggleList } from '@connectv/html';
+import { debounceTime, startWith, share } from 'rxjs/operators';
+import { RendererLike, ref } from '@connectv/html';
 import { ThemedComponentThis } from '@connectv/jss-theme';
 
 import { CodedocTheme } from '../../../../../theme';
@@ -10,6 +10,8 @@ import { Loading } from '../../../../util/loading';
 
 export interface ToCSearchOverlayOptions {
   placeholder: string;
+  query: any;
+  results: any;
 }
 
 
@@ -21,24 +23,31 @@ export function ToCSearchOverlay(
   const classes = this.theme.classes(ToCSearchOverlayStyle);
   const holder = ref<HTMLElement>();
   const input = ref<HTMLInputElement>();
-  const query = state('');
-  const loading = state(false);
-
-  const results = this.expose.in('results', pin()).to(pipe(startWith(emission([]))));
-  const queryOut = this.expose.out('query', pin());
 
   this.track({
     bind() {
       input.$.focus();
+      holder.$.classList.add('active');
     }
   });
 
+  const query = state('');
+  const loading = state(false);
+
+  const queryOut = this.expose.out('query');
+  const results = this.expose.in('results', pin())
+    .to(pipe(share()))
+    .to(pipe(startWith(emission([]))))
+  ;
+
   query
     .to(filter((q: string) => q && q.trim().length > 0))
-    .to(sink(() => loading.value = true))
-    .to(pipe(debounceTime(1000)))
-    .to(sink(() => loading.value = false))
-    .to(queryOut);
+    .to(
+      loading.from(map(() => true)),
+      queryOut.from(pipe(debounceTime(1000)))
+    );
+
+  results.to(map(() => false)).to(loading);
 
   const hideEmpty =
     pack(query, results, loading)
@@ -58,7 +67,7 @@ export function ToCSearchOverlay(
         <div class={classes.close} onclick={() => holder.$.remove()}/>
       </div>
       <div class={classes.results}>
-        <div class="loading" hidden={loading.to(map((_: any) => !_))}><Loading/></div>
+        <div class="loading" hidden={loading.to(map((_: boolean) => !_))}><Loading/></div>
         <div class="empty" hidden={hideEmpty}>No Results!</div>
       </div>
     </div>

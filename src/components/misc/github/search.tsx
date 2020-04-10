@@ -1,4 +1,5 @@
-import { RendererLike } from '@connectv/html';
+import { pin, map, sink } from '@connectv/core';
+import { RendererLike, ComponentThis } from '@connectv/html';
 import { transport } from '@connectv/sdh/transport';
 import { ToCSearchBtn } from '../../page/toc/search/button';
 
@@ -11,8 +12,14 @@ export interface SearchOptions {
 }
 
 
-export function GithubSearch(options: SearchOptions, renderer: RendererLike<any, any>) {
-  return <ToCSearchBtn label={options.label}/>;
+export function GithubSearch(this: ComponentThis, options: SearchOptions, renderer: RendererLike<any, any>) {
+  const query = pin();
+  const results = query.to(map((q: string) => {
+    console.log('Searching ...');
+    return [];
+  }));
+
+  return <ToCSearchBtn label={options.label} query={query} results={results}/>;
 }
 
 

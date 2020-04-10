@@ -27,6 +27,7 @@ import { ToCHeading } from './components/page/toc/heading';
 import { smoothLoading$ } from './util/smooth-loading';
 import { tocHighlight$ } from './components/page/toc/toc-highlight';
 import { ToCPrevNext$ } from './components/page/toc/prevnext';
+import { postNavSearch$ } from './util/post-nav-search';
 
 
 export interface SourceConfig {
@@ -120,6 +121,7 @@ export const DefaultConfig: CodedocConfig = {
     init: [
       codeSelection$, sameLineLengthInCodes$, codeLineHints$, codeLineRef$, smartCopy$,
       copyHeadings$, contentNavHighlight$, deferredIframes$, smoothLoading$, tocHighlight$,
+      postNavSearch$,
     ],
   },
 

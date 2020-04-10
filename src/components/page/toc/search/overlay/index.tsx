@@ -74,7 +74,10 @@ export function ToCSearchOverlay(
         <div class="empty" hidden={hideEmpty}>No Results!</div>
         <div hidden={loading}>
           <List of={results} each={result => 
-            <a href={result} onclick={() => holder.$.remove()}>
+            <a href={result} onclick={() => {
+              holder.$.remove();
+              window.dispatchEvent(new CustomEvent('on-navigation-search', {detail: {query: query.value}}));
+            }}>
               {result.to(map(tocLinkTitle))}
             </a>
           } />

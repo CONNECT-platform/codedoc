@@ -40,6 +40,20 @@ export function ToCSearchOverlay(
   const results = this.expose.in('results', pin())
     .to(pipe(share()))
     .to(pipe(startWith(emission([]))))
+    .to(map((links: string[]) => {
+      const res = links.map(l => ({link: l, title: tocLinkTitle(l)}));
+
+      if (query.value.length > 0) {
+        toc.$.querySelectorAll('a').forEach(a$ => {
+          if (a$.textContent?.toLowerCase().includes(query.value.toLowerCase())
+            && a$.getAttribute('href')
+            && !links.includes(a$.getAttribute('href') || '')
+          ) res.push({ link: a$.getAttribute('href') || '', title: a$.textContent })
+        });
+      }
+
+      return res;
+    }))
   ;
 
   query
@@ -74,12 +88,10 @@ export function ToCSearchOverlay(
         <div class="empty" hidden={hideEmpty}>No Results!</div>
         <div hidden={loading}>
           <List of={results} each={result => 
-            <a href={result} onclick={() => {
+            <a href={result.sub('link')} onclick={() => {
               holder.$.remove();
               window.dispatchEvent(new CustomEvent('on-navigation-search', {detail: {query: query.value}}));
-            }}>
-              {result.to(map(tocLinkTitle))}
-            </a>
+            }}>{result.sub('title')}</a>
           } />
         </div>
       </div>

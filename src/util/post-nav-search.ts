@@ -6,7 +6,6 @@ export function postNavSearch() {
 
   window.addEventListener('on-navigation-search', (event: any) => {
     query = event.detail.query;
-    console.log('SETTING QUERY:: ' + query);
   });
 
   window.addEventListener('navigation', () => {

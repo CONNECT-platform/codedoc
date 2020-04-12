@@ -1,4 +1,4 @@
-import { configuration } from '../src/config';
+import { configuration } from '../src';
 
 import { theme } from './theme';
 

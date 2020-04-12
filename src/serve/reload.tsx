@@ -5,7 +5,7 @@ import { switchMap, tap, catchError } from 'rxjs/operators';
 import { funcTransport } from '@connectv/sdh/transport';
 
 import { StatusCheckURL, StatusBuildingResponse, StatusReadyResponse } from './config';
-import { getRenderer } from '../util/renderer';
+import { getRenderer } from '../transport/renderer';
 import { Loading } from '../components/util/loading';
 
 

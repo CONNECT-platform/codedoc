@@ -1,4 +1,4 @@
-import { createTheme } from '../src/theme';
+import { createTheme } from '../src/transport';
 
 
 export const theme = createTheme({

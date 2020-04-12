@@ -1,7 +1,5 @@
 import { CodedocConfig } from '../../src/config';
-import { Footer as _Footer } from '../../src/components/page/footer';
-import { GitterToggle$ } from '../../src/components/misc/gitter';
-import { Watermark } from '../../src/components/misc/watermark';
+import { Footer as _Footer, GitterToggle$, Watermark} from '../../src/components';
 
 
 export function Footer(config: CodedocConfig, renderer: any) {

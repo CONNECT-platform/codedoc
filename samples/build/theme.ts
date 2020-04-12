@@ -1,6 +1,6 @@
 import { funcTransport } from '@connectv/sdh/transport';
 
-import { useTheme } from '../../src/util/use-theme';
+import { useTheme } from '../../src/transport/use-theme';
 
 import { theme } from '../theme';
 

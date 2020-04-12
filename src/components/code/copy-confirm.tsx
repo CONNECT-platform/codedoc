@@ -1,4 +1,4 @@
-import { getRenderer } from '../../util/renderer';
+import { getRenderer } from '../../transport/renderer';
 import { Overlay } from '../util/overlay';
 
 

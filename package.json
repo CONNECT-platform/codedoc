@@ -1,18 +1,31 @@
 {
   "name": "@codedoc/core",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Create beautiful modern documentation websites.",
-  "main": "index.js",
+  "main": "dist/es5/index.js",
+  "module": "dist/es6/index.js",
+  "types": "dist/es6/index.d.ts",
   "scripts": {
     "start": "ts-node-dev -T --watch samples samples/serve",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-es5": "tsc -p conf/typescript/es5.json",
+    "build-es6": "tsc -p conf/typescript/es6.json",
+    "build": "npm run build-es5 && npm run build-es6"
   },
+  "files": [
+    "dist/es6",
+    "dist/es5",
+    "components",
+    "transport"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/CONNECT-platform/codedoc.git"
   },
   "keywords": [
     "documentation",
+    "docs",
+    "code documentation",
     "markdown",
     "jamstack",
     "github-pages"
@@ -39,11 +52,11 @@
     "jss-preset-default": "^10.1.1",
     "prismjs": "^1.19.0",
     "rxline": "^0.9.2",
-    "select": "^1.1.2",
-    "ts-node-dev": "^1.0.0-pre.44"
+    "select": "^1.1.2"
   },
   "devDependencies": {
     "ts-node": "^8.6.2",
+    "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.8.3"
   }
 }

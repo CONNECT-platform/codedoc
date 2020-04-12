@@ -3,8 +3,8 @@ import { Bundle } from '@connectv/sdh';
 import { TransportedFunc } from '@connectv/sdh/dist/es6/dynamic/transport/index';
 
 import { CodedocConfig } from '../config';
-import { getRenderer$ } from '../util/renderer';
-import { initJss$ } from '../util/setup-jss';
+import { getRenderer$ } from '../transport/renderer';
+import { initJss$ } from '../transport/setup-jss';
 
 
 export function bundle(config: CodedocConfig, themeInstaller: TransportedFunc<void>) {

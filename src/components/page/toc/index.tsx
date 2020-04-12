@@ -28,3 +28,8 @@ export function ToC(
     }
   </div>
 }
+
+export * from './heading';
+export * from './toggle';
+export * from './search';
+export * from './prevnext';

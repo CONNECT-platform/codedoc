@@ -2,8 +2,8 @@ import { File } from 'rxline/fs';
 import { PartialOptions as MarkdownOptions, quotedComponents } from '@connectv/marked';
 import { TransportedFunc } from '@connectv/sdh/dist/es6/dynamic/transport/index';
 
-import { CodedocTheme, ThemeExtension, DefaultTheme, createTheme } from './theme';
-import { guessTitle } from './util/guess-title';
+import { CodedocTheme, DefaultTheme } from './theme';
+import { guessTitle } from './transport/guess-title';
 
 import { Code } from './components/code';
 import { Heading } from './components/heading';
@@ -20,14 +20,14 @@ import { codeLineRef$ } from './components/code/line-ref';
 import { smartCopy$ } from './components/code/smart-copy';
 import { copyHeadings$ } from './components/heading/copy-headings';
 import { contentNavHighlight$ } from './components/page/contentnav/highlight';
-import { deferredIframes$ } from './util/deferred-iframe';
+import { deferredIframes$ } from './transport/deferred-iframe';
 import { MetaOptions } from './components/page/meta';
 import { FontsOptions } from './components/page/fonts';
 import { ToCHeading } from './components/page/toc/heading';
-import { smoothLoading$ } from './util/smooth-loading';
+import { smoothLoading$ } from './transport/smooth-loading';
 import { tocHighlight$ } from './components/page/toc/toc-highlight';
 import { ToCPrevNext$ } from './components/page/toc/prevnext';
-import { postNavSearch$ } from './util/post-nav-search';
+import { postNavSearch$ } from './transport/post-nav-search';
 
 
 export interface SourceConfig {

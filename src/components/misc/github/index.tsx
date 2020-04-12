@@ -31,3 +31,4 @@ export function GithubButton(options: GithubBtnOptions, renderer: RendererLike<a
 
 
 export * from './types';
+export * from './search';

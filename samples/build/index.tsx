@@ -1,4 +1,4 @@
-import { build } from '../../src/build';
+import { build } from '../../src';
 
 import { config } from '../config';
 import { installTheme$ } from './theme';

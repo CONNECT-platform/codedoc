@@ -1,6 +1,6 @@
 import { funcTransport, onReady } from '@connectv/sdh/transport';
 
-import { polyfillCustomEvent } from '../../../util/custom-event';
+import { polyfillCustomEvent } from '../../../transport/custom-event';
 
 
 export function tocHighlight() {

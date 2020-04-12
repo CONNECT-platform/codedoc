@@ -1,5 +1,5 @@
 import { funcTransport } from '@connectv/sdh/transport';
-import { copyToClipboard } from '../../util/clipboard';
+import { copyToClipboard } from '../../transport/clipboard';
 import { copyConfirm } from './copy-confirm';
 
 

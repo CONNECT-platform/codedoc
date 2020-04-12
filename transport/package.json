@@ -1,0 +1,5 @@
+{
+  "main": "../dist/es5/transport/index.js",
+  "module": "../dist/es6/transport/index.js",
+  "types": "dist/es6/transport/index.d.ts"
+}

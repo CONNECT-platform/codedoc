@@ -2,7 +2,7 @@ import { Subject, fromEvent } from 'rxjs';
 import { mapTo } from 'rxjs/operators';
 import { funcTransport, onReady } from '@connectv/sdh/transport';
 
-import { getRenderer } from '../../../util/renderer';
+import { getRenderer } from '../../../transport/renderer';
 import { HintBox } from './component';
 
 

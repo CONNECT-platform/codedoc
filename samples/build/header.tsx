@@ -1,7 +1,5 @@
 import { CodedocConfig } from '../../src/config';
-import { Header as _Header } from '../../src/components/page/header';
-import { GithubButton } from '../../src/components/misc/github';
-import { Watermark } from '../../src/components/misc/watermark';
+import { Header as _Header, GithubButton, Watermark } from '../../src/components';
 
 
 export function Header(config: CodedocConfig, renderer: any) {

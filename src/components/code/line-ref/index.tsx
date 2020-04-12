@@ -2,7 +2,7 @@ import { Subject, fromEvent } from 'rxjs';
 import { mapTo } from 'rxjs/operators';
 import { funcTransport, onReady } from '@connectv/sdh/transport';
 
-import { getRenderer } from '../../../util/renderer';
+import { getRenderer } from '../../../transport/renderer';
 import { RefBox } from './component';
 
 
@@ -21,7 +21,7 @@ export function initCodeLineRef() {
   onReady(() => {
     const renderer = getRenderer();
     const target = new Subject<HTMLElement | undefined>();
-  
+
     renderer.render(<RefBox target={target}/>).on(document.body);
 
     const _exec = () => {

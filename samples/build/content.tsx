@@ -1,15 +1,10 @@
 import { RendererLike } from '@connectv/html';
 import { File } from 'rxline/fs';
-import { Page } from '../../src/components/page';
-import { Meta } from '../../src/components/page/meta';
-import { ContentNav } from '../../src/components/page/contentnav';
+import { Page, Meta, ContentNav, Fonts, ToC, GithubSearch$ } from '../../src/components';
 
 import { config } from '../config';
 import { Header } from './header';
 import { Footer } from './footer';
-import { Fonts } from '../../src/components/page/fonts';
-import { ToC } from '../../src/components/page/toc';
-import { GithubSearch$ } from '../../src/components/misc/github/search';
 
 
 export function content(_content: HTMLElement, toc: HTMLElement, renderer: RendererLike<any, any>, file: File<string>) {

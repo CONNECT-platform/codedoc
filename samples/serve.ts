@@ -1,5 +1,5 @@
 import { join } from 'path';
-import { serve } from '../src/serve';
+import { serve } from '../src';
 
 import { config } from './config';
 import { content } from './build/content';

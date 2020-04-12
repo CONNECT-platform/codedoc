@@ -1,7 +1,7 @@
 import { funcTransport, onReady } from '@connectv/sdh/transport';
 
-import { getRenderer } from '../../util/renderer';
-import { copyToClipboard } from '../../util/clipboard';
+import { getRenderer } from '../../transport/renderer';
+import { copyToClipboard } from '../../transport/clipboard';
 import { Overlay } from '../util/overlay';
 import { headingLink } from './heading-link';
 

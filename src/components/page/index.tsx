@@ -54,3 +54,11 @@ export function Page(
     </body>
   </html>;
 }
+
+
+export * from './meta';
+export * from './fonts';
+export * from './contentnav';
+export * from './header';
+export * from './footer';
+export * from './toc';

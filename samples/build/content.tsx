@@ -13,6 +13,10 @@ export function content(_content: HTMLElement, toc: HTMLElement, renderer: Rende
           favicon={config.page.favicon}
           meta={<Meta {...config.page.meta}/>}
           fonts={<Fonts {...config.page.fonts}/>}
+
+          scripts={config.page.scripts}
+          stylesheets={config.page.stylesheets}
+
           header={<Header {...config}/>}
           footer={<Footer {...config}/>}
           toc={

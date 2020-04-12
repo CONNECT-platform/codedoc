@@ -1,11 +1,11 @@
 > :DarkLight
 > > :InLight
 > >
-> > ![header](../repo-banner.svg)
+> > ![header](/repo-banner.svg)
 >
 > > :InDark
 > >
-> > ![header](../repo-banner-dark.svg)
+> > ![header](/repo-banner-dark.svg)
 
 # For Musti
 

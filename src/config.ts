@@ -88,6 +88,8 @@ export interface CodedocConfig {
     favicon?: string;
     meta?: MetaOptions;
     fonts?: FontsOptions;
+    scripts?: string[];
+    stylesheets?: string[];
   };
   theme: CodedocTheme;
   markdown: MarkdownOptions<any, any>;
@@ -170,6 +172,8 @@ export interface ConfigOverride {
     favicon?: string;
     meta?: MetaOptions;
     fonts?: FontsOptions;
+    scripts?: string[];
+    stylesheets?: string[];
   }
   theme?: CodedocTheme;
   markdown?: MarkdownOptions<any, any>;
@@ -193,6 +197,8 @@ export function configuration(override: ConfigOverride): CodedocConfig {
     if (override.page.favicon) res.page.favicon = override.page.favicon;
     if (override.page.meta) res.page.meta = override.page.meta;
     if (override.page.fonts) res.page.fonts = override.page.fonts;
+    if (override.page.scripts) res.page.scripts = override.page.scripts;
+    if (override.page.stylesheets) res.page.stylesheets = override.page.stylesheets;
   }
 
   if (override.dev) Object.assign(res.dev, override.dev);

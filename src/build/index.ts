@@ -11,6 +11,7 @@ import { ContentBuilder } from './types';
 import { content } from './content';
 import { styles } from './styles';
 import { loadToC } from './toc';
+import { namespace } from './namespace';
 
 
 export async function build(
@@ -36,6 +37,7 @@ export async function build(
         mapExt(() => '.html'),
         mapRoot(() => config.dest.html),
         post(_bundle.collect()),
+        post(namespace(config)),
         save(),
       )
       .process(concurrently)

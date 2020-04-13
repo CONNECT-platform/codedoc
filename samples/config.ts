@@ -11,6 +11,7 @@ export const config = configuration({
     bundle: 'assets',
     styles: 'assets',
     html: 'dist',
+    namespace: '/my-project',
   },
   theme,
   page: {

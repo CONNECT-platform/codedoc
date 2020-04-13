@@ -9,7 +9,7 @@ import { initJss$ } from '../transport/setup-jss';
 
 export function bundle(config: CodedocConfig, themeInstaller: TransportedFunc<void>) {
   const bundle = new Bundle(
-    config.dest.namespace + '/' + config.dest.bundle + '/codedoc-bundle.js',
+    '/' + config.dest.bundle + '/codedoc-bundle.js',
     join(config.dest.assets, config.dest.bundle, 'codedoc-bundle.js')
   );
   bundle.init(initJss$);

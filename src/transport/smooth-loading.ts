@@ -7,6 +7,7 @@ let lastpath: string | undefined = undefined;
 
 
 function navigate(url: string, push=true) {
+  console.log('--> NAV:: ' + url);
   const container = document.getElementById('-codedoc-container') as HTMLElement;
 
   if (container) {
@@ -74,8 +75,9 @@ export function smoothLoading() {
         if (location.pathname === lastpath) return;
 
         lastpath = location.pathname;
-        if (isSafari) window.location.href = event.state || '/';
-        else navigate(event.state || '/', false);
+        console.log(event);
+        if (isSafari) window.location.href = event.state || window.location.href;
+        else navigate(event.state || window.location.href, false);
       });
     }
   });

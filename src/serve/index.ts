@@ -32,10 +32,11 @@ export function serve(
     else res.send(StatusReadyResponse);
   });
 
-  app.use(express.static(config.dest.assets));
+  app.use(config.dest.namespace, express.static(config.dest.assets));
 
-  app.get('/*', (req, res) => {
-    const filename = (req.originalUrl === '/' ? 'index' : req.originalUrl) + '.html';
+  app.get(`${config.dest.namespace}/*`, (req, res) => {
+    const normalUrl = req.originalUrl.substr(config.dest.namespace.length);
+    const filename = (normalUrl === '/' ? 'index' : normalUrl) + '.html';
     const filepath = join(root, config.dest.html, filename);
     res.sendFile(filepath, {}, err => {
       if (err) {
@@ -56,6 +57,7 @@ export function serve(
   });
 
   app.listen(config.dev.port, () => {
-    console.log(chalk.greenBright('# ') + 'Serving docs on ' +  chalk.cyan(`http://localhost:${config.dev.port}`))
+    console.log(chalk.greenBright('# ') + 'Serving docs on ' 
+          +  chalk.cyan(`http://localhost:${config.dev.port}${config.dest.namespace}`))
   });
 }

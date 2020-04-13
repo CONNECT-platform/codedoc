@@ -5,6 +5,7 @@ import { rl, toggleList, ref } from '@connectv/html';
 
 import { CodedocTheme } from '../../../theme';
 import { RefBoxStyle } from './style';
+import { getConfig } from '../../../transport/config';
 
 
 export function RefBox(
@@ -42,7 +43,19 @@ export function RefBox(
     sample(active$.pipe(filter(_ => _))),
   );
 
-  const link$ = target$.pipe(filter(el => !!el), map(el => el?.getAttribute('data-ref') || ''));
+  const link$ = target$.pipe(
+    filter(el => !!el),
+    map(el => el?.getAttribute('data-ref') || ''),
+    map(l => {
+      if (l.startsWith('/')) {
+        const conf = getConfig();
+        if (conf) return conf.namespace + l;
+      }
+
+      return l;
+    })
+  );
+
   const text$ = target$.pipe(
     filter(el => !!el),
     map(el => {

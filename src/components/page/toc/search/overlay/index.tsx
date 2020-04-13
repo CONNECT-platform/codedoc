@@ -6,6 +6,7 @@ import { ThemedComponentThis } from '@connectv/jss-theme';
 import { CodedocTheme } from '../../../../../theme';
 import { ToCSearchOverlayStyle } from './style';
 import { Loading } from '../../../../util/loading';
+import { getConfig } from '../../../../../transport/config';
 
 
 export interface ToCSearchOverlayOptions {
@@ -41,7 +42,11 @@ export function ToCSearchOverlay(
     .to(pipe(share()))
     .to(pipe(startWith(emission([]))))
     .to(map((links: string[]) => {
-      const res = links.map(l => ({link: l, title: tocLinkTitle(l)}));
+      const res = links.map(l => {
+        const conf = getConfig();
+        if (conf) l = conf.namespace + l;
+        return {link: l, title: tocLinkTitle(l)};
+      });
 
       if (query.value.length > 0) {
         toc.$.querySelectorAll('a').forEach(a$ => {

@@ -9,7 +9,7 @@ import { CodedocTheme } from '../theme';
 export function styles(config: CodedocConfig) {
   return externalSheet(
     theme<CodedocTheme>(config.theme),
-    '/' + config.dest.styles + '/codedoc-styles.css',
+    config.dest.namespace + '/' + config.dest.styles + '/codedoc-styles.css',
     join(config.dest.assets, config.dest.styles, 'codedoc-styles.css'),
   );
 }

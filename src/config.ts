@@ -33,7 +33,6 @@ import { postNavSearch$ } from './transport/post-nav-search';
 export interface SourceConfig {
   base: string;
   toc: string;
-  notfound: string;
   pick: RegExp;
   drop: RegExp;
 }
@@ -44,6 +43,7 @@ export interface DestConfig {
   assets: string;
   bundle: string;
   styles: string;
+  namespace: string;
 }
 
 
@@ -107,7 +107,6 @@ export const DefaultConfig: CodedocConfig = {
   src: {
     base: 'docs/md',
     toc: '_toc.md',
-    notfound: '_not_found.md',
     pick: /\.md$/,
     drop: /(^_)|(\/_)/,
   },
@@ -117,6 +116,7 @@ export const DefaultConfig: CodedocConfig = {
     assets: '.',
     bundle: 'docs/assets',
     styles: 'docs/assets',
+    namespace: '',
   },
 
   bundle: {

@@ -23,6 +23,7 @@ export const ToCSearchOverlayStyle = themedStyle<CodedocTheme>(theme => ({
   content: {
     width: 'calc(50vw - 32px)',
     height: 'calc(75vh - 32px)',
+    overflow: 'auto',
     padding: 16,
 
     '@media screen and (max-width: 1200px)': {

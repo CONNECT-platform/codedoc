@@ -89,7 +89,6 @@ export function ToCSearchOverlay(
     holder.$.remove();
     if (clean) {
       localStorage.removeItem('-codedoc-search-query');
-      localStorage.removeItem('-codedoc-search-res');
     }
   }
 

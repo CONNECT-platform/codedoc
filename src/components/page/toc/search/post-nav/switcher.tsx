@@ -8,6 +8,7 @@ import { SearchSwitcherStyles } from './styles';
 
 export interface SearchSwitcherOptions {
   elements: HTMLElement[];
+  query: string;
 }
 
 
@@ -72,8 +73,8 @@ export function SearchSwitcher(
   return <div class={classes.holder} _ref={holder}>
     <span class="icon-font" onclick={() => holder.$.remove()}>close</span>
     <span class="icon-font" onclick={() => {
-      holder.$.remove();
-      document.getElementById('-codedoc-search-btn')?.click();
+      localStorage.setItem('-codedoc-search-query', options.query);
+      document.getElementById('-codedoc-search-btn')?.click()
     }}>list</span>
     <span class={classes.content}>{index}/{options.elements.length}</span>
     <span class="icon-font" onclick={prev}>chevron_left</span>

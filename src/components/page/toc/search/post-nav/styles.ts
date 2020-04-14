@@ -7,7 +7,7 @@ export const SearchSwitcherStyles = themedStyle<CodedocTheme>(theme => ({
     position: 'fixed',
     display: 'flex',
     alignItems: 'center',
-    zIndex: 1002,
+    zIndex: 800,
     bottom: 96,
     height: 48,
     width: 384,

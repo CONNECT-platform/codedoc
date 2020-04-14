@@ -14,7 +14,7 @@ function navigate(url: string, push=true) {
       (window as any).codedocToggleToC(false);
 
     if (push && url === location.pathname) {
-      window.dispatchEvent(new CustomEvent('navigation', { detail: { url }}));
+      window.dispatchEvent(new CustomEvent('same-page-navigation', { detail: { url }}));
       return;
     }
 

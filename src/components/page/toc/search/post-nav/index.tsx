@@ -18,6 +18,11 @@ export function postNavSearch() {
     query = undefined;
   });
 
+  window.addEventListener('same-page-navigation', () => {
+    if (query) search(query);
+    query = undefined;
+  });
+
   const renderer = getRenderer();
 
   function search(query: string) {
@@ -69,7 +74,7 @@ export function postNavSearch() {
     if (highlights$.length > 0) {
       if (switcher$) switcher$.remove();
 
-      switcher$ = <SearchSwitcher elements={highlights$}/>;
+      switcher$ = <SearchSwitcher elements={highlights$} query={query}/>;
       renderer.render(switcher$).on(document.body);
     }
   }

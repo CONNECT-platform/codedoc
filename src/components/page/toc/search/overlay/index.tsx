@@ -100,7 +100,10 @@ export function ToCSearchOverlay(
     <div class={classes.content}>
       <div class="top">
         <input placeholder={options.placeholder} type="text" _ref={input} _state={query}/>
-        <div class={classes.close} onclick={() => close()}/>
+        <div class={classes.close} onclick={() => {
+          if (query.value.length > 0) query.value = '';
+          else close();
+        }}/>
       </div>
       <div class={classes.results}>
         <div class="loading" hidden={loading.to(map((_: boolean) => !_))}><Loading/></div>

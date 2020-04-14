@@ -7,14 +7,16 @@ let lastpath: string | undefined = undefined;
 
 
 function navigate(url: string, push=true) {
-  console.log('--> NAV:: ' + url);
   const container = document.getElementById('-codedoc-container') as HTMLElement;
 
   if (container) {
     if (window.innerWidth <= 1200 && (window as any).codedocToggleToC)
       (window as any).codedocToggleToC(false);
 
-    if (push && url === location.pathname) return;
+    if (push && url === location.pathname) {
+      window.dispatchEvent(new CustomEvent('navigation', { detail: { url }}));
+      return;
+    }
 
     container.style.opacity = '0';
     if (push) {

@@ -27,7 +27,7 @@ import { ToCHeading } from './components/page/toc/heading';
 import { smoothLoading$ } from './transport/smooth-loading';
 import { tocHighlight$ } from './components/page/toc/toc-highlight';
 import { ToCPrevNext$ } from './components/page/toc/prevnext';
-import { postNavSearch$ } from './transport/post-nav-search';
+import { postNavSearch$ } from './components/page/toc/search/post-nav';
 
 
 export interface SourceConfig {

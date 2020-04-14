@@ -2,8 +2,8 @@
 
 This is also the docs
 
----
-
-Also that
+```ts
+import * from 'wherever';
+```
 
 > :ToCPrevNext

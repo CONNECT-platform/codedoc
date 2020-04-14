@@ -1,4 +1,4 @@
-import { state, pipe, pin, map, pack, emission, filter } from '@connectv/core';
+import { state, pipe, pin, map, pack, emission, filter, sink } from '@connectv/core';
 import { debounceTime, startWith, share } from 'rxjs/operators';
 import { RendererLike, ref, List } from '@connectv/html';
 import { ThemedComponentThis } from '@connectv/jss-theme';
@@ -34,13 +34,12 @@ export function ToCSearchOverlay(
     }
   });
 
-  const query = state('');
+  const query = state(localStorage.getItem('-codedoc-search-query') || '');
   const loading = state(false);
 
   const queryOut = this.expose.out('query');
   const results = this.expose.in('results', pin())
     .to(pipe(share()))
-    .to(pipe(startWith(emission([]))))
     .to(map((links: string[]) => {
       const res = links.map(l => {
         const conf = getConfig();
@@ -59,6 +58,13 @@ export function ToCSearchOverlay(
 
       return res;
     }))
+    .to(sink(res => {
+      if (res.length > 0) {
+        localStorage.setItem('-codedoc-search-query', query.value)
+        localStorage.setItem('-codedoc-search-res', JSON.stringify(res));
+      }
+    }))
+    .to(pipe(startWith(emission(JSON.parse(localStorage.getItem('-codedoc-search-res') || '[]')))))
   ;
 
   query
@@ -79,14 +85,22 @@ export function ToCSearchOverlay(
 
   const tocLinkTitle = (link: string) => toc.$.querySelector(`a[href="${link}"]`)?.textContent || link;
 
+  const close = (clean=true) => {
+    holder.$.remove();
+    if (clean) {
+      localStorage.removeItem('-codedoc-search-query');
+      localStorage.removeItem('-codedoc-search-res');
+    }
+  }
+
   return <div class={classes.overlay} _ref={holder} onkeydown={event => {
     if ((event as KeyboardEvent).key === 'Escape')
-      holder.$.remove();
+      close();
   }}>
     <div class={classes.content}>
       <div class="top">
         <input placeholder={options.placeholder} type="text" _ref={input} _state={query}/>
-        <div class={classes.close} onclick={() => holder.$.remove()}/>
+        <div class={classes.close} onclick={() => close()}/>
       </div>
       <div class={classes.results}>
         <div class="loading" hidden={loading.to(map((_: boolean) => !_))}><Loading/></div>
@@ -94,7 +108,7 @@ export function ToCSearchOverlay(
         <div hidden={loading}>
           <List of={results} each={result => 
             <a href={result.sub('link')} onclick={() => {
-              holder.$.remove();
+              close(false);
               window.dispatchEvent(new CustomEvent('on-navigation-search', {detail: {query: query.value}}));
             }}>{result.sub('title')}</a>
           } />

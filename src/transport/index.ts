@@ -2,7 +2,6 @@ export * from './clipboard';
 export * from './custom-event';
 export * from './deferred-iframe';
 export * from './guess-title';
-export * from './post-nav-search';
 export * from './renderer';
 export * from './setup-jss';
 export * from './smooth-loading';

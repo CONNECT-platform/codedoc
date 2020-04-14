@@ -23,7 +23,7 @@ export function ToCSearchBtn(
   const results = this.expose.in('results');
   const query = this.expose.out('query', source());
 
-  return <div class={classes.holder} onclick={() => {
+  return <div class={classes.holder} id="-codedoc-search-btn" onclick={() => {
     renderer.render(
       <ToCSearchOverlay 
         placeholder={options.label || 'Search the docs...'}

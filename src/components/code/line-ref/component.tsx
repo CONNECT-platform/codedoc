@@ -83,7 +83,7 @@ export function RefBox(
 
           if (tab$) {
             const btn$ = tab$.parentElement?.querySelector(
-              `.selector button[data-tab-title="${ref}"]`);
+              `.selector>button[data-tab-title="${ref}"]`);
             if (btn$) {
               (btn$ as HTMLButtonElement).click();
               event.stopPropagation();

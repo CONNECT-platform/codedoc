@@ -21,13 +21,13 @@ export function Toast(this: ComponentThis, _: any, renderer: RendererLike<any, a
     position: fixed;
     bottom: 32px; right: 32px;
     z-index: 10000;
-    background: rgba(0, 0, 0, .35);
+    background: rgba(64, 64, 64, .65);
     color: white;
     padding: 24px;
     border-radius: 8px;
     transform: translateY(200px);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     transition: transform .3s;
   `}>
    <Loading/>  &ensp;Rebuilding documents ...

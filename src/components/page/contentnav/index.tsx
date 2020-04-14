@@ -33,5 +33,5 @@ export function ContentNav(
       </a>);
   });
 
-  return <div class={classes.contentnav}>{links}</div>
+  return <div class={classes.contentnav} data-no-search>{links}</div>
 }

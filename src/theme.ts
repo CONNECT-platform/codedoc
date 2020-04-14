@@ -164,13 +164,13 @@ export const DefaultTheme: CodedocTheme = {
     light: {
       background: '#eeeeee',
       border: '#e0e0e0',
-      text: '#9e9e9e',
+      text: '#757575',
     },
 
     dark: {
       background: '#282828',
       border: '#363636',
-      text: '#bdbdbd',
+      text: '#cacaca',
     }
   },
 

@@ -11,9 +11,9 @@ export const ToCSearchOverlayStyle = themedStyle<CodedocTheme>(theme => ({
     justifyContent: 'center',
     alignItems: 'center',
     top: 0, left: 0, bottom: 0, right: 0,
-    background: 'rgba(0, 0, 0, .65)',
-    backdropFilter: 'blur(12px)',
-    WebkitBackdropFilter: 'blur(12px)',
+    background: 'rgba(64, 64, 64, .65)',
+    backdropFilter: 'blur(16px)',
+    WebkitBackdropFilter: 'blur(16px)',
     opacity: 0,
     transition: 'opacity .15s',
     '&.active': {opacity: 1},
@@ -42,6 +42,10 @@ export const ToCSearchOverlayStyle = themedStyle<CodedocTheme>(theme => ({
         display: 'block',
         flexGrow: 1,
         color: 'white',
+
+        '&::placeholder': {
+          color: 'rgba(255, 255, 255, .25)',
+        }
       },
     },
 

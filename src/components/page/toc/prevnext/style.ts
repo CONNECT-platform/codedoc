@@ -6,6 +6,10 @@ export const ToCPrevNextStyle = themedStyle<CodedocTheme>(theme => ({
   prevnext: {
     display: 'flex',
     margin: '64px 0',
+
+    '@media screen and (max-width: 1200px)': {
+      display: 'block'
+    },
   },
 
   label: {
@@ -64,6 +68,10 @@ export const ToCPrevNextStyle = themedStyle<CodedocTheme>(theme => ({
 
     '&:not(:last-child)': {
       marginRight: 16,
+
+      '@media screen and (max-width: 1200px)': {
+        marginRight: 0
+      },
     },
 
     textDecoration: 'none !important',

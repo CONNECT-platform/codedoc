@@ -27,20 +27,27 @@ export function SearchSwitcher(
     if (focused) focused.style.transform = '';
     element.style.transform = 'scale(1.15)';
     focused = element;
+    let delay = 1;
 
     let parent = focused.parentElement;
     while (parent) {
       if (parent.hasAttribute('data-tab-title')) {
-        const ref = parent.getAttribute('data-tab-title');
-        const btn$ = parent
-                      .parentElement
-                      ?.querySelector(`.selector>button[data-tab-title="${ref}"]`);
-        if (btn$) (btn$ as HTMLButtonElement).click();
+        if (!parent.classList.contains('selected')) {
+          const ref = parent.getAttribute('data-tab-title');
+          const btn$ = parent
+                        .parentElement
+                        ?.querySelector(`.selector>button[data-tab-title="${ref}"]`);
+          if (btn$) {
+            (btn$ as HTMLButtonElement).click();
+            delay = 300;
+          }
+        }
       }
+
       parent = parent.parentElement;
     }
 
-    setTimeout(() => focused?.scrollIntoView({ block: 'center' }), 300);
+    setTimeout(() => focused?.scrollIntoView({ block: 'center' }), delay);
   }
 
   const next = () => {
@@ -57,12 +64,23 @@ export function SearchSwitcher(
     focus(options.elements[index.value - 1]);
   }
 
+  const keyhandler = (event: KeyboardEvent) => {
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') prev();
+    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') next();
+    if (event.key === 'Escape') {
+      holder.$.remove();
+      event.preventDefault();
+    }
+  };
+
   this.track({
     bind() {
+      document.addEventListener('keydown', keyhandler);
       focus(options.elements[0]);
     },
 
     clear() {
+      document.removeEventListener('keydown', keyhandler);
       options.elements.forEach(element => {
         renderer.render(<fragment>{element.textContent}</fragment>).before(element);
         element.remove();

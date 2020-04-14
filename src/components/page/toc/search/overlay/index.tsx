@@ -44,7 +44,7 @@ export function ToCSearchOverlay(
       const res = links.map(l => {
         const conf = getConfig();
         if (conf) l = conf.namespace + l;
-        return {link: l, title: tocLinkTitle(l)};
+        return {link: l, title: tocLinkTitle(l) };
       });
 
       if (query.value.length > 0) {
@@ -52,7 +52,8 @@ export function ToCSearchOverlay(
           if (a$.textContent?.toLowerCase().includes(query.value.toLowerCase())
             && a$.getAttribute('href')
             && !links.includes(a$.getAttribute('href') || '')
-          ) res.push({ link: a$.getAttribute('href') || '', title: a$.textContent })
+          ) res.push({ link: a$.getAttribute('href') || '',
+                        title: a$.textContent })
         });
       }
 
@@ -93,8 +94,11 @@ export function ToCSearchOverlay(
   }
 
   return <div class={classes.overlay} _ref={holder} onkeydown={event => {
-    if ((event as KeyboardEvent).key === 'Escape')
+    if ((event as KeyboardEvent).key === 'Escape') {
+      event.preventDefault();
+      event.stopPropagation();
       close();
+    }
   }}>
     <div class={classes.content}>
       <div class="top">
@@ -108,11 +112,15 @@ export function ToCSearchOverlay(
         <div class="loading" hidden={loading.to(map((_: boolean) => !_))}><Loading/></div>
         <div class="empty" hidden={hideEmpty}>No Results!</div>
         <div hidden={loading}>
-          <List of={results} each={result => 
-            <a href={result.sub('link')} onclick={() => {
+          <List of={results} each={result =>
+            <a href={result.sub('link')} tabindex="0" onclick={() => {
               close(false);
               window.dispatchEvent(new CustomEvent('on-navigation-search', {detail: {query: query.value}}));
-            }}>{result.sub('title')}</a>
+            }}><span class="title">{result.sub('title')}</span>
+                <span class="current" hidden={result.sub('link').to(map((l: string) => l !== location.pathname))}>
+                  Search on Current Page
+                </span>
+              </a>
           } />
         </div>
       </div>

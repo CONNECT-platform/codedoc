@@ -47,4 +47,4 @@ export function initHintBox() {
 }
 
 
-export const codeLineHints$ = funcTransport(initHintBox);
+export const codeLineHints$ = /*#__PURE__*/funcTransport(initHintBox);

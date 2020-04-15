@@ -3,7 +3,7 @@ import { themedStyle } from '@connectv/jss-theme';
 import { CodedocTheme } from '../../../theme';
 
 
-export const FooterStyle = themedStyle<CodedocTheme>(theme => ({
+export const FooterStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
   footer: {
     position: 'fixed',
     bottom: 0,

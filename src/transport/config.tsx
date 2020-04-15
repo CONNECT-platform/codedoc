@@ -21,4 +21,4 @@ export function getConfig(): CodedocTransportConf {
 }
 
 
-export const ConfigTransport$ = transport(ConfigTransport);
+export const ConfigTransport$ = /*#__PURE__*/transport(ConfigTransport);

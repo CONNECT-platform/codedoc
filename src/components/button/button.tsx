@@ -4,7 +4,7 @@ import { ThemedComponentThis, themedStyle } from '@connectv/jss-theme';
 import { CodedocTheme } from '../../theme';
 
 
-export const ButtonStyle = themedStyle<CodedocTheme>(theme => ({
+export const ButtonStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
   button: {
     background: theme.light.primary,
     color: theme.light.primaryContrast,

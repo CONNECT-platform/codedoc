@@ -83,4 +83,4 @@ export function postNavSearch() {
 }
 
 
-export const postNavSearch$ = funcTransport(postNavSearch);
+export const postNavSearch$ = /*#__PURE__*/funcTransport(postNavSearch);

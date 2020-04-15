@@ -3,7 +3,7 @@ import { themedStyle } from '@connectv/jss-theme';
 import { CodedocTheme } from '../../../theme';
 
 
-export const HeaderStyle = themedStyle<CodedocTheme>(theme => ({
+export const HeaderStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
   header: {
     position: 'fixed',
     top: 0, right: 0,

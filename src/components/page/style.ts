@@ -2,7 +2,7 @@ import { themedStyle } from '@connectv/jss-theme';
 import { CodedocTheme } from '../../theme';
 
 
-export const PageStyle = themedStyle<CodedocTheme>(theme => ({
+export const PageStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
   '@global': {
     '*': {
       scrollBehavior: 'smooth',

@@ -49,4 +49,4 @@ export function contentNavHighlight() {
 }
 
 
-export const contentNavHighlight$ = funcTransport(contentNavHighlight);
+export const contentNavHighlight$ = /*#__PURE__*/funcTransport(contentNavHighlight);

@@ -3,7 +3,7 @@ import { themedStyle } from '@connectv/jss-theme';
 import { CodedocTheme } from '../../../../theme';
 
 
-export const ToCToggleStyle = themedStyle<CodedocTheme>(theme => ({
+export const ToCToggleStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
   tocToggle: {
     display: 'inline-flex',
     justifyContent: 'center',

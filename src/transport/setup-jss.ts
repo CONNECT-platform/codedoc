@@ -13,4 +13,4 @@ export function initJssCs() {
     }
   })
 }
-export const initJss$ = funcTransport(initJssCs);
+export const initJss$ = /*#__PURE__*/funcTransport(initJssCs);

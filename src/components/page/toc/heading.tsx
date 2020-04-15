@@ -4,7 +4,7 @@ import { themedStyle, ThemedComponentThis } from '@connectv/jss-theme';
 import { CodedocTheme } from '../../../theme';
 
 
-export const ToCHeadingStyle = themedStyle<CodedocTheme>(theme => ({
+export const ToCHeadingStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
   heading: {
     fontWeight: 'bold',
     fontSize: 18,

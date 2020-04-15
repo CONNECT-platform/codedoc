@@ -2,7 +2,7 @@ import { themedStyle } from '@connectv/jss-theme';
 import { CodedocTheme } from '../../../../../theme';
 
 
-export const SearchSwitcherStyles = themedStyle<CodedocTheme>(theme => ({
+export const SearchSwitcherStyles = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
   holder: {
     position: 'fixed',
     display: 'flex',

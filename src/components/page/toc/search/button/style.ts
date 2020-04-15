@@ -3,7 +3,7 @@ import { themedStyle } from '@connectv/jss-theme';
 import { CodedocTheme } from '../../../../../theme';
 
 
-export const ToCSearchBtnStyle = themedStyle<CodedocTheme>(theme => ({
+export const ToCSearchBtnStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
   holder: {
     display: 'flex',
     alignItems: 'center',

@@ -4,7 +4,7 @@ import { themedStyle, ThemedComponentThis } from '@connectv/jss-theme';
 import { CodedocTheme } from '../../../theme';
 
 
-export const DarkLightStyle = themedStyle<CodedocTheme>(theme => ({
+export const DarkLightStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
   darklight: {
     position: 'relative',
     overflow: 'hidden',

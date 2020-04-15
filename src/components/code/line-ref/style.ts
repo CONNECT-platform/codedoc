@@ -3,7 +3,7 @@ import { themedStyle } from '@connectv/jss-theme';
 import { CodedocTheme } from '../../../theme';
 
 
-export const RefBoxStyle = themedStyle<CodedocTheme>(theme => ({
+export const RefBoxStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
   refbox: {
     position: 'fixed',
     cursor: 'pointer',

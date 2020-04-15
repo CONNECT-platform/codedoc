@@ -6,4 +6,4 @@ import { theme } from '../theme';
 
 
 export function installTheme() { useTheme(theme); }
-export const installTheme$ = funcTransport(installTheme);
+export const installTheme$ = /*#__PURE__*/funcTransport(installTheme);

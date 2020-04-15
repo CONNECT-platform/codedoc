@@ -4,7 +4,7 @@ import { ThemedComponentThis } from '@connectv/jss-theme';
 
 import { CodedocTheme } from '../../../theme';
 import { GitterStyle } from './style';
-import { initGitter, gitterInstance, gitterState } from './init';
+import { initGitter, gitterState } from './init';
 
 
 export interface GitterOptions {
@@ -33,4 +33,4 @@ export function GitterToggle(
 }
 
 
-export const GitterToggle$ = transport(GitterToggle);
+export const GitterToggle$ = /*#__PURE__*/transport(GitterToggle);

@@ -3,7 +3,7 @@ import { themedStyle } from '@connectv/jss-theme';
 import { CodedocTheme } from '../../../theme';
 
 
-export const WatermarkStyle = themedStyle<CodedocTheme>(theme => ({
+export const WatermarkStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
   watermark: {
     fontSize: 8,
     cursor: 'pointer',

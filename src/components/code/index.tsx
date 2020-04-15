@@ -2,7 +2,7 @@ import { ExtensibleRenderer, toggleList } from '@connectv/html';
 import { ThemedComponentThis } from '@connectv/jss-theme';
 
 import { highlight, languages } from 'prismjs';
-const loadLanguages = require('prismjs/components/');
+const loadLanguages = /*#__PURE__*/require('prismjs/components/');
 
 import { CodedocTheme } from '../../theme';
 import { CodeStyle } from './style';

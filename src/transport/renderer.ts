@@ -19,4 +19,4 @@ export function getRenderer() {
   return renderer;
 }
 
-export const getRenderer$ = funcTransport(getRenderer);
+export const getRenderer$ = /*#__PURE__*/funcTransport(getRenderer);

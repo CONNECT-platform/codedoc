@@ -50,4 +50,4 @@ export function TabSelector(this: ComponentThis, _: any, renderer: RendererLike<
 }
 
 
-export const TabSelector$ = transport(TabSelector);
+export const TabSelector$ = /*#__PURE__*/transport(TabSelector);

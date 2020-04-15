@@ -4,7 +4,7 @@ import { ThemedComponentThis, themedStyle } from '@connectv/jss-theme';
 import { CodedocTheme } from '../../theme';
 
 
-export const HeadingStyle = themedStyle<CodedocTheme>(theme => ({
+export const HeadingStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
   heading: {
     cursor: 'pointer',
     position: 'relative',

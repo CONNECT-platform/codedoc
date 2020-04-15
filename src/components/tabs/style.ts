@@ -2,7 +2,7 @@ import { themedStyle } from '@connectv/jss-theme';
 import { CodedocTheme } from '../../theme';
 
 
-export const TabsStyle = themedStyle<CodedocTheme>(theme => ({
+export const TabsStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
   tabs: {
     '& .selector': {
       whiteSpace: 'nowrap',

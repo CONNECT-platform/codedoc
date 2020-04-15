@@ -3,7 +3,7 @@ import { themedStyle } from '@connectv/jss-theme';
 import { CodedocTheme } from '../../../theme';
 
 
-export const GitterStyle = themedStyle<CodedocTheme>(theme => ({
+export const GitterStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
   toggle: {
     cursor: 'pointer',
   },

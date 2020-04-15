@@ -34,4 +34,4 @@ export function tocHighlight() {
 }
 
 
-export const tocHighlight$ = funcTransport(tocHighlight);
+export const tocHighlight$ = /*#__PURE__*/funcTransport(tocHighlight);

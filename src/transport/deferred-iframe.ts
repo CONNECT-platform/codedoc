@@ -17,4 +17,4 @@ export function loadDeferredIFrames() {
 }
 
 
-export const deferredIframes$ = funcTransport(loadDeferredIFrames);
+export const deferredIframes$ = /*#__PURE__*/funcTransport(loadDeferredIFrames);

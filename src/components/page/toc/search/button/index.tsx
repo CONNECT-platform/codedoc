@@ -1,4 +1,4 @@
-import { source, sink } from '@connectv/core';
+import { source } from '@connectv/core';
 import { RendererLike, ref } from '@connectv/html';
 import { ThemedComponentThis } from '@connectv/jss-theme';
 

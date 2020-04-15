@@ -68,4 +68,4 @@ export function codeSelection() {
 }
 
 
-export const codeSelection$ = funcTransport(codeSelection);
+export const codeSelection$ = /*#__PURE__*/funcTransport(codeSelection);

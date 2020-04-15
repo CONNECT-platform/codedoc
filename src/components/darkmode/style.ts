@@ -3,7 +3,7 @@ import { themedStyle } from '@connectv/jss-theme';
 import { CodedocTheme } from '../../theme';
 
 
-export const DarkModeSwitchStyle = themedStyle<CodedocTheme>(theme => ({
+export const DarkModeSwitchStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
   dmSwitch: {
     overflow: 'hidden',
     display: 'inline-flex',

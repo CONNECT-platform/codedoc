@@ -3,7 +3,7 @@ import { themedStyle } from '@connectv/jss-theme';
 import { CodedocTheme } from '../../../../../theme';
 
 
-export const ToCSearchOverlayStyle = themedStyle<CodedocTheme>(theme => ({
+export const ToCSearchOverlayStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
   overlay: {
     zIndex: 1000,
     position: 'fixed',

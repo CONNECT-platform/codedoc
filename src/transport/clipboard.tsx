@@ -1,6 +1,6 @@
 import { getRenderer } from './renderer';
 
-const select = require('select');
+const select = /*#__PURE__*/require('select');
 
 
 export function copyToClipboard(text: string, callback?: () => void) {

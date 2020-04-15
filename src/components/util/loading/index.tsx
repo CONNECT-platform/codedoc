@@ -8,7 +8,7 @@ const Duration = 1;
 const Offset = 200;
 
 
-export const LoadingStyle = themedStyle<CodedocTheme>(theme => ({
+export const LoadingStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
   holder: {
     position: 'relative',
     display: 'inline-flex',

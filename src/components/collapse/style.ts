@@ -4,7 +4,7 @@ import { themedStyle } from '@connectv/jss-theme';
 import { CodedocTheme } from '../../theme';
 
 
-export const CollapseStyle = themedStyle<CodedocTheme>(theme => ({
+export const CollapseStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
   collapse: {
     '&>.label': {
       cursor: 'pointer',

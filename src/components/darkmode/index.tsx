@@ -56,5 +56,5 @@ export function DarkModeSwitch(
 }
 
 
-export const DarkModeSwitch$ = transport(DarkModeSwitch);
+export const DarkModeSwitch$ = /*#__PURE__*/transport(DarkModeSwitch);
 export * from './darklight';

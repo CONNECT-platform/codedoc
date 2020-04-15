@@ -66,4 +66,4 @@ export function ToCPrevNext(
 }
 
 
-export const ToCPrevNext$ = transport(ToCPrevNext);
+export const ToCPrevNext$ = /*#__PURE__*/transport(ToCPrevNext);

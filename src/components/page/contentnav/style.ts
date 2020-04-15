@@ -3,7 +3,7 @@ import { themedStyle } from '@connectv/jss-theme';
 import { CodedocTheme } from '../../../theme';
 
 
-export const ContentNavStyle = themedStyle<CodedocTheme>(theme => ({
+export const ContentNavStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
   contentnav: {
     position: 'fixed',
     right: 0,

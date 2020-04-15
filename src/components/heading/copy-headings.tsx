@@ -31,4 +31,4 @@ export function copyHeadings() {
 }
 
 
-export const copyHeadings$ = funcTransport(copyHeadings);
+export const copyHeadings$ = /*#__PURE__*/funcTransport(copyHeadings);

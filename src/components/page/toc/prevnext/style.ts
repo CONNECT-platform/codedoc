@@ -2,7 +2,7 @@ import { themedStyle } from '@connectv/jss-theme';
 import { CodedocTheme } from '../../../../theme';
 
 
-export const ToCPrevNextStyle = themedStyle<CodedocTheme>(theme => ({
+export const ToCPrevNextStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
   prevnext: {
     display: 'flex',
     margin: '64px 0',

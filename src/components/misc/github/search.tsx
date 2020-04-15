@@ -74,4 +74,4 @@ export function GithubSearch(this: ComponentThis, options: SearchOptions, render
 }
 
 
-export const GithubSearch$ = transport(GithubSearch);
+export const GithubSearch$ = /*#__PURE__*/transport(GithubSearch);

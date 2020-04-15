@@ -56,4 +56,4 @@ export function initCodeLineRef() {
   });
 }
 
-export const codeLineRef$ = funcTransport(initCodeLineRef);
+export const codeLineRef$ = /*#__PURE__*/funcTransport(initCodeLineRef);

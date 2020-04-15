@@ -3,7 +3,7 @@ import { themedStyle } from '@connectv/jss-theme';
 import { CodedocTheme } from '../../../theme';
 
 
-export const HintBoxStyle = themedStyle<CodedocTheme>(theme => ({
+export const HintBoxStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
   hintbox: {
     position: 'fixed',
     background: theme.light.background,

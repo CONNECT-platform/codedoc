@@ -21,4 +21,4 @@ export function sameLineLengthInCodes() {
 }
 
 
-export const sameLineLengthInCodes$ = funcTransport(sameLineLengthInCodes);
+export const sameLineLengthInCodes$ = /*#__PURE__*/funcTransport(sameLineLengthInCodes);

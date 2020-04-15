@@ -67,4 +67,4 @@ export function reloadOnChange() {
 }
 
 
-export const reloadOnChange$ = funcTransport(reloadOnChange);
+export const reloadOnChange$ = /*#__PURE__*/funcTransport(reloadOnChange);

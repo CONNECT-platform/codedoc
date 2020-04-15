@@ -85,4 +85,4 @@ export function smoothLoading() {
   });
 }
 
-export const smoothLoading$ = funcTransport(smoothLoading);
+export const smoothLoading$ = /*#__PURE__*/funcTransport(smoothLoading);

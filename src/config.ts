@@ -458,7 +458,7 @@ export interface CodedocConfig {
 }
 
 
-export const DefaultMarkdownCustomComponents = {
+export const DefaultMarkdownCustomComponents = /*#__PURE__*/{
   Tab, Tabs, Collapse,
   Button, Buttons, CopyButton,
   DarkLight, InDark, InLight,
@@ -467,14 +467,14 @@ export const DefaultMarkdownCustomComponents = {
 };
 
 
-export const DefaultToCMarkdownCustomComponents = {
+export const DefaultToCMarkdownCustomComponents = /*#__PURE__*/{
   Button, Buttons, Collapse,
   DarkLight, InDark, InLight,
   GithubButton, Watermark,
 };
 
 
-export const DefaultConfig: CodedocConfig = {
+export const DefaultConfig: CodedocConfig = /*#__PURE__*/{
   src: {
     base: 'docs/md',
     toc: '_toc.md',

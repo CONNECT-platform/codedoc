@@ -20,4 +20,4 @@ export function CollapseControl(this: ComponentThis, _: any, renderer: RendererL
 }
 
 
-export const CollapseControl$ = transport(CollapseControl);
+export const CollapseControl$ = /*#__PURE__*/transport(CollapseControl);

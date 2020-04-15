@@ -4,7 +4,7 @@ import { themedStyle } from '@connectv/jss-theme';
 import { CodedocTheme } from '../../../theme';
 
 
-export const TocStyle = themedStyle<CodedocTheme>(theme => ({
+export const TocStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
   toc: {
     position: 'fixed',
     display: 'flex',

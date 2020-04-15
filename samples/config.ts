@@ -1,6 +1,7 @@
-import { configuration } from '../src';
+import { configuration, DefaultConfig } from '../src';
 
 import { theme } from './theme';
+import { Card } from './components/card';
 
 
 export const config = configuration({
@@ -19,6 +20,12 @@ export const config = configuration({
       base: 'Codedoc Sample'
     },
     favicon: '/favicon.ico'
+  },
+  markdown: {
+    customComponents: {
+      ...DefaultConfig.markdown.customComponents,
+      Card,
+    }
   },
   misc: {
     github: {

@@ -61,7 +61,7 @@ export function postNavSearch() {
           }
         }
         else {
-          if (el$ instanceof HTMLElement && el$.hasAttribute('data-no-search'))
+          if (el$ instanceof HTMLElement && (el$.hasAttribute('data-no-search') || el$.classList.contains('icon-font')))
             return;
 
           el$.childNodes.forEach(_scan);

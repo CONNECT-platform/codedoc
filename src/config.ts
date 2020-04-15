@@ -28,6 +28,7 @@ import { smoothLoading$ } from './transport/smooth-loading';
 import { tocHighlight$ } from './components/page/toc/toc-highlight';
 import { ToCPrevNext$ } from './components/page/toc/prevnext';
 import { postNavSearch$ } from './components/page/toc/search/post-nav';
+import { ComponentMap } from '@connectv/marked/dist/es6/quote-comp';
 
 
 /**
@@ -207,6 +208,45 @@ export interface TitleConfig {
 
 /**
  *
+ * Denotes configuration for parsing markdown into HTML elements.
+ *
+ */
+export interface MarkdownConfig extends MarkdownOptions<any, any> {
+
+  /**
+   *
+   * A component map for custom components.
+   *
+   * **WARNING**: since a lot of features of codedoc come from its custom markdown
+   * components, it is highly recommended to extend the default custom components
+   * for adding your own components:
+   *
+   * ```tsx
+   * import { configuration, DefaultConfig } from '@codedoc/core';
+   * 
+   * export const config = configuration({
+   *   markdown: {
+   *      customComponents: {
+   *        ...DefaultConfig.markdown.customComponents,
+   *        MyComponent,
+   *      }
+   *   },
+   *   tocMarkdown: {
+   *     customComponents: {
+   *       ...DefaultConfig.tocMarkdown.customComponents,
+   *       MyToCComponent,
+   *     }
+   *   }
+   * });
+   * ```
+   *
+   */
+  customComponents: ComponentMap;
+}
+
+
+/**
+ *
  * Represents GitHub configuration of the project.
  *
  */
@@ -378,14 +418,14 @@ export interface CodedocConfig {
    * Markdown options used to turn markdown into HTML.
    *
    */
-  markdown: MarkdownOptions<any, any>;
+  markdown: MarkdownConfig;
 
   /**
    *
    * Markdown options used for parsing the table of contents markdown file.
    *
    */
-  tocMarkdown: MarkdownOptions<any, any>;
+  tocMarkdown: MarkdownConfig;
 
   /**
    *
@@ -416,6 +456,22 @@ export interface CodedocConfig {
     [whatever: string]: any;
   }
 }
+
+
+export const DefaultMarkdownCustomComponents = {
+  Tab, Tabs, Collapse,
+  Button, Buttons, CopyButton,
+  DarkLight, InDark, InLight,
+  GithubButton, Watermark,
+  ToCPrevNext: ToCPrevNext$,
+};
+
+
+export const DefaultToCMarkdownCustomComponents = {
+  Button, Buttons, Collapse,
+  DarkLight, InDark, InLight,
+  GithubButton, Watermark,
+};
 
 
 export const DefaultConfig: CodedocConfig = {
@@ -458,21 +514,13 @@ export const DefaultConfig: CodedocConfig = {
   markdown: {
     Code,
     Heading,
-    BlockQuote: quotedComponents({
-      Tab, Tabs, Collapse,
-      Button, Buttons, CopyButton,
-      DarkLight, InDark, InLight,
-      GithubButton, Watermark,
-      ToCPrevNext: ToCPrevNext$,
-    })
+    customComponents: DefaultMarkdownCustomComponents,
+    BlockQuote: quotedComponents(DefaultMarkdownCustomComponents)
   },
   tocMarkdown: {
     Heading: ToCHeading,
-    BlockQuote: quotedComponents({
-      Button, Buttons, Collapse,
-      DarkLight, InDark, InLight,
-      GithubButton, Watermark,
-    })
+    customComponents: DefaultToCMarkdownCustomComponents,
+    BlockQuote: quotedComponents(DefaultToCMarkdownCustomComponents),
   },
 }
 
@@ -590,7 +638,7 @@ export interface ConfigOverride {
    * ```
    *
    */
-  markdown?: MarkdownOptions<any, any>;
+  markdown?: Partial<MarkdownConfig>;
 
   /**
    *
@@ -612,7 +660,7 @@ export interface ConfigOverride {
    * ```
    *
    */
-  tocMarkdown?: MarkdownOptions<any, any>;
+  tocMarkdown?: Partial<MarkdownConfig>;
 
   /**
    *
@@ -670,8 +718,17 @@ export function configuration(override: ConfigOverride): CodedocConfig {
 
   if (override.dev) Object.assign(res.dev, override.dev);
   if (override.theme) res.theme = override.theme;
-  if (override.markdown) Object.assign(res.markdown, override.markdown);
-  if (override.tocMarkdown) Object.assign(res.tocMarkdown, override.tocMarkdown);
+  if (override.markdown) {
+    Object.assign(res.markdown, override.markdown);
+    if (override.markdown.customComponents)
+      res.markdown.BlockQuote = quotedComponents(override.markdown.customComponents);
+  }
+
+  if (override.tocMarkdown) {
+    Object.assign(res.tocMarkdown, override.tocMarkdown);
+    if (override.tocMarkdown.customComponents)
+      res.markdown.BlockQuote = quotedComponents(override.tocMarkdown.customComponents);
+  }
 
   if (override.misc) res.misc = override.misc;
 

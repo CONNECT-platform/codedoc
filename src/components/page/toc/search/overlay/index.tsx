@@ -26,6 +26,30 @@ export function ToCSearchOverlay(
   const input = ref<HTMLInputElement>();
   const toc = ref<HTMLElement>();
 
+  const findFocus = () => {
+    let focused: HTMLElement | undefined = undefined;
+    let prev: HTMLElement | undefined = undefined;
+    let next: HTMLElement | undefined = undefined;
+    let first: HTMLElement | undefined = undefined;
+    let last: HTMLElement | undefined = undefined;
+
+    holder.$.querySelectorAll('a[tabindex]').forEach(a$ => {
+      if (!first) first = a$ as HTMLElement;
+      if (a$ === document.activeElement) focused = a$ as HTMLElement;
+      else {
+        if (!focused) prev = a$ as HTMLElement;
+        else if (!next) next = a$ as HTMLElement;
+      }
+      last = a$ as HTMLElement;
+    });
+
+    const res: { prev?: HTMLElement; next?: HTMLElement } = {};
+    res.next = next || first;
+    res.prev = prev || last;
+
+    return res;
+  };
+
   this.track({
     bind() {
       input.$.focus();
@@ -94,11 +118,32 @@ export function ToCSearchOverlay(
   }
 
   return <div class={classes.overlay} _ref={holder} onkeydown={event => {
-    if ((event as KeyboardEvent).key === 'Escape') {
+    const key = (event as KeyboardEvent).key;
+    if (key === 'Escape') {
       event.preventDefault();
       event.stopPropagation();
       close();
     }
+
+    if (key === 'ArrowDown') {
+      const focus = findFocus();
+      if (focus.next) {
+        focus.next.focus();
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    }
+
+    if (key === 'ArrowUp') {
+      const focus = findFocus();
+      if (focus.prev) {
+        focus.prev.focus();
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    }
+
+    if (key === 'ArrowLeft' || key === 'ArrowRight') event.stopPropagation();
   }}>
     <div class={classes.content}>
       <div class="top">

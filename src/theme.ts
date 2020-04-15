@@ -1,3 +1,6 @@
+import Color from 'color';
+
+
 export interface CodeTheme {
   background: string;
   text: string;
@@ -134,7 +137,7 @@ export const DefaultCodeThemeLight: CodeTheme = {
 export const DefaultTheme: CodedocTheme = {
   light: {
     primary: '#4A90E2',
-    primaryContrast: '#ffffff',
+    primaryContrast: 'deduce',
     background: '#f5f5f5',
     text: '#424242',
     border: '#e0e0e0',
@@ -142,7 +145,7 @@ export const DefaultTheme: CodedocTheme = {
 
   dark: {
     primary: '#4A90E2',
-    primaryContrast: '#ffffff',
+    primaryContrast: 'deduce',
     background: '#212121',
     text: '#eeeeee',
     border: '#313131',
@@ -209,7 +212,13 @@ export function createTheme(extension: ThemeExtension): CodedocTheme {
   const res = { ... DefaultTheme };
 
   if (extension.light) Object.assign(res.light, extension.light);
+  if (res.light.primaryContrast === 'deduce')
+    res.light.primaryContrast = Color(res.light.primary).darken(.05).isLight() ? 'black' : 'white';
+
   if (extension.dark) Object.assign(res.dark, extension.dark);
+  if (res.dark.primaryContrast === 'deduce')
+    res.dark.primaryContrast = Color(res.dark.primary).darken(.05).isDark() ? 'white': 'black';
+
   if (extension.code) {
     if (extension.code.wmbar !== undefined) res.code.wmbar = extension.code.wmbar;
     if (extension.code.light) Object.assign(res.code.light, extension.code.light);

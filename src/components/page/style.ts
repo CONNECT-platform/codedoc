@@ -5,7 +5,8 @@ import { CodedocTheme } from '../../theme';
 export const PageStyle = themedStyle<CodedocTheme>(theme => ({
   '@global': {
     '*': {
-      scrollBehavior: 'smooth'
+      scrollBehavior: 'smooth',
+      touchAction: 'manipulation',
     },
 
     body: {

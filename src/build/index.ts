@@ -1,3 +1,4 @@
+import chalk from 'chalk';
 import { join } from 'path';
 import { Configuration } from 'webpack';
 import { concurrently } from 'rxline';
@@ -13,7 +14,6 @@ import { content } from './content';
 import { styles } from './styles';
 import { loadToC } from './toc';
 import { namespace } from './namespace';
-import chalk from 'chalk';
 
 
 export async function build(

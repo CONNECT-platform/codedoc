@@ -1,3 +1,4 @@
+import { join } from 'path';
 import { Configuration } from 'webpack';
 import { concurrently } from 'rxline';
 import { files, pathMatch, readFile, mapExt, mapRoot } from 'rxline/fs';
@@ -12,6 +13,7 @@ import { content } from './content';
 import { styles } from './styles';
 import { loadToC } from './toc';
 import { namespace } from './namespace';
+import chalk from 'chalk';
 
 
 export async function build(
@@ -31,6 +33,7 @@ export async function build(
     files('.', { root: config.src.base })
       .pick(pathMatch(config.src.pick))
       .drop(pathMatch(config.src.drop))
+      .peek(file => console.log(`${chalk.gray('# building ........ ' + join(file.root, file.path)) }`))
       .pipe(
         readFile(),
         content(builder, _toc, config, _styles),
@@ -40,11 +43,16 @@ export async function build(
         post(namespace(config)),
         save(),
       )
+      .peek(file => console.log(`${chalk.green('#')}${chalk.gray(' built:: .........')} ${join(file.root, file.path)}`))
       .process(concurrently)
       .collect(() => {
+        console.log(`${chalk.gray('# building ........ ' + _styles.path)}`);
+        console.log(`${chalk.gray('# building ........ ' + _bundle.path)}`);
         Promise.all([
-          save(_bundle, webpackConfig),
-          _styles.save(),
+          save(_bundle, webpackConfig)
+          .then(() => console.log(`${chalk.green('#')} ${chalk.gray('built:: .........')} ${_bundle.path}`)),
+          _styles.save()
+          .then(() => console.log(`${chalk.green('#')} ${chalk.gray('built:: .........')} ${_styles.path}`)),
         ])
         .then(resolve);
       });

@@ -19,8 +19,8 @@ export function guessTitle(content: HTMLElement, base?: string, connector: strin
 
     if (!target$?.textContent || target$.textContent.trim().length === 0) continue;
 
-    return '';
+    return base || '';
   }
 
-  return '';
+  return base || '';
 }

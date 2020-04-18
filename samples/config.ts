@@ -6,7 +6,7 @@ import { Card } from './components/card';
 
 export const config = configuration({
   src: {
-    base: 'samples/md'
+    base: 'samples/md',
   },
   dest: {
     bundle: 'assets',

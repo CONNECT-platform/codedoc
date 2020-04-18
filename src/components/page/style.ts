@@ -49,10 +49,8 @@ export const PageStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
 
     '.container': {
       maxWidth: 768,
-      padding: 32,
-      paddingTop: 96,
+      padding: '96px 16px',
       margin: '0 auto',
-      marginBottom: 64,
       transition: 'opacity .15s',
     },
 

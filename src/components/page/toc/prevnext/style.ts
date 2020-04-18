@@ -23,6 +23,7 @@ export const ToCPrevNextStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => 
 
   button: {
     flexGrow: 1,
+    flexBasis: 0,
     display: 'flex',
     padding: 16,
     cursor: 'pointer',

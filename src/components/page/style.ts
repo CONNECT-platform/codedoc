@@ -7,6 +7,7 @@ export const PageStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
     '*': {
       scrollBehavior: 'smooth',
       touchAction: 'manipulation',
+      WebkitTapHighlightColor: 'transparent',
     },
 
     body: {

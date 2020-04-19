@@ -54,7 +54,7 @@ export function ToCPrevNext(
                 <span class={classes.label}>{options['next-label'] || 'Next'}</span>
                 <span class={classes.title}>{next$.textContent}</span>
               </div>
-              <span class="icon-font">{options["prev-icon"] || 'arrow_forward_ios'}</span>
+              <span class="icon-font">{options["next-icon"] || 'arrow_forward_ios'}</span>
             </a>).on(holder.$);
           }
         }

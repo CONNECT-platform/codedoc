@@ -46,6 +46,7 @@ export interface ToCTheme {
 export interface ContentTheme {
   background: string;
   text: string;
+  code: string;
   primary: string;
   primaryContrast: string;
   border: string;
@@ -141,6 +142,7 @@ export const DefaultTheme: CodedocTheme = /*#__PURE__*/{
     background: '#f5f5f5',
     text: '#424242',
     border: '#e0e0e0',
+    code: '#616161',
   },
 
   dark: {
@@ -149,6 +151,7 @@ export const DefaultTheme: CodedocTheme = /*#__PURE__*/{
     background: '#212121',
     text: '#eeeeee',
     border: '#313131',
+    code: '#e0e0e0',
   },
 
   code: {

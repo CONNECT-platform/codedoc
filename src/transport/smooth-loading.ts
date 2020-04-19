@@ -37,8 +37,20 @@ function navigate(url: string, push=true) {
       setTimeout(() => {
         container.innerHTML = dom.getElementById('-codedoc-container')?.innerHTML || '';
         container.querySelectorAll('script').forEach(s => eval(s.textContent || ''));
-  
-        setTimeout(() => container.style.opacity = '1', 10);
+
+        if (push) {
+          document.documentElement.style.scrollBehavior = 'auto';
+        }
+
+        setTimeout(() => {
+          if (push) {
+            window.scroll(0, 0);
+            setTimeout(() => {
+              document.documentElement.style.scrollBehavior = '';
+            }, 150);
+          }
+          container.style.opacity = '1';
+        }, 10);
         window.dispatchEvent(new CustomEvent('navigation', { detail: { url } }));
       }, 150);
     });

@@ -1,7 +1,6 @@
 import chalk from 'chalk';
 import { join } from 'path';
 import { Configuration } from 'webpack';
-import { concurrently } from 'rxline';
 import { files, pathMatch, readFile, mapExt, mapRoot } from 'rxline/fs';
 import { post, save } from '@connectv/sdh';
 import { TransportedFunc } from '@connectv/sdh/dist/es6/dynamic/transport/index';
@@ -44,7 +43,7 @@ export async function build(
         save(),
       )
       .peek(file => console.log(`${chalk.green('#')}${chalk.gray(' built:: .........')} ${join(file.root, file.path)}`))
-      .process(concurrently)
+      .process()
       .collect(() => {
         console.log(`${chalk.gray('# building ........ ' + _styles.path)}`);
         console.log(`${chalk.gray('# building ........ ' + _bundle.path)}`);

@@ -10,6 +10,7 @@
 # For Musti
 
 This is the first page of codedoc. You can [go to this link](https://www.google.com) for example.
+And also some text that has some `code element` within it.
 
 ```bash
 npm i @connectv/html

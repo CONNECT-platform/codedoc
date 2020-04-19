@@ -147,5 +147,29 @@ export const PageStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
       background: 'white',
       
     },
+
+    code: {
+      fontSize: '.85em',
+      padding: 4,
+      borderRadius: 3,
+      background: theme.quote.light.background,
+      color: theme.light.code,
+
+      'body.dark-mode-animate &': {
+        transition: 'color .3s, background .3s',
+      },
+
+      'body.dark &': {
+        color: theme.dark.code,
+        background: theme.quote.dark.background,
+      },
+
+      '@media (prefers-color-scheme: dark)': {
+        'body:not(.dark-mode-animate)': {
+          color: theme.dark.code,
+          background: theme.quote.dark.background,
+        }
+      },
+    }
   }
 }));

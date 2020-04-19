@@ -166,7 +166,7 @@ export const PageStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
       },
 
       '@media (prefers-color-scheme: dark)': {
-        'body:not(.dark-mode-animate)': {
+        'body:not(.dark-mode-animate) &': {
           color: theme.dark.code,
           background: theme.quote.dark.background,
         }

@@ -14,8 +14,10 @@ export function postNavSearch() {
   });
 
   window.addEventListener('navigation', () => {
-    if (query) search(query);
-    query = undefined;
+    if (query) setTimeout(() => {
+      search(query || '');
+      query = undefined;
+    }, 300);
   });
 
   window.addEventListener('same-page-navigation', () => {

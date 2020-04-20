@@ -24,7 +24,8 @@ export function Code(
   const classes = this.theme.classes(CodeStyle);
 
   let [lang, ...extras] = options.lang.split('|').map(_ => _.trim());
-  loadLanguages([lang]);
+  if (!languages[lang])
+    loadLanguages([lang]);
 
   const extopts = { wmbar: undefined as (undefined | boolean), filename: undefined as (undefined | string) };
   extras.forEach(ext => {

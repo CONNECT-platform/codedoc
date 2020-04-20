@@ -16,6 +16,60 @@ And also some text that has some `code element` within it.
 npm i @connectv/html
 ```
 
+> :Tabs
+>
+> > :Tab title=Markdown
+> >````md
+> >```go | clojure-example.go
+> >package main
+> >
+> >import "fmt"
+> >
+> >func intSeq() func() int {
+> >/*!*//*!*/    i := 0
+> >/*!*//*!*/    return func() int {
+> >/*!*//*!*/        i++
+> >/*!*//*!*/        return i
+> >/*!*//*!*/    }
+> >}
+> >
+> >func main() {
+> >    nextInt := intSeq()
+> >    fmt.Println(nextInt())
+> >    fmt.Println(nextInt())
+> >    fmt.Println(nextInt())
+> >
+> >    newInts := intSeq()
+> >    fmt.Println(newInts())
+> >}
+> >```
+> >````
+>
+> > :Tab title=How it looks
+> >```go | clojure-example.go
+> >package main
+> >
+> >import "fmt"
+> >
+> >func intSeq() func() int {
+> >/*!*/    i := 0
+> >/*!*/    return func() int {
+> >/*!*/        i++
+> >/*!*/        return i
+> >/*!*/    }
+> >}
+> >
+> >func main() {
+> >    nextInt := intSeq()
+> >    fmt.Println(nextInt())
+> >    fmt.Println(nextInt())
+> >    fmt.Println(nextInt())
+> >
+> >    newInts := intSeq()
+> >    fmt.Println(newInts())
+> >}
+> >```
+
 ```tsx | todolist.tsx
 import { state, map } from '@connectv/core';                         // @see https://connective.dev
 import { List, ref, autoId, Renderer } from '@connectv/html';        // @see [CONNECTIVE HTML](https://github.com/CONNECT-platform/connective-html)

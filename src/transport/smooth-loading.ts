@@ -47,6 +47,9 @@ function navigate(url: string, push=true) {
             window.scroll(0, 0);
             setTimeout(() => {
               document.documentElement.style.scrollBehavior = '';
+              if (window.location.hash) {
+                document.querySelector(window.location.hash)?.scrollIntoView();
+              }
             }, 50);
           }
           container.style.opacity = '1';

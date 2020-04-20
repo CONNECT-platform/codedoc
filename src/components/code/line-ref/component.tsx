@@ -22,23 +22,18 @@ export function RefBox(
   const box = ref<HTMLElement>();
 
   const active$ = target$.pipe(debounceTime(10), map(el => !!el));
-  const vanishing$ = new BehaviorSubject<boolean>(false);
   let hover = false;
   const top$ = target$.pipe(
       switchMap(el => el ? of(el) : of(el).pipe(delay(300))),
       filter(() => !hover),
       mergeMap(el => el ?
         of(el.getBoundingClientRect().top + 18) :
-        of(-1000).pipe(
-          tap(() => vanishing$.next(true)),
-          delay(150),
-          tap(() => vanishing$.next(false)),
-        )
+        of(-1000)
       )
     );
 
   const left$ = fromEvent(document, 'mousemove').pipe(
-    filter(() => !hover && !vanishing$.value),
+    filter(() => !hover),
     map(e => (e as MouseEvent).clientX + 12),
     sample(active$.pipe(filter(_ => _))),
   );
@@ -69,7 +64,7 @@ export function RefBox(
   );
 
   return <div _ref={box}
-      class={rl`${classes.refbox} ${toggleList({active: active$.pipe(startWith(false)), vanishing: vanishing$})}`}
+      class={rl`${classes.refbox} ${toggleList({active: active$.pipe(startWith(false))})}`}
       style={rl`top: ${top$}px;left: ${left$}px`}
       onmouseenter={() => hover = true}
       onmouseleave={() => { hover = false; target$.next(undefined); }}

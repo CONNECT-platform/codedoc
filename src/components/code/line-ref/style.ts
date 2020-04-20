@@ -23,7 +23,7 @@ export const RefBoxStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
       boxShadow: '0 2px 6px rgba(0, 0, 0, .5)',
     },
 
-    '&.active, &:hover:not(.vanishing)': { opacity: 1 },
+    '&.active, &:hover': { opacity: 1 },
 
     '& .icon-font': {
       verticalAlign: 'middle',

@@ -9,6 +9,8 @@ export const RefBoxStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
     cursor: 'pointer',
     background: theme.light.background,
     borderRadius: 8,
+    overflow: 'hidden',
+    wordBreak: 'break-word',
     top: '100vh',
     boxShadow: '0 2px 6px rgba(0, 0, 0, .12)',
     maxWidth: 256,

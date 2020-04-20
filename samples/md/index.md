@@ -25,7 +25,7 @@ func whatev() int {
 ````
 
 ```tsx | todolist.tsx
-import { state, map } from '@connectv/core';                         // @see https://connective.dev
+import { state, map } from '@connectv/core';                         // @see https://www.w3schools.com/tags/att_global_hidden.asp
 import { List, ref, autoId, Renderer } from '@connectv/html';        // @see [CONNECTIVE HTML](https://github.com/CONNECT-platform/connective-html)
 
 export function NotATodoList({}, renderer: Renderer) {               // --> how you define a component

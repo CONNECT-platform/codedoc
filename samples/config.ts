@@ -19,7 +19,11 @@ export const config = configuration({
     title: {
       base: 'Codedoc Sample'
     },
-    favicon: '/favicon.ico'
+    favicon: '/favicon.ico',
+    post: [(html, file) => {
+      html.body.classList.add('POST-PROCESS');
+      html.body.setAttribute('data-path', file.path);
+    }]
   },
   markdown: {
     customComponents: {

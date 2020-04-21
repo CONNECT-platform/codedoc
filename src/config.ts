@@ -1,6 +1,8 @@
 import { File } from 'rxline/fs';
 import { PartialOptions as MarkdownOptions, quotedComponents } from '@connectv/marked';
+import { Compiled } from '@connectv/sdh';
 import { TransportedFunc } from '@connectv/sdh/dist/es6/dynamic/transport/index';
+import { ComponentMap } from '@connectv/marked/dist/es6/quote-comp';
 
 import { CodedocTheme, DefaultTheme } from './theme';
 import { guessTitle } from './transport/guess-title';
@@ -28,8 +30,15 @@ import { smoothLoading$ } from './transport/smooth-loading';
 import { tocHighlight$ } from './components/page/toc/toc-highlight';
 import { ToCPrevNext$ } from './components/page/toc/prevnext';
 import { postNavSearch$ } from './components/page/toc/search/post-nav';
-import { ComponentMap } from '@connectv/marked/dist/es6/quote-comp';
 
+
+
+/**
+ *
+ * Denotes a post-processor function post-processing a generated HTML file
+ *
+ */
+export type PostProcessor = (html: HTMLDocument, file: File<Compiled>) => void | Promise<void>;
 
 /**
  *
@@ -405,6 +414,13 @@ export interface CodedocConfig {
      *
      */
     stylesheets?: string[];
+
+    /**
+     *
+     * A list of post processor functions to post-process each page
+     *
+     */
+    post?: PostProcessor[];
   };
   /**
    *
@@ -609,6 +625,13 @@ export interface ConfigOverride {
      *
      */
     stylesheets?: string[];
+
+    /**
+     *
+     * A list of post processor functions to post-process each page.
+     *
+     */
+    post?: PostProcessor[];
   }
 
   /**
@@ -714,6 +737,7 @@ export function configuration(override: ConfigOverride): CodedocConfig {
     if (override.page.fonts) res.page.fonts = override.page.fonts;
     if (override.page.scripts) res.page.scripts = override.page.scripts;
     if (override.page.stylesheets) res.page.stylesheets = override.page.stylesheets;
+    if (override.page.post) res.page.post = override.page.post;
   }
 
   if (override.dev) Object.assign(res.dev, override.dev);

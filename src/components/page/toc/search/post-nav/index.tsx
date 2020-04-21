@@ -32,14 +32,16 @@ export function postNavSearch() {
     const highlights$: HTMLElement[] = [];
     const container$ = document.getElementById('-codedoc-container');
     if (container$) {
-      const _scan = (el$: Node) => {
+      const _scan = (el$: Node, query: RegExp) => {
         if (el$ instanceof Text) {
           const text = el$.textContent;
-          const index = text?.toLowerCase().indexOf(q);
-          if (text && index !== undefined && index > -1) {
-            const before = text.substr(0, index);
-            const match = text.substr(index, query.length);
-            const after = text.substr(index + query.length);
+          // const index = text?.toLowerCase().indexOf(query);
+          const _match = query.exec(text?.toLowerCase() || '');
+          if (text && _match) {
+            const matched = _match[0];
+            const before = text.substr(0, _match.index);
+            const match = text.substr(_match.index, matched.length);
+            const after = text.substr(_match.index + matched.length);
 
             let color: Color<string> | string = Color(window.getComputedStyle(el$.parentElement as any).color);
             if (color.saturationv() < .2) {
@@ -58,27 +60,32 @@ export function postNavSearch() {
                               `}>{match}</span>;
             highlights$.push(match$);
             renderer.render(<fragment>{before$}{match$}</fragment>).before(el$);
-            _scan(before$);
-            _scan(el$);
+            _scan(before$, query);
+            _scan(el$, query);
           }
         }
         else {
           if (el$ instanceof HTMLElement && (el$.hasAttribute('data-no-search') || el$.classList.contains('icon-font')))
             return;
 
-          el$.childNodes.forEach(_scan);
+          el$.childNodes.forEach(n => _scan(n, query));
         }
       };
 
-      _scan(container$);
+      _scan(container$, new RegExp(q));
+
+      if (highlights$.length == 0) {
+        const split = q.split(' ');
+        if (split.length > 0) {
+          _scan(container$, new RegExp(split.join('\\s+.*\\s+')));
+        }
+      }
     }
 
-    if (highlights$.length > 0) {
-      if (switcher$) switcher$.remove();
+    if (switcher$) switcher$.remove();
 
-      switcher$ = <SearchSwitcher elements={highlights$} query={query}/>;
-      renderer.render(switcher$).on(document.body);
-    }
+    switcher$ = <SearchSwitcher elements={highlights$} query={query}/>;
+    renderer.render(switcher$).on(document.body);
   }
 
   (window as any)._find = search;

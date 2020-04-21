@@ -94,7 +94,12 @@ export function SearchSwitcher(
       localStorage.setItem('-codedoc-search-query', options.query);
       document.getElementById('-codedoc-search-btn')?.click()
     }}>list</span>
-    <span class={classes.content}>{index}/{options.elements.length}</span>
+    <span class={classes.content}>
+      {options.elements.length > 0 ? 
+        <fragment>{index}/{options.elements.length}</fragment> :
+        'No Exact Match'
+      }
+    </span>
     <span class="icon-font" onclick={prev}>chevron_left</span>
     <span class="icon-font" onclick={next}>chevron_right</span>
   </div>;

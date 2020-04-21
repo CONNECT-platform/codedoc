@@ -1,4 +1,9 @@
 import { configuration, DefaultConfig } from '../src';
+import { StaticRenderer } from '@connectv/sdh';
+import register from 'jsdom-global';
+
+const renderer = new StaticRenderer();
+register();
 
 import { theme } from './theme';
 import { Card } from './components/card';
@@ -23,7 +28,15 @@ export const config = configuration({
     post: [(html, file) => {
       html.body.classList.add('POST-PROCESS');
       html.body.setAttribute('data-path', file.path);
-    }]
+    }],
+    scripts: [
+      <script>{`
+      window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+      ga('create', 'UA-XXXXX-Y', 'auto');
+      ga('send', 'pageview');
+      `}</script>,
+      <script async src='https://www.google-analytics.com/analytics.js'/>
+    ]
   },
   markdown: {
     customComponents: {

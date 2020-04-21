@@ -16,8 +16,8 @@ export interface PageOptions {
   meta?: any;
   favicon?: string;
   fonts?: any;
-  scripts?: string[];
-  stylesheets?: string[];
+  scripts?: HTMLElement[];
+  stylesheets?: HTMLElement[];
   footer?: any;
   header?: any;
   toc?: any;

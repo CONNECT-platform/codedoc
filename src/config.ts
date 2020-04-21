@@ -403,17 +403,17 @@ export interface CodedocConfig {
 
     /**
      *
-     * A list of URLs for extra script files loaded in each page.
+     * A list of external script elements loaded in each page.
      *
      */
-    scripts?: string[];
+    scripts?: HTMLElement[];
 
     /**
      *
-     * A list of URLs for extra stylesheets loaded in each page.
+     * A list of external stylesheets (link elements) to be loaded in each page.
      *
      */
-    stylesheets?: string[];
+    stylesheets?: HTMLElement[];
 
     /**
      *
@@ -614,17 +614,17 @@ export interface ConfigOverride {
 
     /**
      *
-     * A list of URLs for extra script files loaded in each page.
+     * A list of external script elements to be loaded.
      *
      */
-    scripts?: string[];
+    scripts?: HTMLElement[];
 
     /**
      *
-     * A list of URLs for extra stylesheets loaded in each page.
+     * A list of external stylesheet elements (link elements) to be loaded.
      *
      */
-    stylesheets?: string[];
+    stylesheets?: HTMLElement[];
 
     /**
      *

@@ -35,7 +35,6 @@ export function postNavSearch() {
       const _scan = (el$: Node, query: RegExp) => {
         if (el$ instanceof Text) {
           const text = el$.textContent;
-          // const index = text?.toLowerCase().indexOf(query);
           const _match = query.exec(text?.toLowerCase() || '');
           if (text && _match) {
             const matched = _match[0];
@@ -78,6 +77,9 @@ export function postNavSearch() {
         const split = q.split(' ');
         if (split.length > 0) {
           _scan(container$, new RegExp(split.join('\\s+.*\\s+')));
+          if (highlights$.length == 0) {
+            split.forEach(part => _scan(container$, new RegExp(part)));
+          }
         }
       }
     }

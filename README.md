@@ -48,8 +48,7 @@ git push
 
 # Prior Work
 
-While there are multiple frameworks and tools that help with building websites from a bunch of markdown files, I will only focus on those who are specifically designed for this purpose, since the rest naturally come with a configuration overhead.
-You can [read this section](https://codedoc.cc/#features) for more info on **CODEDOC**'s features compared to the works mentioned here.
+While there are multiple frameworks and tools that help with building websites from a bunch of markdown files, I will only focus on those who are specifically designed for writing documentation/wikis, since the rest naturally come with a configuration overhead. You can [read this section](https://codedoc.cc/#features) for more info on **CODEDOC**'s features compared to the works mentioned here.
 
 ## Jekyll
 

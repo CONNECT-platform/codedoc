@@ -68,4 +68,43 @@ GitBook is a nice SaaS built specifically for documentation and project wikis. H
 
 <br><br>
 
+# Acknowledgements
 
+The following tools and open-source libraries are used by **CODEDOC**, so shout-out to their creators/maintainers/collaborators:
+
+[**webpack**](https://webpack.js.org)\
+Used by [CONNECTIVE SDH](https://github.com/CONNECT-platform/connective-sdh) as client-side code bundler. CONNECTIVE SDH is the basis of server-side/client-side rendering and components of **CODEDOC**.
+
+[**jsdom**](https://github.com/jsdom/jsdom), [**jsdom-global**](https://github.com/rstacruz/jsdom-global)\
+Used by [CONNECTIVE SDH](https://github.com/CONNECT-platform/connective-sdh) for ease of HTML element creation on the server side.
+
+[**Marked.js**](https://marked.js.org/)\
+Used by [@connectv/marked](https://github.com/CONNECT-platform/marked) as markdown processor (@connectv/marked enables using TSX-components for processing markdown and powers the custom components system).
+
+[**JSS**](https://cssinjs.org)\
+Used by [CONNECTIVE JSS Theme](https://github.com/CONNECT-platform/connective-jss-theme) which is the themed-component library used by **CODEDOC**.
+
+[**Prism**](https://prismjs.com)\
+Used for syntax highlighting in code snippets.
+
+[**Color Hunt**](https://colorhunt.co/)\
+For picking the default colors (also thanks to Niyousha Karimi for helping on that front, besides helping with usability testing).
+
+[**RxJS**](https://rxjs-dev.firebaseapp.com)\
+Used by [CONNECTIVE](https://github.com/CONNECT-platform/connective), [CONNECTIVE HTML](https://github.com/CONNECT-platform/connective-html) (which is the TSX-Component library behind **CODEDOC** components) for client-side interactions 
+and [RxLine](https://github.com/loreanvictor/rxline) for asynchronous build process.
+
+[**ts-node**](https://github.com/TypeStrong/ts-node), [**ts-node-dev**](https://github.com/whitecolor/ts-node-dev)\
+Used by the CLI to run the build process and watch over markdown/config files.
+
+[**Express**](https://expressjs.com)\
+Used for the local development server.
+
+[**ShellJS**](https://github.com/shelljs/shelljs), [**chalk**](https://github.com/chalk/chalk)\
+Powering the CLI and making it look nice.
+
+[**select**](https://github.com/zenorocha/select)\
+Used for convenient copy-to-clipboard functionality.
+
+[**color**](https://github.com/Qix-/color)\
+Used for automatic color deduction/manipulation.

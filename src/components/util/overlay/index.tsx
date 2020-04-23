@@ -34,7 +34,12 @@ export function Overlay(this: ComponentThis, _: any, renderer: RendererLike<any,
   };
   
   this.track({
-    bind: () => setTimeout(show, 10)
+    bind() {
+      setTimeout(show, 10);
+      if (!('backdropFilter' in container$.style) && !('-webkit-backdrop-filter' in container$.style)) {
+        container$.style.background = 'rgba(64, 64, 64, .95)';
+      }
+    }
   });
 
   return container$;

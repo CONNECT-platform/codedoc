@@ -55,6 +55,9 @@ export function ToCSearchOverlay(
       input.$.focus();
       holder.$.classList.add('active');
       toc.resolve(document.getElementById('-codedoc-toc') || <fragment/>);
+      if (!('backdropFilter' in holder.$.style) && !('-webkit-backdrop-filter' in holder.$.style)) {
+        holder.$.style.background = 'rgba(64, 64, 64, .95)';
+      }
     }
   });
 

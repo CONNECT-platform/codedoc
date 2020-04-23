@@ -55,3 +55,6 @@ export function Tabs(
     {holder}
   </div>
 }
+
+
+export { TabsStyle } from './style';

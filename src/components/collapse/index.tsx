@@ -30,3 +30,5 @@ export function Collapse(
     </div>
   );
 }
+
+export { CollapseStyle } from './style';

@@ -67,3 +67,4 @@ export function ToCPrevNext(
 
 
 export const ToCPrevNext$ = /*#__PURE__*/transport(ToCPrevNext);
+export { ToCPrevNextStyle } from './style';

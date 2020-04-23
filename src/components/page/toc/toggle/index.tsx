@@ -55,3 +55,4 @@ export function ToCToggle(
 
 
 export const ToCToggle$ = /*#__PURE__*/transport(ToCToggle);
+export { ToCToggleStyle } from './style';

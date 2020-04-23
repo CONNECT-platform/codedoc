@@ -37,3 +37,5 @@ export function HintBox(
     {target$.pipe(filter(el => !!el), map(el => el?.getAttribute('data-hint')))}
   </div>;
 }
+
+export { HintBoxStyle } from './style'; 

@@ -172,3 +172,6 @@ export function ToCSearchOverlay(
     </div>
   </div>
 }
+
+
+export { ToCSearchOverlayStyle } from './style';

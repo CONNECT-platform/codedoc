@@ -73,3 +73,6 @@ export function Code(
   const wmbar = lines.length > 1 && (this.theme.theme.code.wmbar || extopts.wmbar) && extopts.wmbar !== false;
   return <pre class={wmbar ? 'with-bar' : ''}>{code$}</pre>
 }
+
+
+export { CodeStyle } from './style';

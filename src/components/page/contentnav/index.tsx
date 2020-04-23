@@ -1,7 +1,7 @@
 import { RendererLike } from '@connectv/html';
 import { ThemedComponentThis } from '@connectv/jss-theme';
 
-import { ContentNavStyle} from './style';
+import { ContentNavStyle } from './style';
 import { CodedocTheme } from '../../../theme';
 
 
@@ -35,3 +35,6 @@ export function ContentNav(
 
   return <div class={classes.contentnav} data-no-search>{links}</div>
 }
+
+
+export { ContentNavStyle } from './style';

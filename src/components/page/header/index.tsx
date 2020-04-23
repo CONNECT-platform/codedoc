@@ -14,3 +14,6 @@ export function Header(
   const classes = this.theme.classes(HeaderStyle);
   return <div class={classes.header}>{content}</div>
 }
+
+
+export { HeaderStyle } from './style';

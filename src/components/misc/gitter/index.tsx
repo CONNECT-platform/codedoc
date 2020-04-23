@@ -34,3 +34,4 @@ export function GitterToggle(
 
 
 export const GitterToggle$ = /*#__PURE__*/transport(GitterToggle);
+export { GitterStyle } from './style';

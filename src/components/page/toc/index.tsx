@@ -43,3 +43,4 @@ export * from './heading';
 export * from './toggle';
 export * from './search';
 export * from './prevnext';
+export { TocStyle } from './style';

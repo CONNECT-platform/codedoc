@@ -20,3 +20,6 @@ export function Watermark(
     </svg>
   </a>
 }
+
+
+export { WatermarkStyle } from './style';

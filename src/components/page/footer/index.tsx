@@ -23,3 +23,6 @@ export function Footer(
     <div class="right"><DarkModeSwitch$/></div>
   </div>
 }
+
+
+export { FooterStyle } from './style';

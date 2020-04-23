@@ -96,3 +96,5 @@ export function RefBox(
     <a href={link$} target="_blank">See {text$}</a>
   </div>;
 }
+
+export { RefBoxStyle } from './style';

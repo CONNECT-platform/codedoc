@@ -53,3 +53,6 @@ export function ToCSearchBtn(
     <span class="icon-font">search</span>
   </div>
 }
+
+
+export { ToCSearchBtnStyle } from './style';

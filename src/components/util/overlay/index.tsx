@@ -22,7 +22,7 @@ const style = /*#__PURE__*/`
 export function Overlay(this: ComponentThis, _: any, renderer: RendererLike<any, any>, content: any) {
   const container$ = 
     <div style={style} onclick={() => hide()}>
-      <div style='text-align: center; max-width: calc(75vw - 32px);max-height: calc(75vw - 32px); overflow: auto; padding: 16px'>
+      <div style='text-align: center; max-width: calc(75vw - 32px);max-height: calc(75vh - 32px); overflow: auto; padding: 16px'>
         {content}
       </div>
     </div>;

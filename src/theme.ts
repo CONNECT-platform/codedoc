@@ -171,7 +171,7 @@ export const DefaultTheme: CodedocTheme = /*#__PURE__*/{
 
   code: {
     wmbar: true,
-    light: DefaultCodeThemeLight,
+    light: DefaultCodeTheme,
     dark: { 
       ... DefaultCodeTheme, 
       background: '#000000',

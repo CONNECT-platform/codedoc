@@ -35,6 +35,7 @@ export interface CodeTheme {
   property: string;
   important: string;
   cssfunc: string;
+  key: string;
 }
 
 export interface QuoteTheme {
@@ -102,6 +103,7 @@ export const DefaultCodeTheme: CodeTheme = /*#__PURE__*/{
   property: '#f6d186',
   important: '#be79df',
   cssfunc: '#9aceff',
+  key: '#f6d186',
 
   lineHover: '#3b3b3b',
   lineHightlight: 'rgb(40, 46, 73)',
@@ -139,6 +141,7 @@ export const DefaultCodeThemeLight: CodeTheme = /*#__PURE__*/{
   property: '#ef962d',
   important: '#be79df',
   cssfunc: '#3282b8',
+  key: '#ef962d',
 
   lineHover: '#e7e7e7',
   lineHightlight: '#cbffb6',

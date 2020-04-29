@@ -12,18 +12,23 @@
 This is the first page of codedoc. You can [go to this link](https://www.google.com) for example.
 And also some text that has some `code element` within it.
 
+```json
+{
+  "hellow": "world"
+}
+```
+
+
 
 ```bash
 npm i @connectv/html
 ```
 
-````
 ```go
 func whatev() int {
   return 0
 }
 ```
-````
 
 ```tsx | todolist.tsx
 import { state, map } from '@connectv/core';                         // @see https://www.w3schools.com/tags/att_global_hidden.asp

@@ -40,6 +40,7 @@ export const CodeStyle = themedStyle<CodedocTheme>(theme => ({
     '& .token.property': { color: theme.code.light.property },
     '& .token.important': { color: theme.code.light.important },
     '&.scss .token.function, &.css .token.function, &.sass .token.function': { color: theme.code.light.cssfunc },
+    '& .token.key': { color: theme.code.light.key },
 
     '@media (prefers-color-scheme: dark)': {
       'body:not(.dark-mode-animate) &': {
@@ -68,6 +69,7 @@ export const CodeStyle = themedStyle<CodedocTheme>(theme => ({
         '& .token.property': { color: theme.code.dark.property },
         '& .token.important': { color: theme.code.dark.important },
         '&.scss .token.function, &.css .token.function, &.sass .token.function': { color: theme.code.dark.cssfunc },
+        '& .token.key': { color: theme.code.dark.key },
       },
     },
 
@@ -97,6 +99,7 @@ export const CodeStyle = themedStyle<CodedocTheme>(theme => ({
       '& .token.property': { color: theme.code.dark.property },
       '& .token.important': { color: theme.code.dark.important },
       '&.scss .token.function, &.css .token.function, &.sass .token.function': { color: theme.code.dark.cssfunc },
+      '& .token.key': { color: theme.code.dark.key },
     },
   },
 

@@ -35,6 +35,11 @@ export const CodeStyle = themedStyle<CodedocTheme>(theme => ({
     '& .token.attr-value': { color: theme.code.light.attrValue },
     '& .token.plain-text': { color: theme.code.light.plainText },
     '& .token.script': { color: theme.code.light.script },
+    '& .token.placeholder' : { color: theme.code.light.placeholder },
+    '& .token.selector' : { color: theme.code.light.selector },
+    '& .token.property': { color: theme.code.light.property },
+    '& .token.important': { color: theme.code.light.important },
+    '&.scss .token.function, &.css .token.function, &.sass .token.function': { color: theme.code.light.cssfunc },
 
     '@media (prefers-color-scheme: dark)': {
       'body:not(.dark-mode-animate) &': {
@@ -58,6 +63,11 @@ export const CodeStyle = themedStyle<CodedocTheme>(theme => ({
         '& .token.attr-value': { color: theme.code.dark.attrValue },
         '& .token.plain-text': { color: theme.code.dark.plainText },
         '& .token.script': { color: theme.code.dark.script },
+        '& .token.placeholder' : { color: theme.code.dark.placeholder },
+        '& .token.selector' : { color: theme.code.dark.selector },
+        '& .token.property': { color: theme.code.dark.property },
+        '& .token.important': { color: theme.code.dark.important },
+        '&.scss .token.function, &.css .token.function, &.sass .token.function': { color: theme.code.dark.cssfunc },
       },
     },
 
@@ -82,6 +92,11 @@ export const CodeStyle = themedStyle<CodedocTheme>(theme => ({
       '& .token.attr-value': { color: theme.code.dark.attrValue },
       '& .token.plain-text': { color: theme.code.dark.plainText },
       '& .token.script': { color: theme.code.dark.script },
+      '& .token.placeholder' : { color: theme.code.dark.placeholder },
+      '& .token.selector' : { color: theme.code.dark.selector },
+      '& .token.property': { color: theme.code.dark.property },
+      '& .token.important': { color: theme.code.dark.important },
+      '&.scss .token.function, &.css .token.function, &.sass .token.function': { color: theme.code.dark.cssfunc },
     },
   },
 

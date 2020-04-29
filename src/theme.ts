@@ -30,6 +30,11 @@ export interface CodeTheme {
   attrValue: string;
   plainText: string;
   script: string;
+  placeholder: string;
+  selector: string;
+  property: string;
+  important: string;
+  cssfunc: string;
 }
 
 export interface QuoteTheme {
@@ -92,6 +97,11 @@ export const DefaultCodeTheme: CodeTheme = /*#__PURE__*/{
   attrValue: '#69f0ae',
   plainText: '#bdbdbd',
   script: '#e0e0e0',
+  placeholder: '#18ffff',
+  selector: '#ffa372',
+  property: '#f6d186',
+  important: '#be79df',
+  cssfunc: '#9aceff',
 
   lineHover: '#3b3b3b',
   lineHightlight: 'rgb(40, 46, 73)',
@@ -106,7 +116,7 @@ export const DefaultCodeTheme: CodeTheme = /*#__PURE__*/{
 export const DefaultCodeThemeLight: CodeTheme = /*#__PURE__*/{
   background: '#eeeeee',
   text: '#616161',
-  shadow: '0 6px 12px #9e9e9e',
+  shadow: '0 6px 12px #e0e0e0',
 
   keyword: '#7187ff',
   string: '#639a67',
@@ -124,6 +134,11 @@ export const DefaultCodeThemeLight: CodeTheme = /*#__PURE__*/{
   attrValue: '#639a67',
   plainText: '#bdbdbd',
   script: '#616161',
+  placeholder: '#3282b8',
+  selector: '#be79df',
+  property: '#ef962d',
+  important: '#be79df',
+  cssfunc: '#3282b8',
 
   lineHover: '#e7e7e7',
   lineHightlight: '#cbffb6',
@@ -156,7 +171,7 @@ export const DefaultTheme: CodedocTheme = /*#__PURE__*/{
 
   code: {
     wmbar: true,
-    light: DefaultCodeTheme,
+    light: DefaultCodeThemeLight,
     dark: { 
       ... DefaultCodeTheme, 
       background: '#000000',

@@ -48,16 +48,16 @@ export async function build(
       )
       .peek(file => console.log(`${chalk.green('#')}${chalk.gray(' built:: .........')} ${join(file.root, file.path)}`))
       .process()
-      .collect(() => {
+      .collect(async () => {
         console.log(`${chalk.gray('# building ........ ' + _styles.path)}`);
+        await _styles.save();
+        console.log(`${chalk.green('#')} ${chalk.gray('built:: .........')} ${_styles.path}`)
+
         console.log(`${chalk.gray('# building ........ ' + _bundle.path)}`);
-        Promise.all([
-          save(_bundle, webpackConfig)
-          .then(() => console.log(`${chalk.green('#')} ${chalk.gray('built:: .........')} ${_bundle.path}`)),
-          _styles.save()
-          .then(() => console.log(`${chalk.green('#')} ${chalk.gray('built:: .........')} ${_styles.path}`)),
-        ])
-        .then(resolve);
+        await save(_bundle, webpackConfig);
+        console.log(`${chalk.green('#')} ${chalk.gray('built:: .........')} ${_bundle.path}`);
+
+        resolve();
       });
   });
 }

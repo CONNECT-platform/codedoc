@@ -7,6 +7,7 @@ register();
 
 import { theme } from './theme';
 import { Card } from './components/card';
+import { enableFormula } from '../src/components/formula';
 
 
 export const config = configuration({
@@ -28,7 +29,7 @@ export const config = configuration({
     post: [(html, file) => {
       html.body.classList.add('POST-PROCESS');
       html.body.setAttribute('data-path', file.path);
-    }],
+    }, enableFormula],
     scripts: [
       <script>{`
       window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;

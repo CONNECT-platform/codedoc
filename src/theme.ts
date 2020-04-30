@@ -44,6 +44,12 @@ export interface QuoteTheme {
   border: string;
 }
 
+export interface FormulaTheme {
+  background: string;
+  text: string;
+  highlight: string;
+}
+
 export interface ToCTheme {
   background: string;
   border: string;
@@ -74,6 +80,10 @@ export interface CodedocTheme {
     light: ToCTheme,
     dark: ToCTheme,
   },
+  formula: {
+    light: FormulaTheme,
+    dark: FormulaTheme,
+  }
 }
 
 
@@ -207,7 +217,20 @@ export const DefaultTheme: CodedocTheme = /*#__PURE__*/{
       background: '#1f1f1f',
       border: '#282828',
     },
-  }
+  },
+
+  formula: {
+    light: {
+      background: '#eeeeee',
+      text: '#757575',
+      highlight: '#e8e8e8',
+    },
+    dark: {
+      background: '#282828',
+      text: '#cacaca',
+      highlight: '#323232'
+    },
+  },
 }
 
 export interface ThemeExtension {
@@ -225,6 +248,10 @@ export interface ThemeExtension {
   toc?: {
     light?: Partial<ToCTheme>,
     dark?: Partial<ToCTheme>,
+  },
+  formula?: {
+    light?: Partial<FormulaTheme>,
+    dark?: Partial<FormulaTheme>,
   }
 }
 
@@ -252,6 +279,10 @@ export function createTheme(extension: ThemeExtension): CodedocTheme {
   if (extension.toc) {
     if (extension.toc.light) Object.assign(res.toc.light, extension.toc.light);
     if (extension.toc.dark) Object.assign(res.toc.dark, extension.toc.dark);
+  }
+  if (extension.formula) {
+    if (extension.formula.light) Object.assign(res.formula.light, extension.formula.light);
+    if (extension.formula.dark) Object.assign(res.formula.dark, extension.formula.dark);
   }
 
   return res;

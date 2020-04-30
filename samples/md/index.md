@@ -12,12 +12,19 @@
 This is the first page of codedoc. You can [go to this link](https://www.google.com) for example.
 And also some text that has some `code element` within it.
 
-```json
-{
-  "hellow": "world"
-}
-```
-
+> :Formula align=center
+>
+> f_n =
+> \begin {cases}
+> a        &\text{if \(n=0\)} `\\`
+> r\cdot f_{n - 1} &\text{else}
+> \end {cases}
+>
+> \begin{pmatrix}
+> a    &b    &{a+b} `\\`
+> c    &d    &{c+d} `\\`
+> {a-b} &1   &1 `\\`
+> \end{pmatrix}
 
 
 ```bash

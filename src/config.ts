@@ -9,6 +9,7 @@ import { guessTitle } from './transport/guess-title';
 
 import { Code } from './components/code';
 import { Heading } from './components/heading';
+import { Formula } from './components/formula';
 import { Button, CopyButton, Buttons } from './components/button';
 import { Tab, Tabs } from './components/tabs';
 import { Collapse } from './components/collapse';
@@ -30,6 +31,7 @@ import { smoothLoading$ } from './transport/smooth-loading';
 import { tocHighlight$ } from './components/page/toc/toc-highlight';
 import { ToCPrevNext$ } from './components/page/toc/prevnext';
 import { postNavSearch$ } from './components/page/toc/search/post-nav';
+import { zoomOnFormula$ } from './components/formula/zoom-on-formula';
 
 
 
@@ -475,7 +477,7 @@ export interface CodedocConfig {
 
 
 export const DefaultMarkdownCustomComponents = /*#__PURE__*/{
-  Tab, Tabs, Collapse,
+  Tab, Tabs, Collapse, Formula,
   Button, Buttons, CopyButton,
   DarkLight, InDark, InLight,
   GithubButton, Watermark,
@@ -484,7 +486,7 @@ export const DefaultMarkdownCustomComponents = /*#__PURE__*/{
 
 
 export const DefaultToCMarkdownCustomComponents = /*#__PURE__*/{
-  Button, Buttons, Collapse,
+  Button, Buttons, Collapse, Formula,
   DarkLight, InDark, InLight,
   GithubButton, Watermark,
 };
@@ -510,7 +512,7 @@ export const DefaultConfig: CodedocConfig = /*#__PURE__*/{
     init: [
       codeSelection$, sameLineLengthInCodes$, codeLineHints$, codeLineRef$, smartCopy$,
       copyHeadings$, contentNavHighlight$, deferredIframes$, smoothLoading$, tocHighlight$,
-      postNavSearch$,
+      postNavSearch$, zoomOnFormula$,
     ],
   },
 

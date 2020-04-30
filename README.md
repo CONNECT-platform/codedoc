@@ -105,5 +105,8 @@ Powering the CLI and making it look nice.
 [**select**](https://github.com/zenorocha/select)\
 Used for convenient copy-to-clipboard functionality.
 
+[**KaTeX**](https://katex.org)\
+Used for rendering LaTeX formulas.
+
 [**color**](https://github.com/Qix-/color)\
 Used for automatic color deduction/manipulation.

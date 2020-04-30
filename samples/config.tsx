@@ -7,7 +7,7 @@ register();
 
 import { theme } from './theme';
 import { Card } from './components/card';
-import { enableFormula } from '../src/components/formula';
+import { enableFormula } from '../src/components';
 
 
 export const config = configuration({

@@ -1,5 +1,6 @@
 export * from './button';
 export * from './code';
+export * from './formula';
 export * from './collapse';
 export * from './darkmode';
 export * from './heading';

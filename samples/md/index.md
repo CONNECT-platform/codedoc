@@ -27,7 +27,7 @@ And also some text that has some `code element` within it.
 > \end{pmatrix}
 
 
-```bash
+```bashx | --safe-highlight
 npm i @connectv/html
 ```
 

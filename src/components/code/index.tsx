@@ -1,4 +1,5 @@
-import { ExtensibleRenderer, toggleList } from '@connectv/html';
+import chalk from 'chalk';
+import { ExtensibleRenderer } from '@connectv/html';
 import { ThemedComponentThis } from '@connectv/jss-theme';
 
 import { highlight, languages } from 'prismjs';
@@ -24,21 +25,42 @@ export function Code(
   const classes = this.theme.classes(CodeStyle);
   const extopts = { wmbar: undefined as (undefined | boolean), filename: undefined as (undefined | string) };
   let lang: string | undefined = undefined;
+  let safeHighlight = false;
   let extras: string[];
 
   if (options.lang) {
     [lang, ...extras] = options.lang.split('|').map(_ => _.trim());
-    if (!languages[lang])
-      loadLanguages([lang]);
 
     extras.forEach(ext => {
       if (ext === '--wmbar') extopts.wmbar = true;
       else if (ext == '--no-wmbar') extopts.wmbar = false;
+      else if (ext == '--safe-highlight') safeHighlight = true;
       else {
         extopts.filename = ext;
         extopts.wmbar = true;
       }
     });
+  }
+
+  if (lang) {
+    if (!(lang in languages)) {
+      try {
+        loadLanguages([lang]);
+      } catch(_) {}
+      finally {
+        if (!(lang in languages)) {
+          if (safeHighlight) lang = undefined;
+          else throw new Error(``
+            + chalk`\n {redBright #}`
+            + chalk`\n {redBright # Unrecognized Language::} ${lang}`
+            + chalk`\n {redBright #}`
+            + chalk`\n {redBright #} Check https://prismjs.com/#supported-languages for a list of supported languages.`
+            + chalk`\n {redBright #} You can also add --safe-highlight flag to snippets with unsupported langauges.`
+            + chalk`\n {redBright #}`
+          );
+        }
+      }
+    }
   }
 
   const code$ = <code class={`${lang}`} tabindex="0">

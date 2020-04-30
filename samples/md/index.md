@@ -14,17 +14,20 @@ And also some text that has some `code element` within it.
 
 > :Formula align=center
 >
+> ```
 > f_n =
 > \begin {cases}
-> a        &\text{if \(n=0\)} `\\`
+> a        &\text{if \(n=0\)} \\
 > r\cdot f_{n - 1} &\text{else}
 > \end {cases}
->
+>```
+>```
 > \begin{pmatrix}
-> a    &b    &{a+b} `\\`
-> c    &d    &{c+d} `\\`
-> {a-b} &1   &1 `\\`
+> a    &b    &{a+b} \\
+> c    &d    &{c+d} \\
+> {a-b} &1   &1 \\
 > \end{pmatrix}
+> ```
 
 
 ```bashx | --safe-highlight

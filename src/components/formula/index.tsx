@@ -25,9 +25,19 @@ export function Formula(
     + ` ${options && options.align === 'center' ? 'center' : ''}`
     + ` ${options && options.size === 'large' ? 'big': ''}`
   }/>;
+
   marker.childNodes.forEach((child, index) => {
-    const line$ = <div data-formula={child.textContent || ''} class={classes.line}
-                      _innerHTML={renderToString((child.textContent || '').trim())}/>;
+    let formula = '';
+    if (child instanceof HTMLPreElement && child.querySelector('[data-content]')) {
+      child.querySelectorAll('[data-content]').forEach(l$ => {
+        formula += l$.getAttribute('data-content');
+      });
+    }
+    else formula = child.textContent || '';
+
+    formula = formula.trim();
+    const line$ = <div data-formula={formula} class={classes.line}
+                      _innerHTML={renderToString(formula)}/>;
     renderer.render(<span class="counter">{index + 1}</span>).on(line$);
     renderer.render(line$).on(holder);
   });

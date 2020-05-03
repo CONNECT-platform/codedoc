@@ -22,7 +22,11 @@ export function ContentNav(
     let text = h$.textContent;
     if (h$.childElementCount > 0) {
       text = '';
-      h$.querySelectorAll(':not(.icon-font)').forEach(el$ => text += el$.textContent || '');
+      h$.childNodes.forEach(node => {
+        if (!(node instanceof HTMLSpanElement && node.hasAttribute('data-ignore-text'))) {
+          text += node.textContent || '';
+        }
+      });
     }
 
     links.push(

@@ -2,26 +2,26 @@ import { RendererLike } from '@connectv/html';
 import { ThemedComponentThis, themedStyle } from '@connectv/jss-theme';
 
 import { CodedocTheme } from '../../theme';
+import { Icon } from '../misc';
 
 
 export const HeadingStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
   heading: {
     cursor: 'pointer',
     position: 'relative',
+  },
+  anchor: {
+    position: 'absolute',
+    left: '-32px',
+    paddingRight: '8px',
+    top: 0, bottom: 0,
+    display: 'flex',
+    alignItems: 'center',
+    opacity: 0,
+    transform: 'translateX(-8px)',
+    transition: 'opacity .1s, transform .1s',
 
-    '& .icon-font': {
-      position: 'absolute',
-      left: '-32px',
-      paddingRight: '8px',
-      top: 0, bottom: 0,
-      display: 'flex',
-      alignItems: 'center',
-      opacity: 0,
-      transform: 'translateX(-8px)',
-      transition: 'opacity .1s, transform .1s',
-    },
-
-    '&:hover .icon-font': {
+    '$heading:hover &': {
       opacity: .5,
       transform: 'none',
 
@@ -57,7 +57,7 @@ export function Heading(
 
   renderer.render(
     <fragment>
-      <span class="icon-font">link</span>
+      <span class={classes.anchor} data-ignore-text><Icon>link</Icon></span>
       {content}
     </fragment>
   ).on(h$);

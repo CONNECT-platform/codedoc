@@ -15,6 +15,7 @@ import { Collapse } from './components/collapse';
 import { DarkLight, InLight, InDark } from './components/darkmode/darklight';
 import { GithubButton, GithubBtnActions } from './components/misc/github';
 import { Watermark } from './components/misc/watermark';
+import { Icon } from './components/misc/icon';
 import { codeSelection$ } from './components/code/selection';
 import { sameLineLengthInCodes$ } from './components/code/same-line-length';
 import { codeLineHints$ } from './components/code/line-hint';
@@ -515,7 +516,8 @@ export const DefaultMarkdownCustomComponents = /*#__PURE__*/{
 
 
 export const DefaultMarkdownCustomInlineComponents = /*#__PURE__*/{
-  Formula: InlineFormula
+  Formula: InlineFormula,
+  Icon,
 }
 
 
@@ -526,7 +528,8 @@ export const DefaultToCMarkdownCustomComponents = /*#__PURE__*/{
 };
 
 export const DefaultToCMarkdownCustomInlineComponents = /*#__PURE__*/{
-  Formula: InlineFormula
+  Formula: InlineFormula,
+  Icon,
 }
 
 

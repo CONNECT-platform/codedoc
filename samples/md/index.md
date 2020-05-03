@@ -82,7 +82,7 @@ renderer.render(<NotATodoList/>).on(document.body);                  // --> rend
 >
 > > :Button url=https://www.google.com, label=TRY IT!
 
-## Also This Section
+## Also This Section [android](:Icon)
 
 ````md
 # Hellow world!

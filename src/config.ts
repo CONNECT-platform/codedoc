@@ -1,15 +1,14 @@
 import { File } from 'rxline/fs';
-import { PartialOptions as MarkdownOptions, quotedComponents } from '@connectv/marked';
+import { PartialOptions as MarkdownOptions, ComponentMap, quotedComponents, linkedComponents } from '@connectv/marked';
 import { Compiled } from '@connectv/sdh';
 import { TransportedFunc } from '@connectv/sdh/dist/es6/dynamic/transport/index';
-import { ComponentMap } from '@connectv/marked/dist/es6/quote-comp';
 
 import { CodedocTheme, DefaultTheme } from './theme';
 import { guessTitle } from './transport/guess-title';
 
 import { Code } from './components/code';
 import { Heading } from './components/heading';
-import { Formula } from './components/formula';
+import { Formula, InlineFormula } from './components/formula';
 import { Button, CopyButton, Buttons } from './components/button';
 import { Tab, Tabs } from './components/tabs';
 import { Collapse } from './components/collapse';
@@ -253,6 +252,36 @@ export interface MarkdownConfig extends MarkdownOptions<any, any> {
    *
    */
   customComponents: ComponentMap;
+
+  /**
+   *
+   * A component map for custom inline components.
+   *
+   * **WARNING**: since some of features of codedoc come from its custom inline markdown
+   * components, it is highly recommended to extend the default custom inline components
+   * for adding your own components:
+   *
+   * ```tsx
+   * import { configuration, DefaultConfig } from '@codedoc/core';
+   * 
+   * export const config = configuration({
+   *   markdown: {
+   *      customInlineComponents: {
+   *        ...DefaultConfig.markdown.customInlineComponents,
+   *        MyComponent,
+   *      }
+   *   },
+   *   tocMarkdown: {
+   *     customInlineComponents: {
+   *       ...DefaultConfig.tocMarkdown.customInlineComponents,
+   *       MyToCComponent,
+   *     }
+   *   }
+   * });
+   * ```
+   *
+   */
+  customInlineComponents: ComponentMap;
 }
 
 
@@ -485,11 +514,20 @@ export const DefaultMarkdownCustomComponents = /*#__PURE__*/{
 };
 
 
+export const DefaultMarkdownCustomInlineComponents = /*#__PURE__*/{
+  Formula: InlineFormula
+}
+
+
 export const DefaultToCMarkdownCustomComponents = /*#__PURE__*/{
   Button, Buttons, Collapse, Formula,
   DarkLight, InDark, InLight,
   GithubButton, Watermark,
 };
+
+export const DefaultToCMarkdownCustomInlineComponents = /*#__PURE__*/{
+  Formula: InlineFormula
+}
 
 
 export const DefaultConfig: CodedocConfig = /*#__PURE__*/{
@@ -533,12 +571,16 @@ export const DefaultConfig: CodedocConfig = /*#__PURE__*/{
     Code,
     Heading,
     customComponents: DefaultMarkdownCustomComponents,
-    BlockQuote: quotedComponents(DefaultMarkdownCustomComponents)
+    customInlineComponents: DefaultMarkdownCustomInlineComponents,
+    BlockQuote: quotedComponents(DefaultMarkdownCustomComponents),
+    Link: linkedComponents(DefaultMarkdownCustomInlineComponents),
   },
   tocMarkdown: {
     Heading: ToCHeading,
     customComponents: DefaultToCMarkdownCustomComponents,
+    customInlineComponents: DefaultToCMarkdownCustomInlineComponents,
     BlockQuote: quotedComponents(DefaultToCMarkdownCustomComponents),
+    Link: linkedComponents(DefaultToCMarkdownCustomInlineComponents),
   },
 }
 
@@ -748,12 +790,18 @@ export function configuration(override: ConfigOverride): CodedocConfig {
     Object.assign(res.markdown, override.markdown);
     if (override.markdown.customComponents)
       res.markdown.BlockQuote = quotedComponents(override.markdown.customComponents);
+
+    if (override.markdown.customInlineComponents)
+      res.markdown.Link = linkedComponents(override.markdown.customInlineComponents);
   }
 
   if (override.tocMarkdown) {
     Object.assign(res.tocMarkdown, override.tocMarkdown);
     if (override.tocMarkdown.customComponents)
       res.markdown.BlockQuote = quotedComponents(override.tocMarkdown.customComponents);
+
+    if (override.tocMarkdown.customInlineComponents)
+      res.tocMarkdown.Link = linkedComponents(override.tocMarkdown.customInlineComponents);
   }
 
   if (override.misc) res.misc = override.misc;

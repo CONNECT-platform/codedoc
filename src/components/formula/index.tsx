@@ -48,3 +48,4 @@ export function Formula(
 
 export * from './style';
 export * from './post';
+export * from './inline';

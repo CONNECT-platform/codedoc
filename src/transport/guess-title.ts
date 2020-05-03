@@ -5,7 +5,10 @@ export function guessTitle(content: HTMLElement, base?: string, connector: strin
     if (target$ instanceof HTMLHeadingElement) {
       let text = '';
       if (target$.childElementCount > 0) {
-        target$.querySelectorAll(':not(.icon-font)').forEach(e$ => text += e$.textContent + '');
+        target$.childNodes.forEach(child => {
+          if (!(child instanceof HTMLElement && child.hasAttribute('data-ignore-text')))
+            text += child.textContent || '';
+        });
       }
       else text = target$.textContent || '';
 

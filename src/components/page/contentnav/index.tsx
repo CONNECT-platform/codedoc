@@ -23,7 +23,7 @@ export function ContentNav(
     if (h$.childElementCount > 0) {
       text = '';
       h$.childNodes.forEach(node => {
-        if (!(node instanceof HTMLSpanElement && node.hasAttribute('data-ignore-text'))) {
+        if (!(node instanceof HTMLElement && node.hasAttribute('data-ignore-text'))) {
           text += node.textContent || '';
         }
       });

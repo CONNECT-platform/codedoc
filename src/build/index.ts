@@ -13,6 +13,7 @@ import { content } from './content';
 import { styles } from './styles';
 import { loadToC } from './toc';
 import { namespace } from './namespace';
+import { pageSpecificMeta } from '../components/page/meta-override/post';
 
 
 export async function build(
@@ -40,6 +41,7 @@ export async function build(
         mapRoot(() => config.dest.html),
         post(_bundle.collect()),
         post(namespace(config)),
+        post(pageSpecificMeta),
         (file: File<Compiled>) => {
           (config.page.post || []).forEach(p => file.content.post(html => p(html, file)));
           return file;

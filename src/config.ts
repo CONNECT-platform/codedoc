@@ -12,6 +12,7 @@ import { Formula, InlineFormula } from './components/formula';
 import { Button, CopyButton, Buttons } from './components/button';
 import { Tab, Tabs } from './components/tabs';
 import { Collapse } from './components/collapse';
+import { MetaOverride } from './components/page/meta-override';
 import { DarkLight, InLight, InDark } from './components/darkmode/darklight';
 import { GithubButton, GithubBtnActions } from './components/misc/github';
 import { Watermark } from './components/misc/watermark';
@@ -511,6 +512,7 @@ export const DefaultMarkdownCustomComponents = /*#__PURE__*/{
   Button, Buttons, CopyButton,
   DarkLight, InDark, InLight,
   GithubButton, Watermark,
+  MetaOverride,
   ToCPrevNext: ToCPrevNext$,
 };
 

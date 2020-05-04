@@ -30,4 +30,12 @@ import * from 'wherever';
 
 [CLICK ME!](/#also-this-section)
 
+> :MetaOverride target=description, behavior=extend
+>
+> Ok so this doc has its own shit
+
+> :MetaOverride target=keywords
+>
+> And, some, other, stuff
+
 > :ToCPrevNext

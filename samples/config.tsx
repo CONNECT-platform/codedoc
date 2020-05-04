@@ -25,6 +25,10 @@ export const config = configuration({
     title: {
       base: 'Codedoc Sample'
     },
+    meta: {
+      description: 'hellow',
+      keywords: ['hellow', 'world']
+    },
     favicon: '/favicon.ico',
     post: [(html, file) => {
       html.body.classList.add('POST-PROCESS');

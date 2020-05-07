@@ -38,7 +38,7 @@ export function serve(
   app.use(config.dest.namespace, express.static(config.dest.assets));
 
   app.get(`${config.dest.namespace}/*`, (req, res) => {
-    const normalUrl = req.originalUrl.substr(config.dest.namespace.length);
+    const normalUrl = req.originalUrl.substr(config.dest.namespace.length).split('?')[0];
     const filename = (normalUrl === '/' ? 'index' : normalUrl) + '.html';
     const filepath = join(root, config.dest.html, filename);
     res.sendFile(filepath, {}, err => {

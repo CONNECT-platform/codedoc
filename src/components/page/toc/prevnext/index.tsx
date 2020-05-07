@@ -11,6 +11,8 @@ export interface ToCPrevNextOptions {
   'prev-icon'?: string;
   'next-label'?: string;
   'next-icon'?: string;
+  next?: 'true' | 'false',
+  prev?: 'true' | 'false',
 }
 
 
@@ -38,7 +40,7 @@ export function ToCPrevNext(
             else if (!curr$ && href.startsWith('/')) prev$ = a$;
           });
 
-          if (prev$) {
+          if (prev$ && options.prev !== 'false') {
             renderer.render(<a class={`${classes.button} prev`} href={prev$.getAttribute('href') || ''}>
               <div>
                 <span class={classes.label}>{options['prev-label'] || 'Previous'}</span>
@@ -48,7 +50,7 @@ export function ToCPrevNext(
             </a>).on(holder.$);
           }
 
-          if (next$) {
+          if (next$ && options.next !== 'false') {
             renderer.render(<a class={`${classes.button} next`} href={next$.getAttribute('href') || ''}>
               <div>
                 <span class={classes.label}>{options['next-label'] || 'Next'}</span>

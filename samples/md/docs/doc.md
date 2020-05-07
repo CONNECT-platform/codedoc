@@ -38,4 +38,4 @@ import * from 'wherever';
 >
 > And, some, other, stuff
 
-> :ToCPrevNext
+> :ToCPrevNext next=false

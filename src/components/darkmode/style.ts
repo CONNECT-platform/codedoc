@@ -38,6 +38,7 @@ export const DarkModeSwitchStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme 
     '& .darc': {
       background: theme.light.background,
       transform: 'translateX(24px)',
+      opacity: 0,
     },
 
     '& .ray': { width: 6, height: 2, borderRadius: 2, },
@@ -55,7 +56,7 @@ export const DarkModeSwitchStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme 
         transform: 'rotate(-45deg)',
 
         '& .arc': { transform: 'scale(1.2)' },
-        '& .darc': { transform: 'translateX(6px)', background: theme.dark.background },
+        '& .darc': { transform: 'translateX(6px)', background: theme.dark.background, opacity: 1, },
         '& .ray': { transform: 'scale(0.001)', opacity: 0 },
       }
     },
@@ -64,7 +65,7 @@ export const DarkModeSwitchStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme 
       transform: 'rotate(-45deg)',
 
       '& .arc': { transform: 'scale(1.2)' },
-      '& .darc': { transform: 'translateX(6px)', background: theme.dark.background },
+      '& .darc': { transform: 'translateX(6px)', background: theme.dark.background, opacity: 1, },
       '& .ray': { transform: 'scale(0.001)', opacity: 0 },
     },
   }

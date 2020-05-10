@@ -66,6 +66,16 @@ export interface SourceConfig {
   toc: string;
 
   /**
+   * 
+   * The name of the markdown file that is to be used in case of 404 in
+   * local dev. Note that this does not necessarily mean that your hosting
+   * provider will also serve this file in case of 404, and further configuration
+   * is required. Default is `'404.md'`.
+   * 
+   */
+  not_found: string;
+
+  /**
    *
    * The regular expression to pick markdown files with. Default is any file with `.md` extension.
    * Files that match this expression but are also matched by `drop` expression will not be picked.
@@ -541,6 +551,7 @@ export const DefaultConfig: CodedocConfig = /*#__PURE__*/{
     toc: '_toc.md',
     pick: /\.md$/,
     drop: /(^_)|(\/_)/,
+    not_found: '404.md',
   },
 
   dest: {

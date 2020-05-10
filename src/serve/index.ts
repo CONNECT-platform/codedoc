@@ -2,6 +2,7 @@ import express from 'express';
 import chalk from 'chalk';
 import { join } from 'path';
 import { compile } from '@connectv/sdh';
+import { _dropExt} from 'rxline/fs';
 import { Configuration } from 'webpack';
 const merge = /*#__PURE__*/require('webpack-merge');
 import { TransportedFunc } from '@connectv/sdh/dist/es6/dynamic/transport/index';
@@ -53,7 +54,9 @@ export function serve(
           console.log(chalk.red('# ') + req.originalUrl);
           console.log(chalk.red('# ') + chalk.gray(filepath));
           console.log();
-          res.status(404).send('Not Found!');
+          res.sendFile(join(root, config.dest.html, _dropExt(config.src.not_found) + '.html'), {}, err => {
+            if (err) res.status(404).send('Not Found!!');
+          });
         }
       }
     });

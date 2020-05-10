@@ -20,7 +20,8 @@ export const ButtonStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
     alignItems: 'center',
     textDecoration: 'none',
     fontSize: '16px',
-    marginLeft: '8px',
+    margin: 8,
+    marginRight: 0,
     verticalAlign: 'middle',
 
     'body.dark-mode-animate &': {

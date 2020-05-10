@@ -31,6 +31,11 @@ Also, I'm pretty excited about the definition of [\frak{L}_{SM}](:Formula) as th
 > \end{pmatrix}
 > ```
 
+> :Buttons
+> > :Button label=Something Very Very Specific
+>
+> > :Button label=Something Rather Generic
+
 
 ```bashx | --safe-highlight
 npm i @connectv/html

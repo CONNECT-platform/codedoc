@@ -1,6 +1,6 @@
 import { quotedComponents, linkedComponents } from '@connectv/marked';
 
-import { DefaultConfig } from './defaults';
+import { DefaultConfig, DefaultMarkdownCustomComponents, DefaultMarkdownCustomInlineComponents, DefaultToCMarkdownCustomComponents, DefaultToCMarkdownCustomInlineComponents } from './defaults';
 import { ConfigOverride } from './override.type';
 import { CodedocConfig } from './config.type';
 import { Plugin, plug } from './plugin';
@@ -24,6 +24,23 @@ export interface ConfigType extends ConfigOverride {
 export function configuration(override: ConfigType): CodedocConfig {
   const res = { ...DefaultConfig };
 
+  if (override.plugins) override = [
+    ...override.plugins,
+    () => ({
+      markdown: {
+        customComponents: DefaultMarkdownCustomComponents,
+        customInlineComponents: DefaultMarkdownCustomInlineComponents,
+      },
+      tocMarkdown: {
+        customComponents: DefaultToCMarkdownCustomComponents,
+        customInlineComponents: DefaultToCMarkdownCustomInlineComponents,
+      },
+      bundle: {
+        init: DefaultConfig.bundle.init
+      }
+    }),
+  ].reduce(plug, override);
+
   if (override.src) Object.assign(res.src, override.src);
   if (override.dest) Object.assign(res.dest, override.dest);
   if (override.bundle) Object.assign(res.bundle, override.bundle);
@@ -39,28 +56,18 @@ export function configuration(override: ConfigType): CodedocConfig {
 
   if (override.dev) Object.assign(res.dev, override.dev);
   if (override.theme) res.theme = override.theme;
-  if (override.markdown) {
-    Object.assign(res.markdown, override.markdown);
-    if (override.markdown.customComponents)
-      res.markdown.BlockQuote = quotedComponents(override.markdown.customComponents);
+  if (override.markdown) Object.assign(res.markdown, override.markdown);
+  if (override.tocMarkdown) Object.assign(res.tocMarkdown, override.tocMarkdown);
 
-    if (override.markdown.customInlineComponents)
-      res.markdown.Link = linkedComponents(override.markdown.customInlineComponents);
-  }
+  res.markdown.Link = linkedComponents(res.markdown.customInlineComponents);
+  res.tocMarkdown.Link = linkedComponents(res.tocMarkdown.customInlineComponents);
 
-  if (override.tocMarkdown) {
-    Object.assign(res.tocMarkdown, override.tocMarkdown);
-    if (override.tocMarkdown.customComponents)
-      res.markdown.BlockQuote = quotedComponents(override.tocMarkdown.customComponents);
-
-    if (override.tocMarkdown.customInlineComponents)
-      res.tocMarkdown.Link = linkedComponents(override.tocMarkdown.customInlineComponents);
-  }
+  res.markdown.BlockQuote = quotedComponents(res.markdown.customComponents);
+  res.tocMarkdown.BlockQuote = quotedComponents(res.tocMarkdown.customComponents);
 
   if (override.misc) res.misc = override.misc;
 
-  if (override.plugins) return override.plugins.reduce(plug, res);
-  else return res;
+  return res;
 }
 
 

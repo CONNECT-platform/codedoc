@@ -19,16 +19,16 @@ export const config = configuration({
   },
   theme,
   page: {
-    title: {
-      base: 'Codedoc Sample'
-    },
     meta: {
       description: 'hellow',
       keywords: ['hellow', 'world']
     },
     favicon: '/favicon.ico',
   },
-  plugins: [samplePlugin, googleAnalytics('XXXX'), formulaPlugin],
+  plugins: [
+    samplePlugin, 
+    googleAnalytics('XXXX'), 
+    formulaPlugin],
   misc: {
     github: {
       user: 'CONNECT-platform',

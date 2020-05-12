@@ -11,6 +11,10 @@ export function samplePlugin(): ConfigOverride {
       }
     },
     page: {
+      title: {
+        base: 'XX',
+        connector: ' > '
+      },
       post: [
         (html, file) => {
           html.body.classList.add('POST-PROCESS');

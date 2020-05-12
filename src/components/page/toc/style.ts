@@ -41,7 +41,7 @@ export const TocStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
 
     '@media screen and (max-width: 1200px)': {
       width: '100vw',
-      transform: 'translateX(-100vw)',
+      transform: 'translateX(-110vw)',
     },
 
     '&.animated': {

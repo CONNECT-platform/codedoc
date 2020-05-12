@@ -45,7 +45,3 @@ export function Formula(
   return holder;
 }
 
-
-export * from './style';
-export * from './post';
-export * from './inline';

@@ -28,10 +28,10 @@ export function plug(config: CodedocConfig, plugin: Plugin) {
 
   if (override.dev) config.dev = Object.assign({}, override.dev, config.dev);
   if (override.markdown) {
-    config.markdown = Object.assign({}, override.markdown, config.markdown, {
-      customComponents: { ...override.markdown.customComponents, ...config.markdown.customComponents },
+    config.markdown = Object.assign({}, config.markdown, override.markdown, {
+      customComponents: { ...config.markdown.customComponents, ...override.markdown.customComponents },
       customInlineComponents: 
-      { ...override.markdown.customInlineComponents, ...config.markdown.customInlineComponents },
+      { ...config.markdown.customInlineComponents, ...override.markdown.customInlineComponents },
     });
 
     if (override.markdown.customComponents)
@@ -42,10 +42,10 @@ export function plug(config: CodedocConfig, plugin: Plugin) {
   }
 
   if (override.tocMarkdown) {
-    config.tocMarkdown = Object.assign({}, override.tocMarkdown, config.tocMarkdown, {
-      customComponents: { ...override.tocMarkdown.customComponents, ...config.tocMarkdown.customComponents },
+    config.tocMarkdown = Object.assign({}, config.tocMarkdown, override.tocMarkdown, {
+      customComponents: { ...config.tocMarkdown.customComponents, ...override.tocMarkdown.customComponents },
       customInlineComponents: 
-      { ...override.tocMarkdown.customInlineComponents, ...config.tocMarkdown.customInlineComponents },
+      { ...config.tocMarkdown.customInlineComponents, ...override.tocMarkdown.customInlineComponents },
     });
 
     if (override.tocMarkdown.customComponents)

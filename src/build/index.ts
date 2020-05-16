@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import { join } from 'path';
 import { Configuration } from 'webpack';
-import { files, pathMatch, readFile, mapExt, mapRoot, File } from 'rxline/fs';
+import { files, pathMatch, readFile, mapExt, mapRoot, File, mapContent } from 'rxline/fs';
 import { post, save, Compiled } from '@connectv/sdh';
 import { TransportedFunc } from '@connectv/sdh/dist/es6/dynamic/transport/index';
 
@@ -37,15 +37,15 @@ export async function build(
       .pipe(
         readFile(),
         content(builder, _toc, config, _styles),
-        mapExt(() => '.html'),
-        mapRoot(() => config.dest.html),
         post(_bundle.collect()),
         post(namespace(config)),
         post(pageSpecificMeta),
         (file: File<Compiled>) => {
-          (config.page.post || []).forEach(p => file.content.post(html => p(html, file)));
+          (config.page.post || []).forEach(p => file.content.post(html => p(html, file, config)));
           return file;
         },
+        mapExt(() => '.html'),
+        mapRoot(() => config.dest.html),
         save(),
       )
       .peek(file => console.log(`${chalk.green('#')}${chalk.gray(' built:: .........')} ${join(file.root, file.path)}`))

@@ -102,7 +102,7 @@ export interface ConfigOverride {
      * A list of post processor functions to post-process each page.
      *
      */
-    post?: PostProcessor[];
+    post?: PostProcessor<CodedocConfig>[];
   }
 
   /**

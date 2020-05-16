@@ -3,10 +3,13 @@ import { OverrideTarget, OverrideBehavior } from './types';
 
 function overrideMeta(html: HTMLDocument, target: OverrideTarget, behavior: OverrideBehavior, override: string) {
   let el$ = html.querySelector(`meta[name="${target}"]`);
+
   if (!el$) {
     el$ = html.createElement('meta');
     el$.setAttribute('name', target);
+    html.head.append(el$);
   }
+
 
   let content = el$.getAttribute('content') || '';
 
@@ -20,6 +23,7 @@ function overrideMeta(html: HTMLDocument, target: OverrideTarget, behavior: Over
   }
 
   el$.setAttribute('content', content);
+
 }
 
 

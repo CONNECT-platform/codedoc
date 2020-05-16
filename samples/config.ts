@@ -19,10 +19,6 @@ export const config = configuration({
   },
   theme,
   page: {
-    meta: {
-      description: 'hellow',
-      keywords: ['hellow', 'world']
-    },
     favicon: '/favicon.ico',
   },
   plugins: [

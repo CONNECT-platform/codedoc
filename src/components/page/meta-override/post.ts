@@ -23,12 +23,36 @@ function overrideMeta(html: HTMLDocument, target: OverrideTarget, behavior: Over
 }
 
 
+function addCanonical(html: HTMLDocument, content: string) {
+  const el$ = html.createElement('link');
+  el$.setAttribute('rel', 'canonical');
+  el$.setAttribute('href', content);
+  html.head.append(el$);
+}
+
+
+function addMetaWithProp(html: HTMLDocument, prop: string, content: string) {
+  const el$ = html.createElement('meta');
+  el$.setAttribute('property', prop);
+  el$.setAttribute('href', content);
+  html.head.append(el$);
+}
+
+
 export function pageSpecificMeta(html: HTMLDocument) {
   html.body.querySelectorAll('[data-meta-override]').forEach(override$ => {
-    overrideMeta(html, 
-      override$.getAttribute('data-meta-override') as OverrideTarget,
-      (override$.getAttribute('data-meta-override-behavior') || 'replace') as OverrideBehavior,
-      override$.textContent || '',
-    )
+    const target = override$.getAttribute('data-meta-override') as OverrideTarget;
+    const behavior = (override$.getAttribute('data-meta-override-behavior') || 'replace') as OverrideBehavior;
+    const content = override$.textContent || '';
+
+    if (target === 'canonical') addCanonical(html, content);
+    else overrideMeta(html, target, behavior, content);
+  });
+
+  html.body.querySelectorAll('[data-meta-override-property]').forEach(override$ => {
+    const prop = override$.getAttribute('data-meta-override-property') || '';
+    const content= override$.textContent || '';
+
+    addMetaWithProp(html, prop, content);
   });
 }

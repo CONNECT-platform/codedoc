@@ -159,4 +159,14 @@ Some text some text every motherfreaking where.
 - ha haha
 
 
+> :MetaOverride property=og:image
+>
+> https://images.unsplash.com/photo-1544133065-4c9fe678b4dd?w=1993&h=600&fit=crop&q=80
+
+
+> :MetaOverride target=canonical
+>
+> https://www.google.com
+
+
 > :ToCPrevNext

@@ -1,2 +1,2 @@
-export type OverrideTarget = 'subject' | 'description' | 'keywords';
+export type OverrideTarget = 'subject' | 'description' | 'keywords' | 'canonical';
 export type OverrideBehavior = 'replace' | 'extend';

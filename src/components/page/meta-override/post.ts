@@ -38,7 +38,7 @@ function addCanonical(html: HTMLDocument, content: string) {
 function addMetaWithProp(html: HTMLDocument, prop: string, content: string) {
   const el$ = html.createElement('meta');
   el$.setAttribute('property', prop);
-  el$.setAttribute('href', content);
+  el$.setAttribute('content', content);
   html.head.append(el$);
 }
 

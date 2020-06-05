@@ -73,7 +73,12 @@ export const PageStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
         'body:not(.dark-mode-animate) &': {
           borderColor: theme.dark.border,
         }
-      }
+      },
+
+      '#-codedoc-toc &': {
+        margin: '16px 0',
+        marginRight: 32,
+      },
     },
 
     blockquote: {

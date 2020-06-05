@@ -3,10 +3,17 @@
 > :Collapse label=Stuff
 >
 > [Home](/)
+>
+> ---
 > > :Collapse label=Deeper
 > >
-> > [Usage](/docs/doc)
+> > [Usage](/docsx)
+> >
+> > ---
+> >
 > > [Space Shit](/)
+---
+[Other](/)
 
 
 

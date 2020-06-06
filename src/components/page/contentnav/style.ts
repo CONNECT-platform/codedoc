@@ -9,10 +9,13 @@ export const ContentNavStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => (
     right: 0,
     bottom: 96,
     width: 'calc(50vw - 496px)',
+    maxHeight: '45vh',
+    overflow: 'auto',
     borderLeft: `1px dashed ${theme.light.border}`,
     paddingLeft: 48,
     marginLeft: 64,
     fontSize: 12,
+    scrollBehavior: 'initial',
 
     '@media screen and (max-width: 1200px)': {
       display: 'none',

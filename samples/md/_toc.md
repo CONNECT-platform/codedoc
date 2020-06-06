@@ -7,11 +7,11 @@
 > ---
 > > :Collapse label=Deeper
 > >
-> > [Usage](/docsx)
+> > [Usage](/docs/doc)
 > >
 > > ---
 > >
-> > [Space Shit](/)
+> > [Space Shit](/docs/test)
 ---
 [Other](/)
 

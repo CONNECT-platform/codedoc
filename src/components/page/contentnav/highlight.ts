@@ -38,6 +38,14 @@ export function contentNavHighlight() {
       });
 
       if (noactive) latest?.classList.add('active');
+
+      const target = links.find(l => l.a$.classList.contains('active'))?.a$;
+      if (target) {
+        const parent = target.parentElement as HTMLElement;
+        if (parent.scrollHeight != parent.offsetHeight) {
+          parent.scrollTop = target.offsetTop - parent.offsetHeight / 3;
+        }
+      }
     }
 
     if (links.length > 0) {

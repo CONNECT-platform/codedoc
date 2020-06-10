@@ -1,14 +1,15 @@
 import chalk from 'chalk';
 import { join } from 'path';
 import { Configuration } from 'webpack';
-import { files, pathMatch, readFile, mapExt, mapRoot, File, mapContent } from 'rxline/fs';
+import { readFile, mapExt, mapRoot, File } from 'rxline/fs';
 import { post, save, Compiled } from '@connectv/sdh';
 import { TransportedFunc } from '@connectv/sdh/dist/es6/dynamic/transport/index';
 
 import { CodedocConfig } from '../config';
+import { files } from './files';
 import { initJss } from '../transport/setup-jss';
 import { bundle } from './bundle';
-import { ContentBuilder } from './types';
+import { ContentBuilder, BuildAssets } from './types';
 import { content } from './content';
 import { styles } from './styles';
 import { loadToC } from './toc';
@@ -21,7 +22,7 @@ export async function build(
   builder: ContentBuilder,
   themeInstaller: TransportedFunc<void>,
   webpackConfig?: Configuration,
-) {
+): Promise<BuildAssets> {
   initJss();
 
   const _bundle = bundle(config, themeInstaller);
@@ -30,9 +31,7 @@ export async function build(
   const _toc = await loadToC(config);
 
   return new Promise(resolve => {
-    files('.', { root: config.src.base })
-      .pick(pathMatch(config.src.pick))
-      .drop(pathMatch(config.src.drop))
+    files(config)
       .peek(file => console.log(`${chalk.gray('# building ........ ' + join(file.root, file.path)) }`))
       .pipe(
         readFile(),
@@ -57,9 +56,10 @@ export async function build(
 
         console.log(`${chalk.gray('# building ........ ' + _bundle.path)}`);
         await save(_bundle, webpackConfig);
+        _bundle.repack = false;
         console.log(`${chalk.green('#')} ${chalk.gray('built:: .........')} ${_bundle.path}`);
 
-        resolve();
+        resolve({ bundle: _bundle, styles: _styles, toc: _toc });
       });
   });
 }

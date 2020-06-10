@@ -1,8 +1,9 @@
 import express from 'express';
 import chalk from 'chalk';
 import { join } from 'path';
+import { Subject } from 'rxjs';
 import { compile } from '@connectv/sdh';
-import { _dropExt} from 'rxline/fs';
+import { _dropExt } from 'rxline/fs';
 import { Configuration } from 'webpack';
 const merge = /*#__PURE__*/require('webpack-merge');
 import { TransportedFunc } from '@connectv/sdh/dist/es6/dynamic/transport/index';
@@ -12,8 +13,11 @@ import { ContentBuilder } from '../build/types';
 import { build } from '../build';
 
 import { StatusCheckURL, StatusBuildingResponse, StatusReadyResponse } from './config';
+import { watch } from './watch';
 import { buildingHtml } from './building-html';
 import { reloadOnChange$ } from './reload';
+import { rebuild } from '../build/rebuild';
+import { files } from '../build/files';
 
 
 export function serve(
@@ -24,10 +28,26 @@ export function serve(
   webpackConfig?: Configuration,
 ) {
   let built = false;
+
   config = { ...config, bundle: { ...config.bundle, init: [...config.bundle.init, reloadOnChange$] } };
-  build(config, builder, themeInstaller, merge({ mode: 'development' }, webpackConfig || {})).then(() => {
+  const wpconf = merge({ mode: 'development' }, webpackConfig || {});
+  build(config, builder, themeInstaller, wpconf).then(assets => {
     built = true;
-    console.log(chalk.greenBright('# ') + 'Documents rebuilt!');
+    console.log(chalk`{greenBright #} Documents built!`);
+    const notifier = new Subject<void>();
+    watch(root, config, notifier).subscribe(buildreq => {
+      if (buildreq === 'queued') built = false;
+      else {
+        rebuild(
+          buildreq === 'all' ? files(config) : files(buildreq, config),
+          config, builder, assets, wpconf
+        ).then(() => {
+          console.log(chalk`{greenBright #} Documents Rebuilt!`);
+          built = true;
+          notifier.next();
+        });
+      }
+    });
   });
 
   const app = express();

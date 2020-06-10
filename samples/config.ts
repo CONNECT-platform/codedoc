@@ -23,7 +23,7 @@ export const config = configuration({
   },
   plugins: [
     samplePlugin, 
-    googleAnalytics('XXXX'), 
+    googleAnalytics('XXXY'), 
     formulaPlugin],
   misc: {
     github: {

@@ -1,6 +1,6 @@
 {
   "name": "@codedoc/core",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "engines": {
     "node": ">=10"
   },
@@ -48,11 +48,13 @@
     "@connectv/sdh": "^0.2.8",
     "@types/color": "^3.0.1",
     "@types/express": "^4.17.4",
+    "@types/express-ws": "^3.0.0",
     "@types/katex": "^0.11.0",
     "@types/prismjs": "^1.16.0",
     "chalk": "^4.0.0",
     "color": "^3.1.2",
     "express": "^4.17.1",
+    "express-ws": "^4.0.0",
     "jss": "^10.1.1",
     "jss-preset-default": "^10.1.1",
     "katex": "^0.11.1",

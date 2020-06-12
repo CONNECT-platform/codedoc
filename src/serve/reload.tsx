@@ -1,7 +1,8 @@
 import { RendererLike, ComponentThis, ref } from '@connectv/html';
-import { interval, of } from 'rxjs';
+import { interval, of, merge } from 'rxjs';
 import { ajax } from 'rxjs/ajax';
-import { switchMap, tap, catchError } from 'rxjs/operators';
+import { webSocket } from 'rxjs/webSocket';
+import { switchMap, catchError, map } from 'rxjs/operators';
 import { funcTransport } from '@connectv/sdh/transport';
 
 import { StatusCheckURL, StatusBuildingResponse, StatusReadyResponse } from './config';
@@ -46,24 +47,31 @@ export function reloadOnChange() {
     }
   }
 
-  interval(500).pipe(
-    switchMap(() => ajax({
-        url: StatusCheckURL,
-        responseType: 'text',
-        timeout: 200,
-      })
-      .pipe(catchError(() => of(buildingMode())))
-    ),
-    tap(result => {
-      if (result) {
-        if (result.response === StatusBuildingResponse) buildingMode();
-        else if (result.response === StatusReadyResponse && building) {
-          location.reload();
-        }
+  merge(
+    webSocket({
+       url: (window.location.protocol === 'https') ? 'wss://' : 'ws://'
+            + window.location.host
+            + StatusCheckURL,
+        closeObserver: { next: () => buildingMode() }
+    }).pipe(catchError(() => of())),
+    interval(500).pipe(
+      switchMap(() => ajax({
+          url: StatusCheckURL,
+          responseType: 'text',
+          timeout: 200,
+        })
+        .pipe(catchError(() => of(buildingMode())))
+      ),
+      map(result => result ? result.response : undefined)
+    )
+  ).subscribe(status => {
+    if (status) {
+      if (status === StatusBuildingResponse) buildingMode();
+      else if (status === StatusReadyResponse && building) {
+        location.reload();
       }
-    }),
-  )
-  .subscribe();
+    }
+  });
 }
 
 

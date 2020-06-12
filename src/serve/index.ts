@@ -1,7 +1,8 @@
 import express from 'express';
+import ws, { Router } from 'express-ws';
 import chalk from 'chalk';
 import { join } from 'path';
-import { Subject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
 import { compile } from '@connectv/sdh';
 import { _dropExt } from 'rxline/fs';
 import { Configuration } from 'webpack';
@@ -12,12 +13,13 @@ import { CodedocConfig } from '../config';
 import { ContentBuilder } from '../build/types';
 import { build } from '../build';
 
-import { StatusCheckURL, StatusBuildingResponse, StatusReadyResponse } from './config';
+import { StatusCheckURL, StatusBuildingResponse, StatusReadyResponse, Status } from './config';
 import { watch } from './watch';
 import { buildingHtml } from './building-html';
 import { reloadOnChange$ } from './reload';
 import { rebuild } from '../build/rebuild';
 import { files } from '../build/files';
+import { loadToC } from '../build/toc';
 
 
 export function serve(
@@ -27,33 +29,39 @@ export function serve(
   themeInstaller: TransportedFunc<void>,
   webpackConfig?: Configuration,
 ) {
-  let built = false;
+  let status = new BehaviorSubject<Status>(StatusBuildingResponse);
 
   config = { ...config, bundle: { ...config.bundle, init: [...config.bundle.init, reloadOnChange$] } };
   const wpconf = merge({ mode: 'development' }, webpackConfig || {});
   build(config, builder, themeInstaller, wpconf).then(assets => {
-    built = true;
+    status.next(StatusReadyResponse);
     console.log(chalk`{greenBright #} Documents built!`);
     const notifier = new Subject<void>();
-    watch(root, config, notifier).subscribe(buildreq => {
-      if (buildreq === 'queued') built = false;
+    watch(root, config, notifier).subscribe(async buildreq => {
+      if (buildreq === 'queued') status.next(StatusBuildingResponse);
       else {
+        if (buildreq === 'all') {
+          assets.toc = await loadToC(config);
+        }
+
         rebuild(
           buildreq === 'all' ? files(config) : files(buildreq, config),
           config, builder, assets, wpconf
         ).then(() => {
           console.log(chalk`{greenBright #} Documents Rebuilt!`);
-          built = true;
+          status.next(StatusReadyResponse);
           notifier.next();
         });
       }
     });
   });
 
-  const app = express();
-  app.get(StatusCheckURL, (_, res) => {
-    if (!built) res.send(StatusBuildingResponse);
-    else res.send(StatusReadyResponse);
+  const app = express(); ws(app);
+  app.get(StatusCheckURL, (_, res) => res.send(status.value));
+  (app as any as Router).ws(StatusCheckURL, ws => {
+    const sub = status.subscribe(v => ws.send(JSON.stringify(v)));
+    ws.on('error', () => sub.unsubscribe());
+    ws.on('close', () => sub.unsubscribe());
   });
 
   app.use(config.dest.namespace, express.static(config.dest.assets));
@@ -64,7 +72,7 @@ export function serve(
     const filepath = join(root, config.dest.html, filename);
     res.sendFile(filepath, {}, err => {
       if (err) {
-        if (!built) {
+        if (status.value === StatusBuildingResponse) {
           compile(buildingHtml)
           .serialize()
           .then(html => res.status(200).send(html));

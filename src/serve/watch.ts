@@ -23,7 +23,10 @@ export function watch(
       config.src.pick.test(f) && !config.src.drop.test(f) ||
       config.src.toc === f.substr(watchbase.length)
     ),
-  }, (_, filename) => filechange$.next(filename.substr(watchbase.length)));
+  }, (event, filename) => {
+    if (event === 'update')
+      filechange$.next(filename.substr(watchbase.length))
+  });
 
   filechange$.pipe(
     tap(filename => {

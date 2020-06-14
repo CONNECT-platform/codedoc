@@ -1,3 +1,4 @@
+import color from 'color';
 import { RendererLike } from '@connectv/html';
 import { ThemedComponentThis, themedStyle } from '@connectv/jss-theme';
 
@@ -35,10 +36,22 @@ export const ButtonStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
       fontSize: '24px',
     },
 
+    '&[disabled]': {
+      background: color(theme.light.text).alpha(.35).toString(),
+      border: color(theme.light.text).alpha(.35).toString(),
+      color: theme.light.background,
+    },
+
     'body.dark &': {
       background: theme.dark.primary,
       borderColor: theme.dark.primary,
       color: theme.dark.primaryContrast,
+
+      '&[disabled]': {
+        background: color(theme.dark.text).alpha(.35).toString(),
+        border: color(theme.dark.text).alpha(.35).toString(),
+        color: theme.dark.background,
+      },
     },
 
     '@media (prefers-color-scheme: dark)': {
@@ -46,10 +59,16 @@ export const ButtonStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
         background: theme.dark.primary,
         borderColor: theme.dark.primary,
         color: theme.dark.primaryContrast,
+
+      '&[disabled]': {
+        background: color(theme.dark.text).alpha(.35).toString(),
+        border: color(theme.dark.text).alpha(.35).toString(),
+        color: theme.dark.background,
+      },
       }
     },
 
-    '&:hover': {
+    '&:hover:not([disabled])': {
       background: 'transparent',
       color: theme.light.primary,
       textDecoration: 'none',

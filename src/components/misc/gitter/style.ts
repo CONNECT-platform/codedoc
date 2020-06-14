@@ -36,7 +36,7 @@ export const GitterStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
     },
 
     '&.is-collapsed': {
-      transform: 'translateX(386px)',
+      transform: 'translateX(480px)',
       opacity: 0,
     },
 

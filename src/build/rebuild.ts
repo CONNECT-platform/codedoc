@@ -35,13 +35,13 @@ export function rebuild(
         (config.page.post || []).forEach(p => file.content.post(html => p(html, file, config)));
         return file;
       },
-      mapExt(() => '.html'),
+      mapExt<Compiled>(() => '.html'),
       mapRoot(() => config.dest.html),
       save(),
     )
     .peek(file => console.log(`${chalk.green('#')}${chalk.gray(' rebuilt:: .........')} ${join(file.root, file.path)}`))
     .process()
-    .collect(async () => {
+    .collect(async (built) => {
       if (assets.styles.theme.registry.toString() !== _ogstyles) {
         console.log(`${chalk.gray('# rebuilding ........ ' + assets.styles.path)}`);
         await assets.styles.save();
@@ -53,6 +53,15 @@ export function rebuild(
         await save(assets.bundle, webpackConfig);
         assets.bundle.repack = false;
         console.log(`${chalk.green('#')} ${chalk.gray('rebuilt:: .........')} ${assets.bundle.path}`);
+      }
+
+      if (config.afterBuild) {
+        console.log(chalk.gray('# running after build hooks ...'));
+        for (let hook of config.afterBuild) {
+          console.log(chalk.gray('# running ......... ' + hook.name + '()'));
+          await hook({ config, built, source: files, partial: true });
+          console.log(`${chalk.green('#')} ${chalk.gray('finished:: ......')} ${hook.name}()`);
+        }
       }
 
       resolve(assets);

@@ -25,6 +25,9 @@ export const config = configuration({
     samplePlugin, 
     googleAnalytics('XXXY'), 
     formulaPlugin],
+  afterBuild: [function test(build) {
+    console.log(build.built.map(f => f.path));
+  }],
   misc: {
     github: {
       user: 'CONNECT-platform',

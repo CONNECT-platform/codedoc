@@ -37,13 +37,15 @@ export function configuration(override: ConfigType): CodedocConfig {
       },
       bundle: {
         init: DefaultConfig.bundle.init
-      }
+      },
+      afterBuild: DefaultConfig.afterBuild,
     }),
   ].reduce(plug, override);
 
   if (override.src) Object.assign(res.src, override.src);
   if (override.dest) Object.assign(res.dest, override.dest);
   if (override.bundle) Object.assign(res.bundle, override.bundle);
+  if (override.afterBuild) res.afterBuild = override.afterBuild;
   if (override.page) {
     if (override.page.title) Object.assign(res.page.title, override.page.title);
     if (override.page.favicon) res.page.favicon = override.page.favicon;

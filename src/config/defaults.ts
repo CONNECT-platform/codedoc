@@ -93,6 +93,8 @@ export const DefaultConfig: CodedocConfig = /*#__PURE__*/{
     }
   },
 
+  afterBuild: [],
+
   theme: DefaultTheme,
   markdown: {
     Code,

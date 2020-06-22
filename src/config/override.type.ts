@@ -11,6 +11,7 @@ import { MarkdownConfig } from './markdown.type';
 import { DevConfig } from './dev.type';
 import { GithubConfig, GitterConfig } from './misc.type';
 import { CodedocConfig } from './config.type';
+import { AfterBuild } from './after-build.type';
 
 /**
  *
@@ -155,6 +156,13 @@ export interface ConfigOverride {
    *
    */
   tocMarkdown?: Partial<MarkdownConfig>;
+
+  /**
+   *
+   * Functions to be called after each build.
+   *
+   */
+  afterBuild?: AfterBuild<CodedocConfig>[];
 
   /**
    *

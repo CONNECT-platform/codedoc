@@ -14,6 +14,9 @@ export function plug(config: ConfigOverride, plugin: Plugin) {
     res.bundle = res.bundle || {};
     res.bundle.init = [...config.bundle?.init || [], ...override.bundle.init || []];
   }
+  if (override.afterBuild) {
+    res.afterBuild = [...config.afterBuild || [], ... override.afterBuild];
+  }
   if (override.page) {
     res.page = res.page || {};
     if (override.page.title) res.page.title = Object.assign({}, override.page.title, config.page?.title);

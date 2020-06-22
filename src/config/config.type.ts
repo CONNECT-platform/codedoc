@@ -10,6 +10,7 @@ import { TitleConfig } from './title.type';
 import { MarkdownConfig } from './markdown.type';
 import { DevConfig } from './dev.type';
 import { GithubConfig, GitterConfig } from './misc.type';
+import { AfterBuild } from './after-build.type';
 
 /**
  *
@@ -123,6 +124,13 @@ export interface CodedocConfig {
    *
    */
   dev: DevConfig;
+
+  /**
+   *
+   * After build functions to be executed after each build.
+   *
+   */
+  afterBuild: AfterBuild<CodedocConfig>[];
 
   /**
    *

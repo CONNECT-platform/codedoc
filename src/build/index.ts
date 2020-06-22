@@ -29,9 +29,10 @@ export async function build(
   const _styles = styles(config);
 
   const _toc = await loadToC(config);
+  const source = files(config);
 
   return new Promise(resolve => {
-    files(config)
+    source
       .peek(file => console.log(`${chalk.gray('# building ........ ' + join(file.root, file.path)) }`))
       .pipe(
         readFile(),
@@ -43,13 +44,13 @@ export async function build(
           (config.page.post || []).forEach(p => file.content.post(html => p(html, file, config)));
           return file;
         },
-        mapExt(() => '.html'),
+        mapExt<Compiled>(() => '.html'),
         mapRoot(() => config.dest.html),
         save(),
       )
       .peek(file => console.log(`${chalk.green('#')}${chalk.gray(' built:: .........')} ${join(file.root, file.path)}`))
       .process()
-      .collect(async () => {
+      .collect(async (built) => {
         console.log(`${chalk.gray('# building ........ ' + _styles.path)}`);
         await _styles.save();
         console.log(`${chalk.green('#')} ${chalk.gray('built:: .........')} ${_styles.path}`)
@@ -58,6 +59,15 @@ export async function build(
         await save(_bundle, webpackConfig);
         _bundle.repack = false;
         console.log(`${chalk.green('#')} ${chalk.gray('built:: .........')} ${_bundle.path}`);
+
+        if (config.afterBuild) {
+          console.log(chalk.gray('# running after build hooks ...'));
+          for (let hook of config.afterBuild) {
+            console.log(chalk.gray('# running ......... ' + hook.name + '()'));
+            await hook({ config, built, source, partial: false });
+            console.log(`${chalk.green('#')} ${chalk.gray('finished:: ......')} ${hook.name}()`);
+          }
+        }
 
         resolve({ bundle: _bundle, styles: _styles, toc: _toc });
       });

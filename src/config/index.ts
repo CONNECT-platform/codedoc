@@ -76,3 +76,4 @@ export function configuration(override: ConfigType): CodedocConfig {
 export * from './config.type';
 export * from './override.type';
 export * from './defaults';
+export { Build } from './after-build.type';

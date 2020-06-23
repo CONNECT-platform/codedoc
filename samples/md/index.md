@@ -37,6 +37,15 @@ Also, I'm pretty excited about the definition of [\frak{L}_{SM}](:Formula) as th
 > > :Button label=Something Rather Generic
 
 
+> :Tabs
+> > :Tab title=First
+> >
+> > Halo!
+>
+> > :Tab title=Second
+> > 
+> > World!
+
 ```bashx | --safe-highlight
 npm i @connectv/html
 ```

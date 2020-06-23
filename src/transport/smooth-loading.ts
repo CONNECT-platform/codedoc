@@ -7,7 +7,7 @@ let lastpath: string | undefined = undefined;
 
 
 function navigate(url: string, push=true) {
-  const container = document.getElementById('-codedoc-container') as HTMLElement;
+  let container = document.getElementById('-codedoc-container') as HTMLElement;
 
   if (container) {
     if (window.innerWidth <= 1200 && (window as any).codedocToggleToC)
@@ -35,8 +35,22 @@ function navigate(url: string, push=true) {
       if (title) title.innerHTML = dom.head.querySelector('title')?.innerHTML || title.innerHTML;
 
       setTimeout(() => {
-        container.innerHTML = dom.getElementById('-codedoc-container')?.innerHTML || '';
-        container.querySelectorAll('script').forEach(s => eval(s.textContent || ''));
+        container.innerHTML = '';
+        const _newc = dom.getElementById('-codedoc-container');
+        if (_newc) {
+          container.parentElement?.insertBefore(_newc, container);
+          container.remove();
+          container = _newc;
+          container.style.transition = 'none';
+          container.style.opacity = '0';
+          container.querySelectorAll('script').forEach(s => {
+            const _s = document.createElement('script');
+            s.getAttributeNames().forEach(attr => _s.setAttribute(attr, s.getAttribute(attr)!!));
+            _s.text = s.text;
+            s.parentElement?.insertBefore(_s, s);
+            s.remove();
+          });
+        }
 
         if (push) {
           document.documentElement.style.scrollBehavior = 'auto';
@@ -50,10 +64,11 @@ function navigate(url: string, push=true) {
               if (window.location.hash) {
                 document.querySelector(window.location.hash)?.scrollIntoView();
               }
-            }, 50);
+            }, 10);
           }
+          container.style.transition = '';
           container.style.opacity = '1';
-        }, 10);
+        }, 50);
         window.dispatchEvent(new CustomEvent('navigation', { detail: { url } }));
       }, 150);
     });
@@ -78,7 +93,7 @@ export function smoothLoading() {
           target = target.parentNode as HTMLElement;
         }
 
-        if (target && target.getAttribute('href')?.startsWith('/')) {
+        if (target && target.getAttribute('href')?.startsWith('/') && target.getAttribute('target') !== '_blank') {
           const url = target.getAttribute('href') || '';
           event.preventDefault();
           navigate(url);

@@ -74,11 +74,11 @@ export function RefBox(
         if (ref?.startsWith('tab:')) {
           ref = ref.substr(4);
           let tab$ = latest$.value;
-          while(tab$ && !tab$?.hasAttribute('data-tab-title')) tab$ = tab$?.parentElement || undefined;
+          while(tab$ && !tab$?.hasAttribute('data-tab-id')) tab$ = tab$?.parentElement || undefined;
 
           if (tab$) {
             const btn$ = tab$.parentElement?.querySelector(
-              `.selector>button[data-tab-title="${ref}"]`);
+              `.selector>button[data-tab-id="${ref}"]`);
             if (btn$) {
               (btn$ as HTMLButtonElement).click();
               event.stopPropagation();

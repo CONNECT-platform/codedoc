@@ -133,7 +133,7 @@ Also I would like to write some stuff here to see what would happen if some othe
 > > ).save('dist/index.html');
 > > ```
 >
-> > :Tab title=component
+> > :Tab title=component code, id=component
 > > 
 > > ```tsx | card.tsx
 > > const style = `

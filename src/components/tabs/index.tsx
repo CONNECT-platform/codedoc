@@ -11,11 +11,14 @@ export interface TabOptions {
   selected?: boolean;
   title?: string;
   icon?: string;
+  id?: string;
 }
 
 
 export function Tab(options: TabOptions, renderer: RendererLike<any, any>, content: any) {
-  const $tab = <div class="tab" data-tab-title={options.title || ''}>{content}</div>;
+  const $tab = <div class="tab" 
+                    data-tab-title={options.title || ''} 
+                    data-tab-id={options.id || options.title || ''}>{content}</div>;
 
   if (options.selected) $tab.classList.add('selected');
   if (options.icon) $tab.setAttribute('data-tab-icon', options.icon);

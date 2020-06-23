@@ -78,8 +78,13 @@ export function serve(
           .then(html => res.status(200).send(html));
         }
         else {
+          console.log();
           console.log(chalk.red('# Not Found::'));
           console.log(chalk.red('# ') + req.originalUrl);
+          console.log(chalk.red('# '));
+          console.log(chalk.red('# ') + chalk.gray('tried the following paths:'));
+          console.log(chalk.red('# ') + chalk.gray(join(root, config.dest.assets, 
+            req.originalUrl.substr(config.dest.namespace.length))));
           console.log(chalk.red('# ') + chalk.gray(filepath));
           console.log();
           res.sendFile(join(root, config.dest.html, _dropExt(config.src.not_found) + '.html'), {}, err => {

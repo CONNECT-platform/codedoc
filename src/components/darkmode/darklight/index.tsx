@@ -10,7 +10,7 @@ export const DarkLightStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
     overflow: 'hidden',
 
     'body.dark-mode-animate &>.light, &>.dark': {
-      transition: 'opacity .3s',
+      transition: 'opacity .3s, z-index .3s',
     },
 
     '&>.light': {
@@ -28,15 +28,18 @@ export const DarkLightStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
     '&>.dark': {
       position: 'absolute',
       opacity: 0,
-      top: 0, left: 0,
+      top: 0, left: 0, right: 0,
+      zIndex: -1,
 
       'body.dark &': {
         opacity: 1,
+        zIndex: 1,
       },
 
       '@media (prefers-color-scheme: dark)': {
         'body:not(.dark-mode-animate) &': {
           opacity: 1,
+          zIndex: 1,
         }
       },
     },

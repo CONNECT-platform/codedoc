@@ -117,7 +117,11 @@ export function Button(
 
 
   if (options.url)
-    return <a class={_class} href={options.url} target="_blank">{options.label || ''}</a>
+    return <a class={_class}
+              href={options.url}
+              {...(options.url.startsWith('/') ? {} : {target: '_blank'})}>
+              {options.label || ''}
+           </a>
   else
     return <button class={_class} onclick={options.onclick || ''}>{options.label || ''}</button>
 }

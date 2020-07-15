@@ -15,4 +15,7 @@ func /*~warn~*/whatev()/*~warn~*/ int {
 }
 ```
 
+> :Buttons
+> > :Button label=Click ME!, url=/docs/doc
+
 > :ToCPrevNext

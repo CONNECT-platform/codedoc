@@ -1,6 +1,7 @@
 import chalk from 'chalk';
 import { join } from 'path';
 import { Configuration } from 'webpack';
+import { sequentially } from 'rxline';
 import { readFile, mapExt, mapRoot, File } from 'rxline/fs';
 import { post, save, Compiled } from '@connectv/sdh';
 import { TransportedFunc } from '@connectv/sdh/dist/es6/dynamic/transport/index';
@@ -31,7 +32,7 @@ export async function build(
   const _toc = await loadToC(config);
   const source = files(config);
 
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     source
       .peek(file => console.log(`${chalk.gray('# building ........ ' + join(file.root, file.path)) }`))
       .pipe(
@@ -50,7 +51,7 @@ export async function build(
       )
       .peek(file => console.log(`${chalk.green('#')}${chalk.gray(' built:: .........')} ${join(file.root, file.path)}`))
       .process()
-      .collect(async (built) => {
+      .collect(sequentially, async (built) => {
         console.log(`${chalk.gray('# building ........ ' + _styles.path)}`);
         await _styles.save();
         console.log(`${chalk.green('#')} ${chalk.gray('built:: .........')} ${_styles.path}`)
@@ -70,6 +71,6 @@ export async function build(
         }
 
         resolve({ bundle: _bundle, styles: _styles, toc: _toc });
-      });
+      }, reject);
   });
 }

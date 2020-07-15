@@ -4,10 +4,12 @@ import { ajax } from 'rxjs/ajax';
 import { webSocket } from 'rxjs/webSocket';
 import { switchMap, catchError, map } from 'rxjs/operators';
 import { funcTransport } from '@connectv/sdh/transport';
+import { default as AnsiUp } from 'ansi_up';
 
-import { StatusCheckURL, StatusBuildingResponse, StatusReadyResponse } from './config';
+import { StatusCheckURL, StatusBuildingResponse, StatusReadyResponse, StatusErrorResponse } from './config';
 import { getRenderer } from '../transport/renderer';
 import { Loading } from '../components/util/loading';
+import { Overlay } from '../components/util/overlay';
 
 
 export function Toast(this: ComponentThis, _: any, renderer: RendererLike<any, any>) {
@@ -38,12 +40,37 @@ export function Toast(this: ComponentThis, _: any, renderer: RendererLike<any, a
 
 export function reloadOnChange() {
   let building = false;
+  let error = false;
+  let errorMsg: string;
   const renderer = getRenderer();
+  let toast: HTMLElement;
+  let overlay: HTMLElement;
+  const ansiUp = new AnsiUp();
 
   const buildingMode = () => {
     if (!building) {
       building = true;
-      renderer.render(<Toast/>).on(document.body);
+      error = false;
+      errorMsg = '';
+      if (toast) toast.remove();
+      if (overlay) overlay.remove();
+      toast = renderer.render(<Toast/>).on(document.body);
+    }
+  }
+
+  const showError = (err: string) => {
+    console.log(error);
+    if (!error || errorMsg !== err) {
+      error = true;
+      errorMsg = err;
+      building = false;
+      if (toast) toast.remove();
+      if (overlay) overlay.remove();
+      overlay = renderer.render(<Overlay sticky={true}>
+        <pre 
+          style="text-align: left; font-size: 14px; background: rgba(0, 0, 0, .35); padding: 8px; border-radius: 8px;" 
+          _innerHTML={ansiUp.ansi_to_html(errorMsg)}/>
+      </Overlay>).on(document.body);
     }
   }
 
@@ -57,17 +84,18 @@ export function reloadOnChange() {
     interval(500).pipe(
       switchMap(() => ajax({
           url: StatusCheckURL,
-          responseType: 'text',
+          responseType: 'json',
           timeout: 200,
         })
         .pipe(catchError(() => of(buildingMode())))
       ),
       map(result => result ? result.response : undefined)
     )
-  ).subscribe(status => {
-    if (status) {
-      if (status === StatusBuildingResponse) buildingMode();
-      else if (status === StatusReadyResponse && building) {
+  ).subscribe(state => {
+    if (state) {
+      if (state.status === StatusBuildingResponse) buildingMode();
+      else if (state.status === StatusErrorResponse) showError(state.error);
+      else if (state.status === StatusReadyResponse && building) {
         location.reload();
       }
     }

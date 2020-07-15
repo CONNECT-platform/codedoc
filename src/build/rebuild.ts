@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import { join } from 'path';
 import { Configuration } from 'webpack';
-import { SimpleLine } from 'rxline';
+import { SimpleLine, sequentially } from 'rxline';
 import { File, readFile, mapExt, mapRoot } from 'rxline/fs';
 import { post, Compiled, save } from '@connectv/sdh';
 
@@ -22,7 +22,7 @@ export function rebuild(
 ): Promise<BuildAssets> {
   const _ogstyles = assets.styles.theme.registry.toString();
 
-  return new Promise(resolve => {
+  return new Promise((resolve, reject) => {
     files
     .peek(file => console.log(`${chalk.gray('# rebuilding ........ ' + join(file.root, file.path)) }`))
     .pipe(
@@ -41,7 +41,7 @@ export function rebuild(
     )
     .peek(file => console.log(`${chalk.green('#')}${chalk.gray(' rebuilt:: .........')} ${join(file.root, file.path)}`))
     .process()
-    .collect(async (built) => {
+    .collect(sequentially, async (built) => {
       if (assets.styles.theme.registry.toString() !== _ogstyles) {
         console.log(`${chalk.gray('# rebuilding ........ ' + assets.styles.path)}`);
         await assets.styles.save();
@@ -65,6 +65,6 @@ export function rebuild(
       }
 
       resolve(assets);
-    });
+    }, reject);
   });
 }

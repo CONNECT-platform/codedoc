@@ -10,7 +10,7 @@ import { CodedocConfig } from '../config';
 export function watch(
   root: string,
   config: CodedocConfig,
-  notifier: Observable<void>,
+  notifier?: Observable<void>,
 ) {
   const watchbase = join(root, config.src.base, '/');
   const filechange$ = new Subject<string>();
@@ -30,7 +30,8 @@ export function watch(
 
   filechange$.pipe(
     tap(filename => {
-      console.log(chalk`{blue # Changes in {magenta ${join(config.src.base, filename)}} queueing ...}`);
+      if (notifier)
+        console.log(chalk`{blue # Changes in {magenta ${join(config.src.base, filename)}} queueing ...}`);
       request$.next('queued');
     }),
     buffer(
@@ -41,8 +42,10 @@ export function watch(
     ),
     filter(chanegs => chanegs.length > 0)
   ).subscribe(changedFiles => {
-    build$.next(true);
-    console.log(chalk`{gray # Rebuilding due to changes ...}`);
+    if (notifier) {
+      build$.next(true);
+      console.log(chalk`{gray # Rebuilding due to changes ...}`);
+    }
     changedFiles = changedFiles.filter((file, index) => changedFiles.indexOf(file) === index);
     if (changedFiles.includes(config.src.toc)) {
       request$.next('all');
@@ -50,7 +53,7 @@ export function watch(
       request$.next(changedFiles);
     }
 
-    notifier.subscribe(() => build$.next(false));
+    notifier?.subscribe(() => build$.next(false));
   });
 
   return request$;

@@ -13,13 +13,14 @@ import { CodedocConfig } from '../config';
 import { ContentBuilder } from '../build/types';
 import { build } from '../build';
 
-import { StatusCheckURL, StatusBuildingResponse, StatusReadyResponse, Status } from './config';
+import { StatusCheckURL, StatusBuildingResponse, StatusReadyResponse, Status, StatusErrorResponse } from './config';
 import { watch } from './watch';
 import { buildingHtml } from './building-html';
 import { reloadOnChange$ } from './reload';
 import { rebuild } from '../build/rebuild';
 import { files } from '../build/files';
 import { loadToC } from '../build/toc';
+import { take } from 'rxjs/operators';
 
 
 export function serve(
@@ -29,37 +30,52 @@ export function serve(
   themeInstaller: TransportedFunc<void>,
   webpackConfig?: Configuration,
 ) {
-  let status = new BehaviorSubject<Status>(StatusBuildingResponse);
+  let state = new BehaviorSubject<{ status: Status, error?: string }>({ status: StatusBuildingResponse });
 
   config = { ...config, bundle: { ...config.bundle, init: [...config.bundle.init, reloadOnChange$] } };
   const wpconf = merge({ mode: 'development' }, webpackConfig || {});
-  build(config, builder, themeInstaller, wpconf).then(assets => {
-    status.next(StatusReadyResponse);
-    console.log(chalk`{greenBright #} Documents built!`);
-    const notifier = new Subject<void>();
-    watch(root, config, notifier).subscribe(async buildreq => {
-      if (buildreq === 'queued') status.next(StatusBuildingResponse);
-      else {
-        if (buildreq === 'all') {
-          assets.toc = await loadToC(config);
+  function _build() {
+    state.next({ status: StatusBuildingResponse });
+    build(config, builder, themeInstaller, wpconf).then(assets => {
+      state.next({ status: StatusReadyResponse });
+      console.log(chalk`{greenBright #} Documents built!`);
+      const notifier = new Subject<void>();
+      watch(root, config, notifier).subscribe(async buildreq => {
+        if (buildreq === 'queued') state.next({ status: StatusBuildingResponse });
+        else {
+          if (buildreq === 'all') {
+            assets.toc = await loadToC(config);
+          }
+  
+          rebuild(
+            buildreq === 'all' ? files(config) : files(buildreq, config),
+            config, builder, assets, wpconf
+          ).then(() => {
+            console.log(chalk`{greenBright #} Documents Rebuilt!`);
+            state.next({ status: StatusReadyResponse });
+            notifier.next();
+          }).catch(error => {
+            console.log(chalk`{redBright # REBUILD FAILED!!}`);
+            console.log(error?.message || error);
+            state.next({ status: StatusErrorResponse, error: error?.message || error });
+            notifier.next();
+          });
         }
-
-        rebuild(
-          buildreq === 'all' ? files(config) : files(buildreq, config),
-          config, builder, assets, wpconf
-        ).then(() => {
-          console.log(chalk`{greenBright #} Documents Rebuilt!`);
-          status.next(StatusReadyResponse);
-          notifier.next();
-        });
-      }
+      });
+    }).catch(error => {
+      console.log(chalk`{redBright # BUILD FAILED!!}`);
+      console.log(error?.message || error);
+      state.next({ status: StatusErrorResponse, error: error?.message || error });
+      watch(root, config).pipe(take(1)).subscribe(() => _build());
     });
-  });
+  }
+
+  _build();
 
   const app = express(); ws(app);
-  app.get(StatusCheckURL, (_, res) => res.send(status.value));
+  app.get(StatusCheckURL, (_, res) => res.json(state.value));
   (app as any as Router).ws(StatusCheckURL, ws => {
-    const sub = status.subscribe(v => ws.send(JSON.stringify(v)));
+    const sub = state.subscribe(v => ws.send(JSON.stringify(v)));
     ws.on('error', () => sub.unsubscribe());
     ws.on('close', () => sub.unsubscribe());
   });
@@ -72,7 +88,7 @@ export function serve(
     const filepath = join(root, config.dest.html, filename);
     res.sendFile(filepath, {}, err => {
       if (err) {
-        if (status.value === StatusBuildingResponse) {
+        if (state.value.status === StatusBuildingResponse) {
           compile(buildingHtml)
           .serialize()
           .then(html => res.status(200).send(html));

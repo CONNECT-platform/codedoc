@@ -19,6 +19,19 @@ export const CodeStyle = themedStyle<CodedocTheme>(theme => ({
     overflowX: 'auto',
     outline: 'none',
 
+    '& .error, & .warning': {
+      display: 'inline-block',
+      position: 'relative',
+
+      '& .wave': {
+        fontFamily: 'cursive',
+        position: 'absolute',
+        bottom: -12, left: 0, right: 0,
+        letterSpacing: -2,
+        fontSize: 18,
+      }
+    },
+
     '& .token.keyword': { color: theme.code.light.keyword },
     '& .token.string': { color: theme.code.light.string },
     '& .token.number': { color: theme.code.light.number },
@@ -41,6 +54,8 @@ export const CodeStyle = themedStyle<CodedocTheme>(theme => ({
     '& .token.important': { color: theme.code.light.important },
     '&.scss .token.function, &.css .token.function, &.sass .token.function': { color: theme.code.light.cssfunc },
     '& .token.key': { color: theme.code.light.key },
+    '& .error .wave': { color: theme.code.light.errorUnderline },
+    '& .warning .wave': { color: theme.code.light.warningUnderline },
 
     '@media (prefers-color-scheme: dark)': {
       'body:not(.dark-mode-animate) &': {
@@ -70,6 +85,8 @@ export const CodeStyle = themedStyle<CodedocTheme>(theme => ({
         '& .token.important': { color: theme.code.dark.important },
         '&.scss .token.function, &.css .token.function, &.sass .token.function': { color: theme.code.dark.cssfunc },
         '& .token.key': { color: theme.code.dark.key },
+        '& .error .wave': { color: theme.code.dark.errorUnderline },
+        '& .warning .wave': { color: theme.code.dark.warningUnderline },
       },
     },
 
@@ -100,6 +117,8 @@ export const CodeStyle = themedStyle<CodedocTheme>(theme => ({
       '& .token.important': { color: theme.code.dark.important },
       '&.scss .token.function, &.css .token.function, &.sass .token.function': { color: theme.code.dark.cssfunc },
       '& .token.key': { color: theme.code.dark.key },
+      '& .error .wave': { color: theme.code.dark.errorUnderline },
+      '& .warning .wave': { color: theme.code.dark.warningUnderline },
     },
   },
 

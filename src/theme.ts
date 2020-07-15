@@ -13,6 +13,8 @@ export interface CodeTheme {
   lineCounterBorder: string;
   lineCounterBorderHover: string;
   lineCounterHighlight: string;
+  errorUnderline: string;
+  warningUnderline: string;
 
   keyword: string;
   boolean: string;
@@ -122,6 +124,8 @@ export const DefaultCodeTheme: CodeTheme = /*#__PURE__*/{
   lineCounterBorder: 'rgba(255, 255, 255, .015)',
   lineCounterBorderHover: 'rgba(255, 255, 255, .1)',
   lineCounterHighlight: '#7187ff',
+  errorUnderline: '#e8505b',
+  warningUnderline: '#ffa931ee',
 }
 
 
@@ -160,6 +164,8 @@ export const DefaultCodeThemeLight: CodeTheme = /*#__PURE__*/{
   lineCounterBorder: 'rgba(255, 255, 255, .015)',
   lineCounterBorderHover: 'rgba(255, 255, 255, .1)',
   lineCounterHighlight: '#7187ff',
+  errorUnderline: '#fa1616',
+  warningUnderline: '#f37121',
 }
 
 

@@ -69,6 +69,7 @@ export function Code(
   const [code, lines, highlights] = parse(content[0]);
 
   const highlines = lang ? highlight(code, languages[lang], lang).split('\n') : code.split('\n');
+  let waving: 'error' | 'warning' | 'none' = 'none';
 
   lines.forEach((line, index) => {
     const highline = highlines[index];
@@ -83,6 +84,30 @@ export function Code(
     const line$ = <div class={`${classes.line} ${highlighted?'highlight':''}`} 
                       data-content={line}
                       _innerHTML={highline}/>;
+
+    line$.childNodes.forEach(child => {
+      if (child instanceof HTMLElement && child.classList.contains('comment')) {
+        if (child.textContent === '/*~*/' || child.textContent === '/*~err~*/' || child.textContent === '/*~warn~*/') {
+          const _waving = child.textContent === '/*~warn~*/' ? 'warning' : 'error';
+          if (_waving === waving) waving = 'none';
+          else waving = _waving;
+
+          child.hidden = true;
+        }
+        return;
+      }
+
+      if (waving !== 'none') {
+        let target: HTMLElement = child as any;
+        if (!(target instanceof HTMLElement)) {
+          target = <span>{child.textContent}</span>;
+          child.replaceWith(target);
+        }
+
+        target.classList.add(waving);
+        renderer.render(<span class="wave">{target.textContent?.replace(/./g, '~')}</span>).on(target);
+      }
+    });
 
     if (line$.firstChild)
       renderer.render(counter$).before(line$.firstChild as ChildNode);

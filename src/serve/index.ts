@@ -1,8 +1,10 @@
+import { writeFileSync, readFileSync } from 'fs';
 import express from 'express';
 import ws, { Router } from 'express-ws';
 import chalk from 'chalk';
 import { join } from 'path';
 import { Subject, BehaviorSubject } from 'rxjs';
+import { take } from 'rxjs/operators';
 import { compile } from '@connectv/sdh';
 import { _dropExt } from 'rxline/fs';
 import { Configuration } from 'webpack';
@@ -20,7 +22,6 @@ import { reloadOnChange$ } from './reload';
 import { rebuild } from '../build/rebuild';
 import { files } from '../build/files';
 import { loadToC } from '../build/toc';
-import { take } from 'rxjs/operators';
 
 
 export function serve(
@@ -34,43 +35,47 @@ export function serve(
 
   config = { ...config, bundle: { ...config.bundle, init: [...config.bundle.init, reloadOnChange$] } };
   const wpconf = merge({ mode: 'development' }, webpackConfig || {});
-  function _build() {
-    state.next({ status: StatusBuildingResponse });
-    build(config, builder, themeInstaller, wpconf).then(assets => {
-      state.next({ status: StatusReadyResponse });
-      console.log(chalk`{greenBright #} Documents built!`);
-      const notifier = new Subject<void>();
-      watch(root, config, notifier).subscribe(async buildreq => {
-        if (buildreq === 'queued') state.next({ status: StatusBuildingResponse });
-        else {
-          if (buildreq === 'all') {
-            assets.toc = await loadToC(config);
-          }
-  
-          rebuild(
-            buildreq === 'all' ? files(config) : files(buildreq, config),
-            config, builder, assets, wpconf
-          ).then(() => {
-            console.log(chalk`{greenBright #} Documents Rebuilt!`);
-            state.next({ status: StatusReadyResponse });
-            notifier.next();
-          }).catch(error => {
-            console.log(chalk`{redBright # REBUILD FAILED!!}`);
-            console.log(error?.message || error);
-            state.next({ status: StatusErrorResponse, error: error?.message || error });
-            notifier.next();
-          });
-        }
-      });
-    }).catch(error => {
-      console.log(chalk`{redBright # BUILD FAILED!!}`);
-      console.log(error?.message || error);
-      state.next({ status: StatusErrorResponse, error: error?.message || error });
-      watch(root, config).pipe(take(1)).subscribe(() => _build());
-    });
-  }
 
-  _build();
+  state.next({ status: StatusBuildingResponse });
+  build(config, builder, themeInstaller, wpconf).then(assets => {
+    state.next({ status: StatusReadyResponse });
+    console.log(chalk`{greenBright #} Documents built!`);
+    const notifier = new Subject<void>();
+    watch(root, config, notifier).subscribe(async buildreq => {
+      if (buildreq === 'queued') state.next({ status: StatusBuildingResponse });
+      else {
+        if (buildreq === 'all') {
+          assets.toc = await loadToC(config);
+        }
+
+        rebuild(
+          buildreq === 'all' ? files(config) : files(buildreq, config),
+          config, builder, assets, wpconf
+        ).then(() => {
+          console.log(chalk`{greenBright #} Documents Rebuilt!`);
+          state.next({ status: StatusReadyResponse });
+          notifier.next();
+        }).catch(error => {
+          console.log(chalk`{redBright # REBUILD FAILED!!}`);
+          console.log(error?.message || error);
+          state.next({ status: StatusErrorResponse, error: error?.message || error });
+          notifier.next();
+        });
+      }
+    });
+  }).catch(error => {
+    console.log(chalk`{redBright # BUILD FAILED!!}`);
+    console.log(error?.message || error);
+    state.next({ status: StatusErrorResponse, error: error?.message || error });
+    watch(root, config).pipe(take(1)).subscribe(() => {
+
+      // --> so this is shaky and requires explanation:
+      // --> we need to restart the whole process when the initial build fails.
+      // --> in order to do so, we simply save this file with its own contents.
+      // --> since this file is imported, saving it should restart ts-node-dev's process.
+      writeFileSync(__filename, readFileSync(__filename));
+    });
+  });
 
   const app = express(); ws(app);
   app.get(StatusCheckURL, (_, res) => res.json(state.value));

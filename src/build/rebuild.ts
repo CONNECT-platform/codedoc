@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import { join } from 'path';
 import { Configuration } from 'webpack';
-import { SimpleLine, sequentially } from 'rxline';
+import { SimpleLine, sequentially, handleError, Function } from 'rxline';
 import { File, readFile, mapExt, mapRoot } from 'rxline/fs';
 import { post, Compiled, save } from '@connectv/sdh';
 
@@ -38,6 +38,11 @@ export function rebuild(
       mapExt<Compiled>(() => '.html'),
       mapRoot(() => config.dest.html),
       save(),
+    )
+    .pipe(
+      handleError((err, file, rethrow) => {
+        rethrow(new Error(chalk`{redBright # ERROR} in {underline ${file.path}}\n${err?.message || err}`));
+      }) as any as Function<File<any>, File<any>>,
     )
     .peek(file => console.log(`${chalk.green('#')}${chalk.gray(' rebuilt:: .........')} ${join(file.root, file.path)}`))
     .process()

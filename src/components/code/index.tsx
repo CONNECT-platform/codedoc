@@ -51,12 +51,12 @@ export function Code(
         if (!(lang in languages)) {
           if (safeHighlight) lang = undefined;
           else throw new Error(``
-            + chalk`\n {redBright #}`
-            + chalk`\n {redBright # Unrecognized Language::} ${lang}`
-            + chalk`\n {redBright #}`
-            + chalk`\n {redBright #} Check https://prismjs.com/#supported-languages for a list of supported languages.`
-            + chalk`\n {redBright #} You can also add --safe-highlight flag to snippets with unsupported langauges.`
-            + chalk`\n {redBright #}`
+            + chalk`\n{redBright #}`
+            + chalk`\n{redBright # Unrecognized Language::} ${lang}`
+            + chalk`\n{redBright #}`
+            + chalk`\n{redBright #} Check https://prismjs.com/#supported-languages for a list of supported languages.`
+            + chalk`\n{redBright #} You can also add --safe-highlight flag to snippets with unsupported langauges.`
+            + chalk`\n{redBright #}`
           );
         }
       }

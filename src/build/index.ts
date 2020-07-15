@@ -1,7 +1,7 @@
 import chalk from 'chalk';
 import { join } from 'path';
 import { Configuration } from 'webpack';
-import { sequentially } from 'rxline';
+import { sequentially, handleError, Function } from 'rxline';
 import { readFile, mapExt, mapRoot, File } from 'rxline/fs';
 import { post, save, Compiled } from '@connectv/sdh';
 import { TransportedFunc } from '@connectv/sdh/dist/es6/dynamic/transport/index';
@@ -48,6 +48,11 @@ export async function build(
         mapExt<Compiled>(() => '.html'),
         mapRoot(() => config.dest.html),
         save(),
+      )
+      .pipe(
+        handleError((err, file, rethrow) => {
+          rethrow(new Error(chalk`{redBright # ERROR} in {underline ${file.path}}\n${err?.message || err}`));
+        }) as any as Function<File<any>, File<any>>,
       )
       .peek(file => console.log(`${chalk.green('#')}${chalk.gray(' built:: .........')} ${join(file.root, file.path)}`))
       .process()

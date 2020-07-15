@@ -65,14 +65,17 @@ export function serve(
       }
     });
 
-    _watch(join(root, config.dest.assets), {recursive: true}, () => {
+    _watch(join(root, config.dest.assets), {
+      recursive: true,
+      filter: f => !f.endsWith('.html')
+    }, (_, filename) => {
       setTimeout(() => {
         if (state.value.status === StatusReadyResponse) {
-          console.log(chalk`{gray # change in assets, issueing reload to client ...}`);
+          console.log(chalk`{gray # change in ${filename}, issueing reload to client ...}`);
           state.next({ status: StatusBuildingResponse });
           setTimeout(() => state.next({status: StatusReadyResponse}), 300);
         }
-      }, 200);
+      }, 10);
     });
   }).catch(error => {
     console.log(chalk`{redBright # BUILD FAILED!!}`);

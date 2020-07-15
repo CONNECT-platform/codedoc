@@ -1,4 +1,5 @@
 import { writeFileSync, readFileSync } from 'fs';
+import _watch from 'node-watch';
 import express from 'express';
 import ws, { Router } from 'express-ws';
 import chalk from 'chalk';
@@ -62,6 +63,16 @@ export function serve(
           notifier.next();
         });
       }
+    });
+
+    _watch(join(root, config.dest.assets), {recursive: true}, () => {
+      setTimeout(() => {
+        if (state.value.status === StatusReadyResponse) {
+          console.log(chalk`{gray # change in assets, issueing reload to client ...}`);
+          state.next({ status: StatusBuildingResponse });
+          setTimeout(() => state.next({status: StatusReadyResponse}), 300);
+        }
+      }, 200);
     });
   }).catch(error => {
     console.log(chalk`{redBright # BUILD FAILED!!}`);

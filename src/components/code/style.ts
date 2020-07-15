@@ -142,6 +142,18 @@ export const CodeStyle = themedStyle<CodedocTheme>(theme => ({
       color: theme.code.light.lineCounter,
     },
 
+    '& .-codedoc-line-link': {
+      position: 'absolute',
+      fontSize: 12,
+      left: 0, right: 0, top: -2, bottom: 0,
+      textAlign: 'center',
+      opacity: 0,
+      color: theme.code.light.text,
+      transition: 'opacity .15s',
+
+      '& .icon-font': { transform: 'scale(.75)' }
+    },
+
     '@media (prefers-color-scheme: dark)': {
       'body:not(.dark-mode-animate) &': {
         background: theme.code.dark.background,
@@ -149,6 +161,10 @@ export const CodeStyle = themedStyle<CodedocTheme>(theme => ({
   
         '&.prim': {
           color: theme.code.dark.lineCounter,
+        },
+
+        '& .-codedoc-line-link': {
+          color: theme.code.dark.text,
         },
       },
     },
@@ -159,6 +175,10 @@ export const CodeStyle = themedStyle<CodedocTheme>(theme => ({
 
       '&.prim': {
         color: theme.code.dark.lineCounter,
+      },
+
+      '& .-codedoc-line-link': {
+        color: theme.code.dark.text,
       },
     },
   },
@@ -228,6 +248,11 @@ export const CodeStyle = themedStyle<CodedocTheme>(theme => ({
           background: `${theme.code.dark.lineHover} !important`,
           color: theme.code.dark.lineCounterHighlight,
         },
+      },
+
+      '& $lineCounter:hover': {
+        color: 'transparent !important',
+        '& .-codedoc-line-link': { opacity: 1 }
       },
     },
 

@@ -28,6 +28,8 @@ import { ToCPrevNext$ } from '../components/page/toc/prevnext';
 import { postNavSearch$ } from '../components/page/toc/search/post-nav';
 
 import { CodedocConfig } from './config.type';
+import { addLineIds } from '../components/code/line-links/add-line-ids';
+import { copyLineLiks$ } from '../components/code/line-links/copy-line-link';
 
 
 export const DefaultMarkdownCustomComponents = /*#__PURE__*/{
@@ -77,7 +79,7 @@ export const DefaultConfig: CodedocConfig = /*#__PURE__*/{
     init: [
       codeSelection$, sameLineLengthInCodes$, codeLineHints$, codeLineRef$, smartCopy$,
       copyHeadings$, contentNavHighlight$, deferredIframes$, smoothLoading$, tocHighlight$,
-      postNavSearch$,
+      postNavSearch$, copyLineLiks$,
     ],
   },
 
@@ -90,7 +92,8 @@ export const DefaultConfig: CodedocConfig = /*#__PURE__*/{
       base: 'New Codedoc Project',
       connector: ' | ',
       extractor: (content, config) => guessTitle(content, config.page.title.base, config.page.title.connector),
-    }
+    },
+    post: [addLineIds]
   },
 
   afterBuild: [],

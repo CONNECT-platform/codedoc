@@ -8,6 +8,7 @@ const loadLanguages = /*#__PURE__*/require('prismjs/components/');
 import { CodedocTheme } from '../../theme';
 import { CodeStyle } from './style';
 import { parse } from './parse';
+import { Icon } from '../misc';
 
 
 export interface CodeOptions {
@@ -63,7 +64,7 @@ export function Code(
     }
   }
 
-  const code$ = <code class={`${lang}`} tabindex="0">
+  const code$ = <code class={`${lang} -codedoc-code-snippet`} tabindex="0">
     <span class={classes.wmbar}><span/><span/><span/><span>{extopts.filename || ''}</span></span>
   </code>;
   const [code, lines, highlights] = parse(content[0]);
@@ -77,11 +78,13 @@ export function Code(
 
     let counter$;
     if (counter === 1 || counter === lines.length || counter % 5 === 0)
-      counter$ = <span class={`${classes.lineCounter} prim`}>{counter}</span>;
-    else counter$ = <span class={classes.lineCounter}>{counter}</span>;
+      counter$ = <span class={`${classes.lineCounter} prim -codedoc-line-counter`}>{counter}</span>;
+    else counter$ = <span class={`${classes.lineCounter} -codedoc-line-counter`}>{counter}</span>;
+
+    renderer.render(<span class="-codedoc-line-link"><Icon>link</Icon></span>).on(counter$);
 
     const highlighted = highlights[index];
-    const line$ = <div class={`${classes.line} ${highlighted?'highlight':''}`} 
+    const line$ = <div class={`${classes.line} ${highlighted?'highlight':''} -codedoc-code-line`} 
                       data-content={line}
                       _innerHTML={highline}/>;
 

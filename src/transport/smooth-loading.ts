@@ -107,7 +107,7 @@ export function smoothLoading() {
         if (location.pathname === lastpath) return;
 
         lastpath = location.pathname;
-        console.log(event);
+
         if (isSafari) window.location.href = event.state || window.location.href;
         else navigate(event.state || window.location.href, false);
       });

@@ -53,7 +53,7 @@ export function configuration(override: ConfigType): CodedocConfig {
     if (override.page.fonts) res.page.fonts = override.page.fonts;
     if (override.page.scripts) res.page.scripts = override.page.scripts;
     if (override.page.stylesheets) res.page.stylesheets = override.page.stylesheets;
-    if (override.page.post) res.page.post = override.page.post;
+    if (override.page.post) res.page.post = [...(res.page.post || []), ...override.page.post];
   }
 
   if (override.dev) Object.assign(res.dev, override.dev);

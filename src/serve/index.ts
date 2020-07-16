@@ -1,4 +1,4 @@
-import { writeFileSync, readFileSync } from 'fs';
+import { utimesSync } from 'fs';
 import _watch from 'node-watch';
 import express from 'express';
 import ws, { Router } from 'express-ws';
@@ -85,9 +85,9 @@ export function serve(
 
       // --> so this is shaky and requires explanation:
       // --> we need to restart the whole process when the initial build fails.
-      // --> in order to do so, we simply save this file with its own contents.
+      // --> in order to do so, we simply touch the current file.
       // --> since this file is imported, saving it should restart ts-node-dev's process.
-      writeFileSync(__filename, readFileSync(__filename));
+      utimesSync(__filename, new Date(), new Date());
     });
   });
 

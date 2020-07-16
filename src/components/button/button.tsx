@@ -119,7 +119,11 @@ export function Button(
   if (options.url)
     return <a class={_class}
               href={options.url}
-              {...(options.url.startsWith('/') ? {} : {target: '_blank'})}>
+              {...(
+                (
+                  options.url.startsWith('/')
+                  || options.url.startsWith('#')
+                )? {} : {target: '_blank'})}>
               {options.label || ''}
            </a>
   else

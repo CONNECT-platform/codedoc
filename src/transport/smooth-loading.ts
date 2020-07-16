@@ -93,7 +93,7 @@ export function smoothLoading() {
           target = target.parentNode as HTMLElement;
         }
 
-        if (target && target.getAttribute('href')?.startsWith('/') && target.getAttribute('target') !== '_blank') {
+        if (target && (target.getAttribute('href')?.startsWith('/')) && target.getAttribute('target') !== '_blank') {
           const url = target.getAttribute('href') || '';
           event.preventDefault();
           navigate(url);

@@ -32,13 +32,17 @@ export function copyLineLinks() {
     const _detect = () => {
       const linked = linkedLines();
 
+      if (linked.length > 0) {
+        linked[0].parentElement?.querySelectorAll('.selected').forEach(el => el.classList.remove('selected'));
+      }
+
       linked.forEach(line$ => {
         line$?.classList.add('selected');
         line$?.parentElement?.classList.add('has-selection');
       });
 
       if (linked.length > 0)
-        setTimeout(() => linked[0]?.scrollIntoView(), 300);
+        setTimeout(() => linked[0]?.scrollIntoView({ block: 'nearest' }), 300);
     };
 
     _exec();

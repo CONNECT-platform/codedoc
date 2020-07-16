@@ -23,6 +23,11 @@ func /*~warn~*/whatev()/*~warn~*/ int {
 }
 ```
 
+> :Buttons
+> > :Button label=First Line, url=#code1-l1:l1
+>
+> > :Button label=Second Line, url=#code1-l2:l2
+
 ```tsx
 import { RendererLike } from '@connectv/html';
 import { File } from 'rxline/fs';

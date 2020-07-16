@@ -67,7 +67,7 @@ export function serve(
     });
 
     watchAssets(root, config, state).subscribe(filename => {
-      console.log(chalk`{gray # change in ${filename}, issueing reload to client ...}`);
+      console.log(chalk`{gray # change in ${filename}, issuing reload to client ...}`);
       state.next({ status: StatusBuildingResponse });
       setTimeout(() => state.next({status: StatusReadyResponse}), 300);
     });

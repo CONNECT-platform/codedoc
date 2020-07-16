@@ -7,8 +7,12 @@ export interface CodeTheme {
   shadow: string;
 
   lineHover: string;
-  lineHightlight: string;
+  lineHighlight: string;
   lineHighlightText: string;
+  lineHighlightAdded: string;
+  lineHighlightAddedIndicator: string;
+  lineHighlightRemoved: string;
+  lineHighlightRemovedIndicator: string;
   lineCounter: string;
   lineCounterBorder: string;
   lineCounterBorderHover: string;
@@ -118,7 +122,11 @@ export const DefaultCodeTheme: CodeTheme = /*#__PURE__*/{
   key: '#f6d186',
 
   lineHover: '#3b3b3b',
-  lineHightlight: 'rgb(40, 46, 73)',
+  lineHighlight: 'rgb(40, 46, 73)',
+  lineHighlightAdded: '#002d2d',
+  lineHighlightAddedIndicator: '#44e08a',
+  lineHighlightRemoved: '#3e0c1b',
+  lineHighlightRemovedIndicator: '#ff0000',
   lineHighlightText: '#ffffff',
   lineCounter: '#616161',
   lineCounterBorder: 'rgba(255, 255, 255, .015)',
@@ -158,7 +166,11 @@ export const DefaultCodeThemeLight: CodeTheme = /*#__PURE__*/{
   key: '#ef962d',
 
   lineHover: '#e7e7e7',
-  lineHightlight: '#cbffb6',
+  lineHighlight: '#d7e4ff',
+  lineHighlightAdded: '#d1f5d3',
+  lineHighlightAddedIndicator: '#1cc36b',
+  lineHighlightRemoved: '#fdced9',
+  lineHighlightRemovedIndicator: '#ff0000',
   lineHighlightText: '#212121',
   lineCounter: '#bdbdbd',
   lineCounterBorder: 'rgba(255, 255, 255, .015)',
@@ -196,7 +208,7 @@ export const DefaultTheme: CodedocTheme = /*#__PURE__*/{
       background: '#000000',
       shadow: '0 6px 12px #121212',
       lineHover: '#1a1a1a',
-      lineHightlight: 'rgb(28, 29, 48)'
+      lineHighlight: 'rgb(28, 29, 48)'
     }
   },
 

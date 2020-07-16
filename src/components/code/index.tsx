@@ -84,7 +84,7 @@ export function Code(
     renderer.render(<span class="-codedoc-line-link"><Icon>link</Icon></span>).on(counter$);
 
     const highlighted = highlights[index];
-    const line$ = <div class={`${classes.line} ${highlighted?'highlight':''} -codedoc-code-line`} 
+    const line$ = <div class={`${classes.line} ${highlighted} -codedoc-code-line`} 
                       data-content={line}
                       _innerHTML={highline}/>;
 

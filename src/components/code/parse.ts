@@ -1,16 +1,26 @@
 export const DefaultHighlightMark = '/*!*/';
+export const AddHighlightMark = '/*+*/';
+export const RemoveHighlightMark = '/*-*/';
 
 
-export function parse(code: string, highlightMark = DefaultHighlightMark): [string, string[], boolean[]] {
+export function parse(code: string): [string, string[], string[]] {
   const lines = code.split('\n');
-  const highlights: boolean[] = [];
+  const highlights: string[] = [];
   const linesParsed = lines.map((line, index) => {
-    if (line.startsWith(highlightMark)) {
-      highlights[index] = true;
-      return line.substr(highlightMark.length);
+    if (line.startsWith(DefaultHighlightMark)) {
+      highlights[index] = 'highlight';
+      return line.substr(DefaultHighlightMark.length);
+    }
+    else if (line.startsWith(AddHighlightMark)) {
+      highlights[index] = 'added';
+      return line.substr(AddHighlightMark.length);
+    }
+    else if (line.startsWith(RemoveHighlightMark)) {
+      highlights[index] = 'removed';
+      return line.substr(RemoveHighlightMark.length);
     }
     else {
-      highlights[index] = false;
+      highlights[index] = '';
       return line;
     }
   });

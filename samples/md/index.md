@@ -26,11 +26,11 @@ func /*~warn~*/whatev()/*~warn~*/ int {
 ```tsx
 import { RendererLike } from '@connectv/html';
 import { File } from 'rxline/fs';
-import { Page, Meta, ContentNav, Fonts, ToC, GithubSearch$ } from '@codedoc/core/components';
+/*!*/import { Page, Meta, ContentNav, Fonts, ToC, GithubSearch$ } from '@codedoc/core/components';
 
 import { config } from '../config';
-import { Header } from './header';
-import { Footer } from './footer';
+/*+*/import { Header } from './header';
+/*-*/import { Footer } from './footer';
 
 
 export function content(_content: HTMLElement, toc: HTMLElement, renderer: RendererLike<any, any>, file: File<string>) {

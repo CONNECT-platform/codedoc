@@ -137,6 +137,7 @@ export const CodeStyle = themedStyle<CodedocTheme>(theme => ({
     alignItems: 'center',
     color: 'transparent',
     borderRight: `2px solid ${theme.code.light.lineCounterBorder}`,
+    transition: 'color .3s, background .3s',
 
     '&.prim': {
       color: theme.code.light.lineCounter,
@@ -189,7 +190,7 @@ export const CodeStyle = themedStyle<CodedocTheme>(theme => ({
     height: '1.25rem',
     background: 'transparent',
     cursor: 'pointer',
-    transition: 'opacity .15s',
+    transition: 'opacity .15s, color .3s, background .3s',
 
     '.has-selection &:not(.selected)': {
       opacity: .35,
@@ -197,30 +198,106 @@ export const CodeStyle = themedStyle<CodedocTheme>(theme => ({
     },
 
     '&.highlight': {
-      background: theme.code.light.lineHightlight,
+      background: theme.code.light.lineHighlight,
       color: theme.code.light.lineHighlightText,
-
       '& $lineCounter': {
-        background: theme.code.light.lineHightlight,
+        background: theme.code.light.lineHighlight,
       },
 
       '@media (prefers-color-scheme: dark)': {
         'body:not(.dark-mode-animate) &': {
-          background: theme.code.dark.lineHightlight,
+          background: theme.code.dark.lineHighlight,
           color: theme.code.dark.lineHighlightText,
   
           '& $lineCounter': {
-            background: theme.code.dark.lineHightlight,
+            background: theme.code.dark.lineHighlight,
           },
         },
       },
 
       'body.dark &': {
-        background: theme.code.dark.lineHightlight,
+        background: theme.code.dark.lineHighlight,
         color: theme.code.dark.lineHighlightText,
 
         '& $lineCounter': {
-          background: theme.code.dark.lineHightlight,
+          background: theme.code.dark.lineHighlight,
+        },
+      },
+    },
+
+    '&.added': {
+      position: 'relative',
+      '&:before': {
+        content: '"+"',
+        fontWeight: 'bold',
+        fontSize: '1rem',
+        position: 'absolute',
+        left: '2.5rem',
+        top: '-.05rem',
+        color: theme.code.light.lineHighlightAddedIndicator,
+        transition: 'color .3s',
+      },
+      color: theme.code.light.lineHighlightText,
+      background: theme.code.light.lineHighlightAdded,
+      '& $lineCounter': {
+        background: theme.code.light.lineHighlightAdded,
+      },
+      '@media (prefers-color-scheme: dark)': {
+        'body:not(.dark-mode-animate) &': {
+          '&:before': { color: theme.code.dark.lineHighlightAddedIndicator },
+          background: theme.code.dark.lineHighlightAdded,
+          color: theme.code.dark.lineHighlightText,
+  
+          '& $lineCounter': {
+            background: theme.code.dark.lineHighlightAdded,
+          },
+        },
+      },
+      'body.dark &': {
+        '&:before': { color: theme.code.dark.lineHighlightAddedIndicator },
+        background: theme.code.dark.lineHighlightAdded,
+        color: theme.code.dark.lineHighlightText,
+
+        '& $lineCounter': {
+          background: theme.code.dark.lineHighlightAdded,
+        },
+      },
+    },
+
+    '&.removed': {
+      position: 'relative',
+      '&:before': {
+        content: '"-"',
+        fontWeight: 'bold',
+        fontSize: '1rem',
+        position: 'absolute',
+        left: '2.5rem',
+        top: '-.05rem',
+        color: theme.code.light.lineHighlightRemovedIndicator,
+      },
+      color: theme.code.light.lineHighlightText,
+      background: theme.code.light.lineHighlightRemoved,
+      '& $lineCounter': {
+        background: theme.code.light.lineHighlightRemoved,
+      },
+      '@media (prefers-color-scheme: dark)': {
+        'body:not(.dark-mode-animate) &': {
+          '&:before': { color: theme.code.dark.lineHighlightRemovedIndicator },
+          background: theme.code.dark.lineHighlightRemoved,
+          color: theme.code.dark.lineHighlightText,
+  
+          '& $lineCounter': {
+            background: theme.code.dark.lineHighlightRemoved,
+          },
+        },
+      },
+      'body.dark &': {
+        '&:before': { color: theme.code.dark.lineHighlightRemovedIndicator },
+        background: theme.code.dark.lineHighlightRemoved,
+        color: theme.code.dark.lineHighlightText,
+
+        '& $lineCounter': {
+          background: theme.code.dark.lineHighlightRemoved,
         },
       },
     },

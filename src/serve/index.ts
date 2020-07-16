@@ -15,14 +15,15 @@ import { TransportedFunc } from '@connectv/sdh/dist/es6/dynamic/transport/index'
 import { CodedocConfig } from '../config';
 import { ContentBuilder } from '../build/types';
 import { build } from '../build';
-
-import { StatusCheckURL, StatusBuildingResponse, StatusReadyResponse, Status, StatusErrorResponse } from './config';
-import { watch } from './watch';
-import { buildingHtml } from './building-html';
-import { reloadOnChange$ } from './reload';
 import { rebuild } from '../build/rebuild';
 import { files } from '../build/files';
 import { loadToC } from '../build/toc';
+
+import { StatusCheckURL, StatusBuildingResponse, StatusReadyResponse, Status, StatusErrorResponse } from './config';
+import { watch } from './watch';
+import { watchAssets } from './watch-assets';
+import { reloadOnChange$ } from './reload';
+import { buildingHtml } from './building-html';
 
 
 export function serve(
@@ -65,17 +66,10 @@ export function serve(
       }
     });
 
-    _watch(join(root, config.dest.assets), {
-      recursive: true,
-      filter: f => !f.endsWith('.html')
-    }, (_, filename) => {
-      setTimeout(() => {
-        if (state.value.status === StatusReadyResponse) {
-          console.log(chalk`{gray # change in ${filename}, issueing reload to client ...}`);
-          state.next({ status: StatusBuildingResponse });
-          setTimeout(() => state.next({status: StatusReadyResponse}), 300);
-        }
-      }, 10);
+    watchAssets(root, config, state).subscribe(filename => {
+      console.log(chalk`{gray # change in ${filename}, issueing reload to client ...}`);
+      state.next({ status: StatusBuildingResponse });
+      setTimeout(() => state.next({status: StatusReadyResponse}), 300);
     });
   }).catch(error => {
     console.log(chalk`{redBright # BUILD FAILED!!}`);

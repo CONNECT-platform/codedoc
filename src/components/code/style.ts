@@ -24,11 +24,12 @@ export const CodeStyle = themedStyle<CodedocTheme>(theme => ({
       position: 'relative',
 
       '& .wave': {
-        fontFamily: 'cursive',
+        // fontFamily: 'cursive',
         position: 'absolute',
-        bottom: -12, left: 0, right: 0,
-        letterSpacing: -2,
-        fontSize: 18,
+        bottom: '-1rem', left: 0, right: 0,
+        letterSpacing: '-.43rem',
+        fontSize: '1.5rem',
+        fontWeight: 100,
       }
     },
 

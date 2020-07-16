@@ -42,7 +42,7 @@ export function copyLineLinks() {
       });
 
       if (linked.length > 0)
-        setTimeout(() => linked[0]?.scrollIntoView({ block: 'nearest' }), 300);
+        setTimeout(() => linked[0]?.scrollIntoView({ block: 'center' }), 300);
     };
 
     _exec();

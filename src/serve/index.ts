@@ -71,7 +71,7 @@ export function serve(
     }, (_, filename) => {
       setTimeout(() => {
         if (state.value.status === StatusReadyResponse) {
-          console.log(chalk`{gray # change in ${filename}, issueing reload to client ...}`);
+          console.log(chalk`{gray # change in ${filename}, issuing reload to client ...}`);
           state.next({ status: StatusBuildingResponse });
           setTimeout(() => state.next({status: StatusReadyResponse}), 300);
         }

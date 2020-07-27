@@ -39,7 +39,7 @@ export function Fonts(options: FontsOptions, renderer: RendererLike<any, any>) {
 
   if (!options.icon) options.icon = {
     name: 'Material Icons',
-    url: 'https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined'
+    url: 'https://fonts.googleapis.com/icon?family=Material+Icons%7CMaterial+Icons+Outlined&display=swap'
   };
   if (!options.icon.outline) options.icon.outline = options.icon.name + ' Outlined';
 

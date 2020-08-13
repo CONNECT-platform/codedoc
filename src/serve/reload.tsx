@@ -66,10 +66,15 @@ export function reloadOnChange() {
       building = false;
       if (toast) toast.remove();
       if (overlay) overlay.remove();
+      const html = ansiUp.ansi_to_html(errorMsg)
+                          .replace(
+                            /(https:\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/igm, 
+                            '<a href="$1" target="_blank">$1</a>'
+                          );
       overlay = renderer.render(<Overlay sticky={true}>
         <pre 
           style="text-align: left; font-size: 14px; background: rgba(0, 0, 0, .35); padding: 8px; border-radius: 8px;" 
-          _innerHTML={ansiUp.ansi_to_html(errorMsg)}/>
+          _innerHTML={html}/>
       </Overlay>).on(document.body);
     }
   }

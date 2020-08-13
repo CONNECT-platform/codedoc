@@ -54,9 +54,10 @@ export function Code(
           else throw new Error(``
             + chalk`\n{redBright #}`
             + chalk`\n{redBright # Unrecognized Language::} ${lang}`
-            + chalk`\n{redBright #}`
             + chalk`\n{redBright #} Check https://prismjs.com/#supported-languages for a list of supported languages.`
+            + chalk`\n{redBright #}`
             + chalk`\n{redBright #} You can also add --safe-highlight flag to snippets with unsupported langauges.`
+            + chalk`\n{redBright #} Check https://codedoc.cc/docs/code/overview#unsupported-languages for details.`
             + chalk`\n{redBright #}`
           );
         }

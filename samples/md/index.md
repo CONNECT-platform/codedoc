@@ -21,7 +21,7 @@
 Hola
 ```
 
-```C#
+```c#
 public Option<int> method() =>
   new Dictionary<int, int>()./*~warn~*/TryGetValue/*~warn~*/(0);
 }

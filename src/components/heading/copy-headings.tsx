@@ -2,7 +2,7 @@ import { funcTransport, onReady } from '@connectv/sdh/transport';
 
 import { getRenderer } from '../../transport/renderer';
 import { copyToClipboard } from '../../transport/clipboard';
-import { Overlay } from '../util/overlay';
+import { Toast } from '../util/toast';
 import { headingLink } from './heading-link';
 
 
@@ -15,12 +15,19 @@ export function copyHeadings() {
         const link = headingLink(heading$);
   
         if (link) {
-          heading$.addEventListener('click', () => {
-            copyToClipboard(link, () => renderer.render(<Overlay>
-              Copied to Clipboard!
-              <br/>
-              <a href={link} style="font-size: 14px">{link}</a>
-            </Overlay>).on(document.body));
+          heading$.addEventListener('mousedown', event => {
+            const og = event as MouseEvent;
+            const listener = (event: MouseEvent) => {
+              const dx = event.clientX - og.clientX;
+              const dy = event.clientY - og.clientY;
+              if (Math.sqrt(dx * dx + dy * dy) < 10) {
+                copyToClipboard(link, () => renderer.render(<Toast>
+                  Link Copied to Clipboard!
+                </Toast>).on(document.body));
+              };
+              heading$.removeEventListener('mouseup', listener as any);
+            };
+            heading$.addEventListener('mouseup', listener as any);
           });
         }
       });

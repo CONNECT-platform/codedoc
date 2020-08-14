@@ -1,5 +1,6 @@
 import { getRenderer } from '../../transport/renderer';
 import { Overlay } from '../util/overlay';
+import { Toast } from '../util/toast';
 
 
 export function copyConfirm(...lines: HTMLElement[]) {
@@ -17,13 +18,22 @@ export function copyConfirm(...lines: HTMLElement[]) {
       const copy$ = line$.cloneNode(true) as HTMLElement;
       copy$.classList.remove('selected');
       renderer.render(<fragment>{copy$}<br/></fragment>).on(code$);
-    })
+    });
 
-    renderer.render(<Overlay>
-      Copied to Clipboard!
-      <div style='font-size: 12px;text-align: left'>
-        <pre>{code$}</pre>
-      </div>
-    </Overlay>).on(document.body);
+    renderer.render(<Toast
+      actions={
+        <button style="min-width: 64px" onclick={() => {
+          renderer.render(<Overlay>
+            Copied code:
+            <div style='font-size: 12px;text-align: left'>
+              <pre>{code$}</pre>
+            </div>
+          </Overlay>).on(document.body);
+        }}>Review</button>
+      }
+    >
+      Code Copied!
+    </Toast>
+    ).on(document.body);
   }
 }

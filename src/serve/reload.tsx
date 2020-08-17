@@ -69,7 +69,7 @@ export function reloadOnChange() {
       const html = ansiUp.ansi_to_html(errorMsg)
                           .replace(
                             /(https:\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/igm, 
-                            '<a href="$1" target="_blank">$1</a>'
+                            '<a href="$1" target="_blank" style="color: #40a8c4 !important">$1</a>'
                           );
       overlay = renderer.render(<Overlay sticky={true}>
         <pre 

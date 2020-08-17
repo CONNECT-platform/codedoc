@@ -13,6 +13,11 @@ export interface ToastOptions {
 }
 
 
+function isTouch(event: MouseEvent | TouchEvent): event is TouchEvent {
+  return window.TouchEvent && event instanceof TouchEvent;
+}
+
+
 class ToastDrag {
   anchor: {x: number, y: number} | undefined = undefined;
   last: {x: number, y: number} | undefined = undefined;
@@ -28,7 +33,7 @@ class ToastDrag {
   }
 
   getPos(event: MouseEvent | TouchEvent) {
-    if (event instanceof TouchEvent) {
+    if (isTouch(event)) {
       return { x: event.touches[0].clientX, y: event.touches[0].clientY };
     } else {
       return { x : event.clientX, y: event.clientY };
@@ -132,7 +137,7 @@ export function Toast(
     bind() {
       setTimeout(show, 10);
       if (!('backdropFilter' in container$.style) && !('-webkit-backdrop-filter' in container$.style)) {
-        container$.style.background = 'rgba(64, 64, 64, .95)';
+        container$.classList.add('no-blur');
       }
 
       const timeout = options.timeout || 3000;

@@ -39,6 +39,10 @@ export const ToastStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
     backdropFilter: 'blur(16px)',
     WebkitBackdropFilter: 'blur(16px)',
 
+    '$container.no-blur &': {
+      background: 'rgba(64, 64, 64, .97)',
+    },
+
     '&>a': {
       color: 'white',
     },

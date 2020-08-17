@@ -18,6 +18,11 @@ export function lineLink(line$: HTMLElement) {
         }
       });
 
+      if (current) {
+        ranges.push(current);
+        current = undefined;
+      }
+
       return window.location.toString().split('#')[0] + '#' 
           + line$.getAttribute('id')?.split('-')[0] + '-'
           + ranges.map(range => range[0] === range[1] ? `l${range[0]+1}` : `l${range[0]+1}:l${range[1]+1}`).join('-');

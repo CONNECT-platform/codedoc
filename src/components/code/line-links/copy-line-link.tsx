@@ -3,6 +3,7 @@ import { funcTransport, onReady } from '@connectv/sdh/transport';
 import { getRenderer } from '../../../transport/renderer';
 import { copyToClipboard } from '../../../transport/clipboard';
 import { Overlay } from '../../util/overlay';
+import { Toast } from '../../util/toast';
 import { lineLink, linkedLines } from './line-link';
 
 
@@ -17,11 +18,11 @@ export function copyLineLinks() {
           event.stopPropagation();
 
           const link = lineLink(line$ as HTMLElement);
-          copyToClipboard(link!!, () => renderer.render(<Overlay>
-            Copied to Clipboard!
+          copyToClipboard(link!!, () => renderer.render(<Toast>
+            Link Copied to Clipboard!
             <br/>
-            <a href={link} style="font-size: 14px">{link}</a>
-          </Overlay>).on(document.body));
+            <a href={link} style="font-size: 12px; color: white">{link}</a>
+          </Toast>).on(document.body));
         });
 
         counter$?.addEventListener('mousedown', event => event.stopPropagation());

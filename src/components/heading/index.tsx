@@ -29,6 +29,10 @@ export const HeadingStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
         opacity: 1,
       },
     },
+
+    '@media screen and (max-width: 1200px)': {
+      display: 'none',
+    },
   }
 }));
 

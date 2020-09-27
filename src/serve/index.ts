@@ -93,7 +93,7 @@ export function serve(
     ws.on('close', () => sub.unsubscribe());
   });
 
-  app.use(config.dest.namespace, express.static(config.dest.assets));
+  app.use(config.dest.namespace, express.static(config.dest.assets, {dotfiles: 'allow'}));
 
   app.get(`${config.dest.namespace}/*`, (req, res) => {
     const normalUrl = req.originalUrl.substr(config.dest.namespace.length).split('?')[0];

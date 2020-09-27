@@ -9,6 +9,7 @@ import { CodedocTheme } from '../../theme';
 import { CodeStyle } from './style';
 import { parse } from './parse';
 import { Icon } from '../misc';
+import { underlineMarkerType, UnderlineMarkerType } from './underline';
 
 
 export interface CodeOptions {
@@ -71,7 +72,7 @@ export function Code(
   const [code, lines, highlights] = parse(content[0]);
 
   const highlines = lang ? highlight(code, languages[lang], lang).split('\n') : code.split('\n');
-  let waving: 'error' | 'warning' | 'none' = 'none';
+  let waving: UnderlineMarkerType = 'none';
 
   lines.forEach((line, index) => {
     const highline = highlines[index];
@@ -91,8 +92,8 @@ export function Code(
 
     line$.childNodes.forEach(child => {
       if (child instanceof HTMLElement && child.classList.contains('comment')) {
-        if (child.textContent === '/*~*/' || child.textContent === '/*~err~*/' || child.textContent === '/*~warn~*/') {
-          const _waving = child.textContent === '/*~warn~*/' ? 'warning' : 'error';
+        const _waving = underlineMarkerType(child.textContent || '');
+        if (_waving === 'error' || _waving === 'warning') {
           if (_waving === waving) waving = 'none';
           else waving = _waving;
 

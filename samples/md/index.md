@@ -27,6 +27,10 @@ public Option<int> method() =>
 }
 ```
 
+```fsharp
+(*~warn~*)hellow(*~warn~*) world;
+```
+
 > :Buttons
 > > :Button label=First Line, url=#code1-l1:l1
 >

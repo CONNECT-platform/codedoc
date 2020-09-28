@@ -1,3 +1,4 @@
+import color from 'color';
 import { themedStyle } from '@connectv/jss-theme';
 import { CodedocTheme } from '../../theme';
 
@@ -53,6 +54,73 @@ export const PageStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
       padding: '96px 16px',
       margin: '0 auto',
       transition: 'opacity .15s',
+    },
+
+    table: {
+      minWidth: 400,
+      maxWidth: '100%',
+      overflow: 'auto',
+      tableLayout: 'fixed',
+      margin: '0 auto',
+      borderCollapse: 'collapse',
+
+      '& th, & td': {
+        textAlign: 'left',
+        padding: '8px 16px',
+        'body.dark-mode-animate &': {
+          transition: 'border-color .3s',
+        },
+      },
+
+      '& th': {
+        borderBottom: `1px solid ${color(theme.light.border).mix(color(theme.light.text), .15).hex()}`,
+  
+        'body.dark &': {
+          borderColor: color(theme.dark.border).mix(color(theme.dark.text), .15).hex(),
+        },
+  
+        '@media (prefers-color-scheme: dark)': {
+          'body:not(.dark-mode-animate) &': {
+            borderColor: color(theme.dark.border).mix(color(theme.dark.text), .15).hex(),
+          }
+        },
+      },
+
+      '& td': {
+        borderBottom: `1px solid ${theme.light.border}`,
+  
+        'body.dark &': {
+          borderColor: theme.dark.border,
+        },
+  
+        '@media (prefers-color-scheme: dark)': {
+          'body:not(.dark-mode-animate) &': {
+            borderColor: theme.dark.border,
+          }
+        },
+      },
+
+      '& tr:nth-child(even)': {
+        borderRadius: 3,
+        background: theme.quote.light.background,
+        'body.dark &': {
+          background: theme.quote.dark.background,
+        },
+  
+        '@media (prefers-color-scheme: dark)': {
+          'body:not(.dark-mode-animate) &': {
+            background: theme.quote.dark.background,
+          }
+        },
+
+        'body.dark-mode-animate &': {
+          transition: 'background .3s',
+        },
+      },
+
+      '& tr:last-child > td': {
+        borderBottom: 'none'
+      },
     },
 
     hr: {

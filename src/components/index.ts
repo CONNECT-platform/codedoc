@@ -7,4 +7,5 @@ export * from './heading';
 export * from './misc';
 export * from './page';
 export * from './tabs';
+export * from './footnote';
 export * from './util';

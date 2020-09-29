@@ -7,6 +7,7 @@ import { Code } from '../components/code';
 import { Heading } from '../components/heading';
 import { Button, CopyButton, Buttons } from '../components/button';
 import { Tab, Tabs } from '../components/tabs';
+import { Footnote, FootnoteBlock, Footnotes } from '../components/footnote';
 import { Collapse } from '../components/collapse';
 import { MetaOverride } from '../components/page/meta-override';
 import { DarkLight, InLight, InDark } from '../components/darkmode/darklight';
@@ -20,6 +21,7 @@ import { codeLineRef$ } from '../components/code/line-ref';
 import { smartCopy$ } from '../components/code/smart-copy';
 import { copyHeadings$ } from '../components/heading/copy-headings';
 import { contentNavHighlight$ } from '../components/page/contentnav/highlight';
+import { gatherFootnotes$ } from '../components/footnote/gather-footnotes';
 import { deferredIframes$ } from '../transport/deferred-iframe';
 import { ToCHeading } from '../components/page/toc/heading';
 import { smoothLoading$ } from '../transport/smooth-loading';
@@ -34,6 +36,7 @@ import { copyLineLiks$ } from '../components/code/line-links/copy-line-link';
 
 export const DefaultMarkdownCustomComponents = /*#__PURE__*/{
   Tab, Tabs, Collapse,
+  Footnote: FootnoteBlock, Footnotes,
   Button, Buttons, CopyButton,
   DarkLight, InDark, InLight,
   GithubButton, Watermark,
@@ -43,7 +46,7 @@ export const DefaultMarkdownCustomComponents = /*#__PURE__*/{
 
 
 export const DefaultMarkdownCustomInlineComponents = /*#__PURE__*/{
-  Icon,
+  Icon, Footnote,
 }
 
 
@@ -79,7 +82,7 @@ export const DefaultConfig: CodedocConfig = /*#__PURE__*/{
     init: [
       codeSelection$, sameLineLengthInCodes$, codeLineHints$, codeLineRef$, smartCopy$,
       copyHeadings$, contentNavHighlight$, deferredIframes$, smoothLoading$, tocHighlight$,
-      postNavSearch$, copyLineLiks$,
+      postNavSearch$, copyLineLiks$, gatherFootnotes$,
     ],
   },
 

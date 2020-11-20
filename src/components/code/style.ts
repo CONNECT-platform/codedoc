@@ -224,6 +224,7 @@ export const CodeStyle = themedStyle<CodedocTheme>(theme => ({
 
     '&:last-child': {
       marginBottom: -24,
+      paddingBottom: 12,
     }
   },
 

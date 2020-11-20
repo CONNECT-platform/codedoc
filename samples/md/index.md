@@ -35,6 +35,10 @@ echo "Hellow World!"
 > Hellow World!
 ``` -->
 
+```md
+> :Button
+```
+
 ```js | --term
 import chalk from 'chalk';
 console.log(chalk`{hex('#f05454') ERROR:} You suck!`);

@@ -11,7 +11,7 @@ export function parse(code: string, term = false): [string, string[], string[], 
   const outputs: {[l: number]: string[]} = {};
   lines.forEach((line) => {
     const index = linesParsed.length;
-    if (line.startsWith(OutputMark)) {
+    if (line.startsWith(OutputMark) && term) {
       (outputs[index - 1] || (outputs[index - 1] = [])).push(line.substr(OutputMark.length));
     } else {
       if (line.startsWith(DefaultHighlightMark)) {

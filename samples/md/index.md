@@ -30,9 +30,20 @@
 | Goodbye | Blue Sky |
 | Hey     | Mr. Jack |
 
-```bash
-Hola
+<!-- ```bash | --term eugenes-MacBook-Pro$
+echo "Hellow World!"
+> Hellow World!
+``` -->
+
+```js | --term
+import chalk from 'chalk';
+console.log(chalk`{hex('#f05454') ERROR:} You suck!`);
+> {hex('#f05454') ERROR:} You suck!
+console.log(chalk`{bold.green WARN:} But ...`);
+> {bold.green WARN:} But ...
 ```
+> :Buttons
+> > :CopyButton
 
 ```csharp
 public Option<int> method() =>

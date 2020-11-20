@@ -185,6 +185,48 @@ export const CodeStyle = themedStyle<CodedocTheme>(theme => ({
     },
   },
 
+  termPrefix: {
+    fontWeight: 'bold',
+    marginRight: 8,
+
+    transition: 'color .3s',
+    color: theme.code.light.terminalPrefix,
+    'body.dark &': {
+      color: theme.code.dark.terminalPrefix,
+    },
+
+    '@media (prefers-color-scheme: dark)': {
+      'body:not(.dark-mode-animate) &': {
+        color: theme.code.dark.terminalPrefix,
+      }
+    },
+  },
+
+  termOutput: {
+    padding: 8,
+    paddingLeft: 48,
+    display: 'block',
+
+    transition: 'color .3s, background .3s',
+    color: theme.code.light.terminalOutput,
+    background: theme.code.light.terminalOutputBackground,
+    'body.dark &': {
+      color: theme.code.dark.terminalOutput,
+      background: theme.code.dark.terminalOutputBackground,
+    },
+
+    '@media (prefers-color-scheme: dark)': {
+      'body:not(.dark-mode-animate) &': {
+        color: theme.code.dark.terminalOutput,
+        background: theme.code.dark.terminalOutputBackground,
+      }
+    },
+
+    '&:last-child': {
+      marginBottom: -24,
+    }
+  },
+
   line: {
     display: 'inline-block',
     minWidth: '100%',

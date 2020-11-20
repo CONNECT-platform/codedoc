@@ -20,6 +20,10 @@ export interface CodeTheme {
   errorUnderline: string;
   warningUnderline: string;
 
+  terminalPrefix: string;
+  terminalOutput: string;
+  terminalOutputBackground: string;
+
   keyword: string;
   boolean: string;
   number: string;
@@ -134,6 +138,10 @@ export const DefaultCodeTheme: CodeTheme = /*#__PURE__*/{
   lineCounterHighlight: '#7187ff',
   errorUnderline: '#e8505b',
   warningUnderline: '#ffa931ee',
+
+  terminalPrefix: '#757575',
+  terminalOutput: '#9e9e9e',
+  terminalOutputBackground: 'rgba(255, 255, 255, .06)',
 }
 
 
@@ -178,6 +186,10 @@ export const DefaultCodeThemeLight: CodeTheme = /*#__PURE__*/{
   lineCounterHighlight: '#7187ff',
   errorUnderline: '#fa1616',
   warningUnderline: '#f37121',
+
+  terminalPrefix: '#bdbdbd',
+  terminalOutput: '#9e9e9e',
+  terminalOutputBackground: 'rgba(0, 0, 0, .03)',
 }
 
 

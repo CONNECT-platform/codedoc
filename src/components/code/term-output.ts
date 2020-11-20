@@ -3,6 +3,6 @@ import chalk from 'chalk';
 
 
 export function terminalOutput(...lines: string[]) {
-  const F = Function(['chalk'] as any, "return chalk`" + lines.join('\n').trim() + "`;");
+  const F = Function(['chalk'] as any, "return chalk`" + lines.join('\n').replace(/\`/g, '\\`') + "`;");
   return new AU().ansi_to_html(F(chalk));
 }

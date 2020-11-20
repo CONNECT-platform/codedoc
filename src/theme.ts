@@ -139,8 +139,8 @@ export const DefaultCodeTheme: CodeTheme = /*#__PURE__*/{
   errorUnderline: '#e8505b',
   warningUnderline: '#ffa931ee',
 
-  terminalPrefix: '#757575',
-  terminalOutput: '#9e9e9e',
+  terminalPrefix: '#616161',
+  terminalOutput: '#757575',
   terminalOutputBackground: 'rgba(255, 255, 255, .06)',
 }
 

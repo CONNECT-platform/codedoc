@@ -30,10 +30,12 @@
 | Goodbye | Blue Sky |
 | Hey     | Mr. Jack |
 
-<!-- ```bash | --term eugenes-MacBook-Pro$
+```bash | --term eugenes-MacBook-Pro$
 echo "Hellow World!"
 > Hellow World!
-``` -->
+> How are ye doin?
+> What about ` this?
+```
 
 ```md
 > :Button

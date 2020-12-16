@@ -42,7 +42,7 @@ echo "Hellow World!"
 ```
 
 ```js | --term
-import chalk from 'chalk';
+import /*~err~*/chalk/*~err~*/ from 'chalk';
 console.log(chalk`{hex('#f05454') ERROR:} You suck!`);
 > {hex('#f05454') ERROR:} You suck!
 console.log(chalk`{bold.green WARN:} But ...`);

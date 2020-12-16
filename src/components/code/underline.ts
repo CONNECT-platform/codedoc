@@ -3,7 +3,7 @@ export type UnderlineMarkerType = 'none' | 'warning' | 'error';
 
 export const errorMarkers = [
   '/*~*/', '(*~*)',
-  '/*~err*/', '(*~err~*)',
+  '/*~err~*/', '(*~err~*)',
 ];
 
 

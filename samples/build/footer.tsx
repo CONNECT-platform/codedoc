@@ -10,7 +10,7 @@ export function Footer(config: CodedocConfig, renderer: any) {
 
   let community$;
   if (config.misc?.gitter)
-    community$ = <GitterToggle$ room={config.misc.gitter.room}/>
+    community$ = <GitterToggle$ room={config.misc.gitter.room} label='forum' icon={true}/>
 
   if (github$ && community$) return <_Footer>{github$}<hr/>{community$}</_Footer>;
   else if (github$) return <_Footer>{github$}</_Footer>;

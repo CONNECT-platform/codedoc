@@ -5,6 +5,7 @@ import { CodedocTheme } from '../../theme';
 
 export const CodeStyle = themedStyle<CodedocTheme>(theme => ({
   code: {
+    direction: 'ltr',
     userSelect: 'none',
     WebkitUserSelect: 'none',
     background: theme.code.light.background,

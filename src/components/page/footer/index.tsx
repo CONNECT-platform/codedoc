@@ -14,13 +14,13 @@ export function Footer(
   content: any
 ) {
   const classes = this.theme.classes(FooterStyle);
-
+  const { rtl } = this.theme.theme;
   return <div class={classes.footer}>
-    <div class="left"><ToCToggle$/></div>
+    <div class={rtl ? "right" : "left"}><ToCToggle$/></div>
     <div class="main">
       <div class="inside">{content}</div>
     </div>
-    <div class="right"><DarkModeSwitch$/></div>
+    <div class={rtl ? "left" : "right"}><DarkModeSwitch$/></div>
   </div>
 }
 

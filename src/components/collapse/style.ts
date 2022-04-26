@@ -15,7 +15,8 @@ export const CollapseStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
 
       '& .text': {flexGrow: 1},
       '& .icon-font': {
-        marginRight: 32,
+        marginRight: theme.rtl ? 0 : 32,
+        marginLeft: theme.rtl ? 32 : 0,
         'body.dark-mode-animate &': { transition: 'transform .15s', },
       },
 
@@ -40,8 +41,10 @@ export const CollapseStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
       maxHeight: 0,
       visibility: 'hidden',
       transition: 'opacity .3s',
-      paddingLeft: 16,
-      borderLeft: `2px solid ${Color(theme.light.border).alpha(.5).toString()}`,
+      paddingLeft: theme.rtl ? 0 : 16,
+      paddingRight: theme.rtl ? 16 : 0,
+      borderLeft: theme.rtl ? 'none' : `2px solid ${Color(theme.light.border).alpha(.5).toString()}`,
+      borderRight: theme.rtl ? `2px solid ${Color(theme.light.border).alpha(.5).toString()}` : 'none',
 
       'body.dark-mode-animate &': {
         transition: 'transform .15s, opacity .15s, border-color .3s'

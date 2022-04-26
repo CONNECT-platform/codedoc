@@ -23,7 +23,7 @@ export function ToCPrevNext(
 ) {
   const classes = this.theme.classes(ToCPrevNextStyle);
   const holder = ref<HTMLElement>();
-
+  const { rtl } = this.theme.theme;
   this.track({
     bind() {
       setTimeout(() => {
@@ -56,7 +56,7 @@ export function ToCPrevNext(
                 <span class={classes.label}>{options['next-label'] || 'Next'}</span>
                 <span class={classes.title}>{next$.textContent}</span>
               </div>
-              <span class="icon-font">{options["next-icon"] || 'arrow_forward_ios'}</span>
+              <span class="icon-font">{options["next-icon"] || rtl ? 'arrow_back_ios' : 'arrow_forward_ios'}</span>
             </a>).on(holder.$);
           }
         }

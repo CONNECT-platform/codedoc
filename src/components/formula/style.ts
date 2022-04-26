@@ -61,7 +61,8 @@ export const FormulaStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
 
     '& .counter': {
       position: 'absolute',
-      left: 8,
+      left: theme.rtl ? 'unset' : 8,
+      tight: theme.rtl ? 8 : 'unset',
       top: 0,
       bottom: 0,
       display: 'flex',

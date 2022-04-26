@@ -7,7 +7,8 @@ export const FootnoteStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
     '&>div': {
       display: 'flex',
       '&>span': {
-        marginRight: 16,
+        marginRight: theme.rtl ? 0 : 16,
+        marginLeft: theme.rtl ? 16 : 0,
         fontWeight: 'bold',
       },
       '&>marker>p': {

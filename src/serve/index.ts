@@ -9,7 +9,7 @@ import { take } from 'rxjs/operators';
 import { compile } from '@connectv/sdh';
 import { _dropExt } from 'rxline/fs';
 import { Configuration } from 'webpack';
-const merge = /*#__PURE__*/require('webpack-merge');
+import { merge } from 'webpack-merge';
 import { TransportedFunc } from '@connectv/sdh/dist/es6/dynamic/transport/index';
 
 import { CodedocConfig } from '../config';

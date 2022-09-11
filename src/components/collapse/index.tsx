@@ -19,12 +19,13 @@ export function Collapse(
   content: any
 ) {
   const classes = this.theme.classes(CollapseStyle);
+  const { rtl } = this.theme.theme;
   return (
     <div class={`${classes.collapse} ${options.default === 'open' ? 'open' : ''}`}>
       <CollapseControl$/>
       <div class="label" onclick="this.parentElement.classList.toggle('open')">
         <span class="text">{options.label}</span>
-        <span class="icon-font closed">chevron_right</span>
+        <span class="icon-font closed">{`chevron_${rtl ? 'left' : 'right'}`}</span>
       </div>
       <div class="content">{content}</div>
     </div>

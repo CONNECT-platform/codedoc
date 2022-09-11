@@ -9,7 +9,11 @@ export const GitterStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
   },
   holder: {
     position: 'fixed',
-    right: 32,
+    ...(theme.rtl ? {
+      left: 32,
+    } : {
+      right: 32,
+    }),
     bottom: 32,
     width: 480,
     maxWidth: 'calc(100vw - 64px)',

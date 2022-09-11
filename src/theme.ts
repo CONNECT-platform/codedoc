@@ -77,6 +77,7 @@ export interface ContentTheme {
 export interface CodedocTheme {
   light: ContentTheme;
   dark: ContentTheme;
+  rtl: boolean;
   code: {
     wmbar: boolean;
     light: CodeTheme;
@@ -194,6 +195,7 @@ export const DefaultCodeThemeLight: CodeTheme = /*#__PURE__*/{
 
 
 export const DefaultTheme: CodedocTheme = /*#__PURE__*/{
+  rtl: true,
   light: {
     primary: '#4A90E2',
     primaryContrast: 'deduce',
@@ -215,8 +217,8 @@ export const DefaultTheme: CodedocTheme = /*#__PURE__*/{
   code: {
     wmbar: true,
     light: DefaultCodeTheme,
-    dark: { 
-      ... DefaultCodeTheme, 
+    dark: {
+      ... DefaultCodeTheme,
       background: '#000000',
       shadow: '0 6px 12px #121212',
       lineHover: '#1a1a1a',

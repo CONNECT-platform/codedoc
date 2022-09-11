@@ -12,8 +12,10 @@ export const HeadingStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
   },
   anchor: {
     position: 'absolute',
-    left: '-32px',
-    paddingRight: '8px',
+    left: theme.rtl ? 'unset' : '-32px',
+    right: theme.rtl ? '-32px' : 'unset',
+    paddingRight: theme.rtl ? 0 : 8,
+    paddingLeft: theme.rtl ? 8 : 0,
     top: 0, bottom: 0,
     display: 'flex',
     alignItems: 'center',

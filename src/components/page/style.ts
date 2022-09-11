@@ -5,6 +5,9 @@ import { CodedocTheme } from '../../theme';
 
 export const PageStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
   '@global': {
+    html: {
+      direction: theme.rtl ? 'rtl' : 'ltr'
+    },
     '*': {
       scrollBehavior: 'smooth',
       touchAction: 'manipulation',
@@ -65,7 +68,7 @@ export const PageStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
       borderCollapse: 'collapse',
 
       '& th, & td': {
-        textAlign: 'left',
+        textAlign: 'right',
         padding: '8px 16px',
         'body.dark-mode-animate &': {
           transition: 'border-color .3s',
@@ -74,11 +77,11 @@ export const PageStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
 
       '& th': {
         borderBottom: `1px solid ${color(theme.light.border).mix(color(theme.light.text), .15).hex()}`,
-  
+
         'body.dark &': {
           borderColor: color(theme.dark.border).mix(color(theme.dark.text), .15).hex(),
         },
-  
+
         '@media (prefers-color-scheme: dark)': {
           'body:not(.dark-mode-animate) &': {
             borderColor: color(theme.dark.border).mix(color(theme.dark.text), .15).hex(),
@@ -88,11 +91,11 @@ export const PageStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
 
       '& td': {
         borderBottom: `1px solid ${theme.light.border}`,
-  
+
         'body.dark &': {
           borderColor: theme.dark.border,
         },
-  
+
         '@media (prefers-color-scheme: dark)': {
           'body:not(.dark-mode-animate) &': {
             borderColor: theme.dark.border,
@@ -106,7 +109,7 @@ export const PageStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
         'body.dark &': {
           background: theme.quote.dark.background,
         },
-  
+
         '@media (prefers-color-scheme: dark)': {
           'body:not(.dark-mode-animate) &': {
             background: theme.quote.dark.background,
@@ -169,7 +172,7 @@ export const PageStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
         bottom: '16px',
         width: '8px',
         display: 'block',
-        background: `radial-gradient(circle at center, ${theme.quote.light.border} 50%, transparent 52%),transparent`, 
+        background: `radial-gradient(circle at center, ${theme.quote.light.border} 50%, transparent 52%),transparent`,
         backgroundSize: '4px 4px',
 
         'body.dark-mode-animate &': {
@@ -186,7 +189,7 @@ export const PageStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
         '& blockquote': {
           background: theme.quote.dark.background,
           color: theme.quote.dark.text,
-  
+
           '&:after': {
             background: `radial-gradient(circle at center, ${theme.quote.dark.border} 50%, transparent 52%),transparent`,
             backgroundSize: '4px 4px',
@@ -219,7 +222,7 @@ export const PageStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
       borderRadius: 3,
       border: 'none',
       background: 'white',
-      
+
     },
 
     code: {

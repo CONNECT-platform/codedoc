@@ -10,13 +10,15 @@ export const TocStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
     display: 'flex',
     zIndex: 101,
     flexDirection: 'column',
-    left: 0,
+    left: theme.rtl ? 'unset' : 0,
+    right: theme.rtl ? 0 : 'unset',
     top: 0,
     bottom: 0,
     paddingBottom: 64,
     width: 'calc(50vw - 464px)',
-    transform: 'translateX(-50vw)',
-    borderRight: `1px solid ${theme.toc.light.border}`,
+    transform: theme.rtl ? 'translateX(50vw)' : 'translateX(-50vw)',
+    borderRight: theme.rtl ? 'none' : `1px solid ${theme.toc.light.border}`,
+    borderLeft: theme.rtl ? `1px solid ${theme.toc.light.border}` : 'none',
 
     background: theme.toc.light.background,
 
@@ -41,7 +43,7 @@ export const TocStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
 
     '@media screen and (max-width: 1200px)': {
       width: '100vw',
-      transform: 'translateX(-110vw)',
+      transform: theme.rtl ? 'translateX(110vw)' : 'translateX(-110vw)',
     },
 
     '&.animated': {
@@ -58,11 +60,15 @@ export const TocStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
       display: 'block',
       textDecoration: 'none',
       borderRadius: 3,
-      marginLeft: -8,
-      marginRight: 1,
+      marginLeft: theme.rtl ? 1 : -8,
+      marginRight: theme.rtl ? -8 : 1,
       padding: 8,
       border: `1px solid transparent`,
-      borderRight: 'none',
+      ...(theme.rtl ? {
+        borderLeft: 'none',
+      } : {
+        borderRight: 'none',
+      }),
 
       'body.dark-mode-animate &': { transition: 'border-color .3s, background .3s' },
 
@@ -79,9 +85,15 @@ export const TocStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
       },
 
       '&.current': {
-        marginRight: 0,
-        borderTopRightRadius: 0,
-        borderBottomRightRadius: 0,
+        ...(theme.rtl ? {
+          marginLeft: 0,
+          borderTopLeftRadius: 0,
+          borderBottomLeftRadius: 0,
+        } : {
+          marginRight: 0,
+          borderTopRightRadius: 0,
+          borderBottomRightRadius: 0,
+        }),
         borderColor: theme.toc.light.border,
         background: theme.light.background,
 
@@ -98,9 +110,14 @@ export const TocStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
         },
 
         '@media screen and (max-width: 1200px)': {
-          marginRight: -8,
+          ...(theme.rtl ? {
+            marginLeft: -8,
+            borderLeft: '1px solid',
+          } : {
+            marginRight: -8,
+            borderRight: '1px solid',
+          }),
           borderRadius: 3,
-          borderRight: '1px solid',
         },
       },
     },
@@ -110,12 +127,22 @@ export const TocStyle = /*#__PURE__*/themedStyle<CodedocTheme>(theme => ({
     flexGrow: 1,
     overflow: 'auto',
     padding: 32,
-    paddingRight: 0,
-    marginRight: -1,
+    ...(theme.rtl ? {
+      paddingLeft: 0,
+      marginLeft: -1,
+    } : {
+      paddingRight: 0,
+      marginRight: -1,
+    }),
 
     '@media screen and (max-width: 1200px)': {
-      paddingRight: 32,
-      marginRight: 0,
+      ...(theme.rtl ? {
+        paddingLeft: 32,
+        marginLeft: 0,
+      } : {
+        paddingRight: 32,
+        marginRight: 0,
+      }),
     },
   },
   search: {
